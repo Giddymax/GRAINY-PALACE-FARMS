@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "shop": "Sotɔɔ",
+    "livestock": "Livestock",
+    "fish": "Fish & Aquaculture",
+    "seedlings": "Seedlings",
+    "wholesale": "Wholesale",
+    "more": "Nea aka",
+    "knowledgeHub": "Knowledge Hub",
+    "labServices": "Lab Services",
+    "newsEvents": "News & Events",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "traceability": "Traceability",
+    "about": "Yɛn Ho Asɛm",
+    "contact": "Frɛ Yɛn",
+    "partnerLogin": "Partner Login",
+    "search": "Hwehwɛ nneɛma",
+    "cart": "Kɛntɛn"
+  },
+  "common": {
+    "shopNow": "Tɔ Seesei",
+    "addToCart": "Fa hyɛ kɛntɛn mu",
+    "checkout": "Checkout",
+    "viewCart": "Hwɛ kɛntɛn no",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "orderOnWhatsApp": "Order on WhatsApp",
+    "requestBulkQuote": "Request Bulk Quote",
+    "continueShopping": "Kɔ so tɔ nneɛma",
+    "backToHome": "Kɔ fie",
+    "loading": "Loading…",
+    "readMore": "Kenkan bio"
+  },
+  "footer": {
+    "shop": "Sotɔɔ",
+    "company": "Adwumakuo",
+    "getInTouch": "Frɛ Yɛn",
+    "forBusiness": "Adwuma Ho",
+    "allRightsReserved": "Hokwan nyinaa yɛ yɛn dea."
+  }
+}

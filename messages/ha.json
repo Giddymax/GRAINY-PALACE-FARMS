@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "shop": "Shago",
+    "livestock": "Dabbobin Gona",
+    "fish": "Kifi da Gonar Kifi",
+    "seedlings": "'Yan Shuka",
+    "wholesale": "Cinikin Jumla",
+    "more": "Sauran",
+    "knowledgeHub": "Cibiyar Ilimi",
+    "labServices": "Ayyukan Dakin Gwaje-gwaje",
+    "newsEvents": "Labarai da Abubuwan Faruwa",
+    "sustainability": "Dorewa",
+    "careers": "Ayyukan Yi",
+    "traceability": "Bin Diddigi",
+    "about": "Game da Mu",
+    "contact": "Tuntuɓa",
+    "partnerLogin": "Shigar Abokin Hulɗa",
+    "search": "Nemo Kayayyaki",
+    "cart": "Kwando"
+  },
+  "common": {
+    "shopNow": "Yi Siyayya Yanzu",
+    "addToCart": "Saka a Kwando",
+    "checkout": "Biya",
+    "viewCart": "Duba Kwando",
+    "signIn": "Shiga",
+    "signUp": "Yi Rijista",
+    "signOut": "Fita",
+    "orderOnWhatsApp": "Yi Oda a WhatsApp",
+    "requestBulkQuote": "Nemi Farashin Jumla",
+    "continueShopping": "Ci gaba da Siyayya",
+    "backToHome": "Koma Gida",
+    "loading": "Ana Lodi…",
+    "readMore": "Karanta Kari"
+  },
+  "footer": {
+    "shop": "Shago",
+    "company": "Kamfani",
+    "getInTouch": "Tuntuɓe Mu",
+    "forBusiness": "Don Kasuwanci",
+    "allRightsReserved": "An Tanadi Duk Hakki."
+  }
+}

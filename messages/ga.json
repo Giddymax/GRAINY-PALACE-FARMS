@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "shop": "Shop",
+    "livestock": "Livestock",
+    "fish": "Fish & Aquaculture",
+    "seedlings": "Seedlings",
+    "wholesale": "Wholesale",
+    "more": "More",
+    "knowledgeHub": "Knowledge Hub",
+    "labServices": "Lab Services",
+    "newsEvents": "News & Events",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "traceability": "Traceability",
+    "about": "About Us",
+    "contact": "Contact",
+    "partnerLogin": "Partner Login",
+    "search": "Search products",
+    "cart": "Cart"
+  },
+  "common": {
+    "shopNow": "Shop Now",
+    "addToCart": "Add to cart",
+    "checkout": "Checkout",
+    "viewCart": "View cart",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "orderOnWhatsApp": "Order on WhatsApp",
+    "requestBulkQuote": "Request Bulk Quote",
+    "continueShopping": "Continue shopping",
+    "backToHome": "Back to home",
+    "loading": "Loading…",
+    "readMore": "Read more"
+  },
+  "footer": {
+    "shop": "Shop",
+    "company": "Company",
+    "getInTouch": "Get in touch",
+    "forBusiness": "For business",
+    "allRightsReserved": "All rights reserved."
+  }
+}

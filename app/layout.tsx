@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/lib/cart/context";
+import { IntlClientRoot } from "@/components/intl-client-root";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd } from "@/lib/structured-data";
@@ -81,22 +82,24 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider delayDuration={200}>
-            <CartProvider>
-              <a href="#main-content" className="skip-link">
-                Skip to content
-              </a>
-              <SiteChrome>{children}</SiteChrome>
-              <Toaster position="top-right" richColors closeButton />
-            </CartProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+        <IntlClientRoot>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TooltipProvider delayDuration={200}>
+              <CartProvider>
+                <a href="#main-content" className="skip-link">
+                  Skip to content
+                </a>
+                <SiteChrome>{children}</SiteChrome>
+                <Toaster position="top-right" richColors closeButton />
+              </CartProvider>
+            </TooltipProvider>
+          </ThemeProvider>
+        </IntlClientRoot>
       </body>
     </html>
   );

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { WordMark } from "@/components/brand/logo-mark";
 import {
@@ -16,6 +19,7 @@ import {
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const t = useTranslations("footer");
 
   return (
     <footer className="border-t border-border bg-forest-950 text-forest-50">
@@ -65,12 +69,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <FooterColumn title="Shop" links={footerShopLinks} />
-        <FooterColumn title="Company" links={footerCompanyLinks} />
+        <FooterColumn title={t("shop")} links={footerShopLinks} />
+        <FooterColumn title={t("company")} links={footerCompanyLinks} />
 
         <div className="flex flex-col gap-3">
           <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-gold-300">
-            Get in touch
+            {t("getInTouch")}
           </h3>
           <ul className="flex flex-col gap-2 text-sm text-forest-100">
             <li className="flex items-start gap-2">
@@ -96,7 +100,7 @@ export function SiteFooter() {
           </ul>
           <div className="mt-2">
             <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gold-300">
-              For business
+              {t("forBusiness")}
             </h4>
             <ul className="flex flex-col gap-1.5 text-sm text-forest-100">
               {footerBusinessLinks.map((l) => (
@@ -114,7 +118,7 @@ export function SiteFooter() {
       <div className="border-t border-forest-800">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-forest-200 sm:flex-row sm:px-6 lg:px-8">
           <p>
-            &copy; {year} {siteConfig.name}. All rights reserved.
+            &copy; {year} {siteConfig.name}. {t("allRightsReserved")}
           </p>
           <div className="flex gap-4">
             <Link href="/contact" className="hover:underline">

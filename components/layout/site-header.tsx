@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Menu, ChevronDown, Search, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,13 +20,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { WordMark } from "@/components/brand/logo-mark";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { MiniCart } from "@/components/layout/mini-cart";
-import { primaryNav, secondaryNav } from "@/lib/nav";
+import { primaryNav, secondaryNav, type NavLink as NavLinkType } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const t = useTranslations("nav");
+  const navLabel = (link: NavLinkType) => (link.i18nKey ? t(link.i18nKey) : link.label);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
@@ -50,7 +54,7 @@ export function SiteHeader() {
                 pathname === link.href && "bg-muted text-foreground"
               )}
             >
-              {link.label}
+              {navLabel(link)}
             </Link>
           ))}
           <DropdownMenu>
@@ -59,14 +63,14 @@ export function SiteHeader() {
                 variant="ghost"
                 className="gap-1 text-sm font-medium text-foreground/80"
               >
-                More <ChevronDown className="size-4" />
+                {t("more")} <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-64">
               {secondaryNav.map((link) => (
                 <DropdownMenuItem key={link.href} asChild>
                   <Link href={link.href} className="flex flex-col items-start gap-0.5 py-2">
-                    <span className="font-medium">{link.label}</span>
+                    <span className="font-medium">{navLabel(link)}</span>
                     {link.description && (
                       <span className="text-xs text-muted-foreground">
                         {link.description}
@@ -81,7 +85,7 @@ export function SiteHeader() {
 
         <div className="flex flex-1 items-center justify-end gap-1 lg:flex-none">
           <Button variant="ghost" size="icon" className="size-11 shrink-0" asChild>
-            <Link href="/shop?focus=search" aria-label="Search products">
+            <Link href="/shop?focus=search" aria-label={t("search")}>
               <Search className="size-5" />
             </Link>
           </Button>
@@ -91,10 +95,11 @@ export function SiteHeader() {
             className="hidden size-11 shrink-0 sm:inline-flex"
             asChild
           >
-            <Link href="/partners" aria-label="Partner login">
+            <Link href="/partners" aria-label={t("partnerLogin")}>
               <Handshake className="size-5" />
             </Link>
           </Button>
+          <LanguageSwitcher />
           <ThemeToggle />
           <MiniCart />
           <Button
@@ -127,7 +132,7 @@ export function SiteHeader() {
                 onClick={() => setMobileOpen(false)}
                 className="rounded-md px-3 py-3 text-base font-medium hover:bg-muted"
               >
-                {link.label}
+                {navLabel(link)}
               </Link>
             ))}
             <Link
@@ -135,7 +140,7 @@ export function SiteHeader() {
               onClick={() => setMobileOpen(false)}
               className="rounded-md px-3 py-3 text-base font-medium hover:bg-muted"
             >
-              Partner Login
+              {t("partnerLogin")}
             </Link>
           </nav>
         </SheetContent>
