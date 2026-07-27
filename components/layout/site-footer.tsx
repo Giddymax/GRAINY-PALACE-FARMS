@@ -130,6 +130,9 @@ export function SiteFooter() {
             <Link href="/sustainability" className="hover:underline">
               Sustainability
             </Link>
+            <Link href="/privacy" className="hover:underline">
+              Privacy
+            </Link>
           </div>
         </div>
       </div>

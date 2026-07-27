@@ -7,6 +7,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/lib/cart/context";
 import { IntlClientRoot } from "@/components/intl-client-root";
 import { SiteChrome } from "@/components/layout/site-chrome";
+import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { ConsentBanner } from "@/components/consent-banner";
+import { ConsentGatedAnalytics } from "@/components/consent-gated-analytics";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd } from "@/lib/structured-data";
 
@@ -96,6 +100,10 @@ export default function RootLayout({
                 </a>
                 <SiteChrome>{children}</SiteChrome>
                 <Toaster position="top-right" richColors closeButton />
+                <InstallPrompt />
+                <ConsentBanner />
+                <ServiceWorkerRegister />
+                <ConsentGatedAnalytics />
               </CartProvider>
             </TooltipProvider>
           </ThemeProvider>
