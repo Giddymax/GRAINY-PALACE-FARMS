@@ -193,3 +193,20 @@
     animation-duration: 220ms;
   }
 }
+
+/* POS / order receipts: print only the #receipt element */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #receipt,
+  #receipt * {
+    visibility: visible;
+  }
+  #receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

@@ -1,4 +1,6 @@
 import { requireStaff } from "@/lib/auth/require-role";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { filterNavForRole } from "@/lib/admin-nav";
 
 export default async function AdminDashboardLayout({
   children,
@@ -6,8 +8,14 @@ export default async function AdminDashboardLayout({
   children: React.ReactNode;
 }) {
   // Authoritative role check (proxy.ts only did an optimistic auth-presence
-  // check). The admin shell/sidebar (nav by role) lands in Phase 6.
-  await requireStaff();
+  // check).
+  const profile = await requireStaff();
+  const groups = filterNavForRole(profile.role);
 
-  return <div className="min-h-screen bg-muted/30">{children}</div>;
+  return (
+    <div className="flex min-h-screen bg-muted/30">
+      <AdminSidebar groups={groups} userLabel={profile.full_name ?? profile.email} />
+      <div className="min-w-0 flex-1">{children}</div>
+    </div>
+  );
 }
