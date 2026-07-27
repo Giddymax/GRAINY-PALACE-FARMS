@@ -796,6 +796,53 @@ $$;
 grant execute on function public.lookup_lab_sample(text) to anon, authenticated;
 
 -- ============================================================================
+-- 15. Storage buckets
+-- ============================================================================
+
+insert into storage.buckets (id, name, public)
+values ('media', 'media', true)
+on conflict (id) do nothing;
+
+insert into storage.buckets (id, name, public)
+values ('documents', 'documents', false)
+on conflict (id) do nothing;
+
+-- media: product images, article/hero covers, gallery, certification badges,
+-- and Certificates of Analysis (CoAs are meant to be publicly downloadable
+-- once a lab sample/batch is complete, so they live here rather than the
+-- private bucket). Staff-only write.
+drop policy if exists "media_public_read" on storage.objects;
+create policy "media_public_read" on storage.objects for select
+  using (bucket_id = 'media');
+
+drop policy if exists "media_staff_write" on storage.objects;
+create policy "media_staff_write" on storage.objects for insert
+  with check (bucket_id = 'media' and public.is_staff());
+
+drop policy if exists "media_staff_update" on storage.objects;
+create policy "media_staff_update" on storage.objects for update
+  using (bucket_id = 'media' and public.is_staff());
+
+drop policy if exists "media_staff_delete" on storage.objects;
+create policy "media_staff_delete" on storage.objects for delete
+  using (bucket_id = 'media' and public.is_staff());
+
+-- documents: job-application CVs. Anonymous applicants need to upload their
+-- own CV without an account, but only staff can list/read/delete — so the
+-- insert check is intentionally broad while read/write-back stays staff-only.
+drop policy if exists "documents_anon_insert" on storage.objects;
+create policy "documents_anon_insert" on storage.objects for insert
+  with check (bucket_id = 'documents');
+
+drop policy if exists "documents_staff_read" on storage.objects;
+create policy "documents_staff_read" on storage.objects for select
+  using (bucket_id = 'documents' and public.is_staff());
+
+drop policy if exists "documents_staff_delete" on storage.objects;
+create policy "documents_staff_delete" on storage.objects for delete
+  using (bucket_id = 'documents' and public.is_staff());
+
+-- ============================================================================
 -- Seed data
 -- ============================================================================
 
