@@ -5,9 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/lib/cart/context";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { WhatsAppFloatButton } from "@/components/layout/whatsapp-float-button";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd } from "@/lib/structured-data";
 
@@ -94,12 +92,7 @@ export default function RootLayout({
               <a href="#main-content" className="skip-link">
                 Skip to content
               </a>
-              <SiteHeader />
-              <main id="main-content" className="flex-1">
-                {children}
-              </main>
-              <SiteFooter />
-              <WhatsAppFloatButton />
+              <SiteChrome>{children}</SiteChrome>
               <Toaster position="top-right" richColors closeButton />
             </CartProvider>
           </TooltipProvider>
