@@ -12,7 +12,7 @@ import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { ConsentBanner } from "@/components/consent-banner";
 import { ConsentGatedAnalytics } from "@/components/consent-gated-analytics";
 import { siteConfig } from "@/lib/site-config";
-import { organizationJsonLd } from "@/lib/structured-data";
+import { organizationJsonLd, localBusinessJsonLd } from "@/lib/structured-data";
 
 const bodyFont = Inter({
   variable: "--font-body",
@@ -83,6 +83,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}
         />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
