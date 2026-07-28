@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/require-role";
 import { productSchema } from "@/lib/validations/product";
+import { broadcastPush } from "@/lib/push/send";
 
 export type ProductActionState = { error?: string } | null;
 
@@ -28,6 +29,7 @@ export async function saveProductAction(
     imageUrl: formData.get("imageUrl") || "",
     isAvailable: formData.get("isAvailable") === "on",
     sortOrder: formData.get("sortOrder") || 0,
+    stockQuantity: formData.get("stockQuantity") || "",
   });
 
   if (!parsed.success) {
@@ -52,6 +54,10 @@ export async function saveProductAction(
     image_url: parsed.data.imageUrl || null,
     is_available: parsed.data.isAvailable ?? true,
     sort_order: parsed.data.sortOrder ?? 0,
+    stock_quantity:
+      parsed.data.stockQuantity === "" || parsed.data.stockQuantity === undefined
+        ? null
+        : parsed.data.stockQuantity,
   };
 
   if (parsed.data.id) {
@@ -81,7 +87,20 @@ export async function deleteProductAction(id: string, category: string) {
 export async function toggleProductAvailabilityAction(id: string, isAvailable: boolean) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("products").update({ is_available: isAvailable }).eq("id", id);
+  const { data: product } = await supabase
+    .from("products")
+    .update({ is_available: isAvailable })
+    .eq("id", id)
+    .select("name, slug")
+    .maybeSingle();
   revalidatePath("/shop");
   revalidatePath("/admin/catalogue");
+
+  if (isAvailable && product) {
+    await broadcastPush({
+      title: "Back in stock",
+      body: `${product.name} is available again.`,
+      url: `/product/${product.slug}`,
+    }).catch((err) => console.error("Restock push notification failed:", err));
+  }
 }

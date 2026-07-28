@@ -2,13 +2,17 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/lib/cart/context";
 import { IntlClientRoot } from "@/components/intl-client-root";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteConfig } from "@/lib/site-config";
 import { organizationJsonLd } from "@/lib/structured-data";
+import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { ConsentBanner } from "@/components/consent/consent-banner";
+import { AnalyticsGate } from "@/components/analytics/analytics-gate";
 
 const bodyFont = Inter({
   variable: "--font-body",
@@ -75,20 +79,22 @@ export default function RootLayout({
       className={`${bodyFont.variable} ${displayFont.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="flex min-h-full flex-col bg-background text-foreground">
+        {/* Blocking, dependency-free: sets the correct light/dark class before
+            hydration so there's no flash. Rendered as plain SSR body content
+            (not inside a client component) — see components/theme-provider.tsx. */}
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd()).replace(/</g, "\\u003c"),
+          }}
         />
-      </head>
-      <body className="flex min-h-full flex-col bg-background text-foreground">
         <IntlClientRoot>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ThemeProvider>
             <TooltipProvider delayDuration={200}>
               <CartProvider>
                 <a href="#main-content" className="skip-link">
@@ -96,6 +102,10 @@ export default function RootLayout({
                 </a>
                 <SiteChrome>{children}</SiteChrome>
                 <Toaster position="top-right" richColors closeButton />
+                <ServiceWorkerRegister />
+                <InstallPrompt />
+                <ConsentBanner />
+                <AnalyticsGate />
               </CartProvider>
             </TooltipProvider>
           </ThemeProvider>

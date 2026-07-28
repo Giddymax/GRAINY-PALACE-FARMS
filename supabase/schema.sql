@@ -293,10 +293,18 @@ create table if not exists public.products (
   tags text[] not null default '{}',
   traceability_note text not null default 'Farm-to-fork QR traceable.',
   is_available boolean not null default true,
+  -- Optional, staff-set signal for the public "Only N left" nudge. Left null
+  -- means "don't show a stock count" — this is deliberately separate from
+  -- inventory_items (the internal back-office stock ledger).
+  stock_quantity int check (stock_quantity is null or stock_quantity >= 0),
   sort_order int not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Safety net for re-running this script against a project created before
+-- stock_quantity existed (CREATE TABLE IF NOT EXISTS skips new columns).
+alter table public.products add column if not exists stock_quantity int;
 
 create index if not exists idx_products_category on public.products (category, subcategory);
 
@@ -796,7 +804,49 @@ $$;
 grant execute on function public.lookup_lab_sample(text) to anon, authenticated;
 
 -- ============================================================================
--- 15. Storage buckets
+-- 15. push_subscriptions (Web Push — order updates, restock/new-article alerts)
+-- ============================================================================
+
+create table if not exists public.push_subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.profiles(id) on delete cascade,
+  endpoint text not null unique,
+  p256dh text not null,
+  auth text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_push_subscriptions_user on public.push_subscriptions (user_id);
+
+alter table public.push_subscriptions enable row level security;
+
+-- Anonymous visitors can subscribe (no account required, per brief §9); a
+-- signed-in user's subscription is linked to their profile when present.
+drop policy if exists "push_subscriptions_insert" on public.push_subscriptions;
+create policy "push_subscriptions_insert" on public.push_subscriptions for insert
+  with check (user_id is null or user_id = auth.uid());
+
+-- Re-subscribing with the same endpoint (upsert) needs update rights too;
+-- same bearer-secret reasoning as the delete policy below.
+drop policy if exists "push_subscriptions_update" on public.push_subscriptions;
+create policy "push_subscriptions_update" on public.push_subscriptions for update
+  using (true) with check (true);
+
+-- A subscription's `endpoint` is a unique, unguessable push-service URL that
+-- only the owning browser ever holds — it already functions as a bearer
+-- secret, so unsubscribe-by-endpoint doesn't need an additional owner check
+-- (this also covers anonymous subscribers, who have no auth.uid() to match).
+drop policy if exists "push_subscriptions_delete_own" on public.push_subscriptions;
+create policy "push_subscriptions_delete_own" on public.push_subscriptions for delete
+  using (true);
+
+-- Only staff (sending order/restock/article alerts) can read subscriptions.
+drop policy if exists "push_subscriptions_select_staff" on public.push_subscriptions;
+create policy "push_subscriptions_select_staff" on public.push_subscriptions for select
+  using (public.is_staff());
+
+-- ============================================================================
+-- 16. Storage buckets
 -- ============================================================================
 
 insert into storage.buckets (id, name, public)

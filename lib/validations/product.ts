@@ -18,4 +18,5 @@ export const productSchema = z.object({
   imageUrl: z.string().optional().or(z.literal("")),
   isAvailable: z.boolean().optional(),
   sortOrder: z.coerce.number().int().optional(),
+  stockQuantity: z.coerce.number().int().min(0).optional().or(z.literal("")),
 });

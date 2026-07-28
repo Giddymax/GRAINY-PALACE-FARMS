@@ -143,6 +143,21 @@ export function ProductForm({ product }: { product?: Product | null }) {
             <Input id="sortOrder" name="sortOrder" type="number" defaultValue={product?.sort_order ?? 0} />
           </div>
 
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="stockQuantity">Stock count (optional)</Label>
+            <Input
+              id="stockQuantity"
+              name="stockQuantity"
+              type="number"
+              min="0"
+              placeholder="Leave blank to hide the stock count"
+              defaultValue={product?.stock_quantity ?? ""}
+            />
+            <p className="text-xs text-muted-foreground">
+              Shown to shoppers as a &quot;Only N left&quot; nudge when 5 or fewer.
+            </p>
+          </div>
+
           <label className="flex items-center justify-between gap-2">
             <span className="text-sm font-medium">Available for sale</span>
             <Switch name="isAvailable" defaultChecked={product?.is_available ?? true} />

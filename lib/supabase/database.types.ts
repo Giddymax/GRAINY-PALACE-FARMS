@@ -122,6 +122,7 @@ export interface Database {
           tags: string[];
           traceability_note: string;
           is_available: boolean;
+          stock_quantity: number | null;
           sort_order: number;
           created_at: string;
           updated_at: string;
@@ -423,6 +424,23 @@ export interface Database {
           sample_type: string;
         };
         Update: Partial<Database["public"]["Tables"]["lab_samples"]["Row"]>;
+        Relationships: [];
+      };
+      push_subscriptions: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          endpoint: string;
+          p256dh: string;
+          auth: string;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["push_subscriptions"]["Row"]> & {
+          endpoint: string;
+          p256dh: string;
+          auth: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["push_subscriptions"]["Row"]>;
         Relationships: [];
       };
     };

@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth/require-role";
 import { articleSchema } from "@/lib/validations/article";
 import { computeReadingTime } from "@/lib/format";
+import { broadcastPush } from "@/lib/push/send";
 
 export type ArticleActionState = { error?: string; success?: boolean } | null;
 
@@ -59,6 +60,7 @@ export async function saveArticleAction(
   };
 
   let articleId = parsed.data.id;
+  let isNewlyPublished = false;
 
   if (articleId) {
     const updatePayload: typeof payload & { published_at?: string } = { ...payload };
@@ -68,14 +70,18 @@ export async function saveArticleAction(
         .select("published_at")
         .eq("id", articleId)
         .maybeSingle();
-      if (!existing?.published_at) updatePayload.published_at = new Date().toISOString();
+      if (!existing?.published_at) {
+        updatePayload.published_at = new Date().toISOString();
+        isNewlyPublished = true;
+      }
     }
     const { error } = await supabase.from("articles").update(updatePayload).eq("id", articleId);
     if (error) return { error: "Could not save the article. The slug may already be in use." };
   } else {
+    isNewlyPublished = parsed.data.status === "published";
     const insertPayload = {
       ...payload,
-      published_at: parsed.data.status === "published" ? new Date().toISOString() : null,
+      published_at: isNewlyPublished ? new Date().toISOString() : null,
     };
     const { data, error } = await supabase
       .from("articles")
@@ -84,6 +90,14 @@ export async function saveArticleAction(
       .single();
     if (error || !data) return { error: "Could not create the article. The slug may already be in use." };
     articleId = data.id;
+  }
+
+  if (isNewlyPublished) {
+    await broadcastPush({
+      title: "New article on Grainy Palace Farm",
+      body: parsed.data.title,
+      url: `/articles/${parsed.data.slug}`,
+    }).catch((err) => console.error("New-article push notification failed:", err));
   }
 
   revalidatePath("/articles");
@@ -106,13 +120,24 @@ export async function toggleArticleStatusAction(id: string, nextStatus: "draft" 
   const supabase = await createClient();
 
   const update: { status: "draft" | "published"; published_at?: string } = { status: nextStatus };
+  let isNewlyPublished = false;
   if (nextStatus === "published") {
     const { data: existing } = await supabase
       .from("articles")
-      .select("published_at")
+      .select("published_at, title, slug")
       .eq("id", id)
       .maybeSingle();
-    if (!existing?.published_at) update.published_at = new Date().toISOString();
+    if (!existing?.published_at) {
+      update.published_at = new Date().toISOString();
+      isNewlyPublished = true;
+    }
+    if (isNewlyPublished && existing) {
+      await broadcastPush({
+        title: "New article on Grainy Palace Farm",
+        body: existing.title,
+        url: `/articles/${existing.slug}`,
+      }).catch((err) => console.error("New-article push notification failed:", err));
+    }
   }
 
   await supabase.from("articles").update(update).eq("id", id);

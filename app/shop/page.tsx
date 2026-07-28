@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getProducts, getPriceRange } from "@/lib/data/products";
 import { categories } from "@/lib/taxonomy";
-import { CategoryIcon } from "@/components/shop/category-icon";
 import { ShopFilters } from "@/components/shop/shop-filters";
 import { ProductGrid } from "@/components/shop/product-grid";
 import { ShopPagination } from "@/components/shop/shop-pagination";
@@ -51,7 +50,6 @@ export default async function ShopPage({
             href={`/shop/${c.slug}`}
             className="flex shrink-0 items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium hover:border-forest-400"
           >
-            <CategoryIcon name={c.icon} className="size-4 text-forest-600" />
             {c.name}
           </Link>
         ))}
