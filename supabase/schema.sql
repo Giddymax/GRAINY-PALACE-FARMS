@@ -20,43 +20,54 @@ begin
 end;
 $$;
 
+-- These three are LANGUAGE plpgsql (not sql) on purpose: a SQL-language
+-- function body is parse-analyzed against the catalog at CREATE FUNCTION
+-- time, so it would fail here since public.profiles/public.partners don't
+-- exist yet at this point in the script. plpgsql bodies are only compiled
+-- on first call, by which point the rest of this script has run.
 create or replace function public.is_staff()
 returns boolean
-language sql
+language plpgsql
 stable
 security definer
 set search_path = public
 as $$
-  select exists (
+begin
+  return exists (
     select 1 from public.profiles
     where id = auth.uid() and role in ('admin', 'staff')
   );
+end;
 $$;
 
 create or replace function public.is_admin()
 returns boolean
-language sql
+language plpgsql
 stable
 security definer
 set search_path = public
 as $$
-  select exists (
+begin
+  return exists (
     select 1 from public.profiles
     where id = auth.uid() and role = 'admin'
   );
+end;
 $$;
 
 create or replace function public.is_approved_partner()
 returns boolean
-language sql
+language plpgsql
 stable
 security definer
 set search_path = public
 as $$
-  select exists (
+begin
+  return exists (
     select 1 from public.partners
     where profile_id = auth.uid() and approved = true
   );
+end;
 $$;
 
 -- ============================================================================
