@@ -112,7 +112,15 @@ export function SiteFooter() {
           <p>
             &copy; {year} {siteConfig.name}. {t("allRightsReserved")}
           </p>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin"
+              aria-label="Staff login"
+              title="Staff login"
+              className="text-gold-300 hover:text-gold-100"
+            >
+              <Settings className="size-4" />
+            </Link>
             <Link href="/contact" className="hover:underline">
               Contact
             </Link>
@@ -121,14 +129,6 @@ export function SiteFooter() {
             </Link>
             <Link href="/sustainability" className="hover:underline">
               Sustainability
-            </Link>
-            <Link
-              href="/admin"
-              aria-label="Staff login"
-              title="Staff login"
-              className="text-forest-300 hover:text-forest-50"
-            >
-              <Settings className="size-4" />
             </Link>
           </div>
         </div>
