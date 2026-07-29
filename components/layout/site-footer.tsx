@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { WordMark } from "@/components/brand/logo-mark";
@@ -31,13 +30,6 @@ export function SiteFooter() {
           <p className="max-w-sm text-sm text-forest-100">
             {siteConfig.brandPromise}
           </p>
-          <Image
-            src="/brand/grainy-palace-farms-seal.png"
-            alt="Grainy Palace Farm heritage seal"
-            width={72}
-            height={72}
-            className="rounded-full opacity-90"
-          />
           <div className="flex gap-3">
             <a
               href={siteConfig.social.facebook}
