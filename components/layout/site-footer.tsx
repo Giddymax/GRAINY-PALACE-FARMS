@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, Settings } from "lucide-react";
 import { WordMark } from "@/components/brand/logo-mark";
 import {
   FacebookIcon,
@@ -121,6 +121,14 @@ export function SiteFooter() {
             </Link>
             <Link href="/sustainability" className="hover:underline">
               Sustainability
+            </Link>
+            <Link
+              href="/admin"
+              aria-label="Staff login"
+              title="Staff login"
+              className="text-forest-300 hover:text-forest-50"
+            >
+              <Settings className="size-4" />
             </Link>
           </div>
         </div>
