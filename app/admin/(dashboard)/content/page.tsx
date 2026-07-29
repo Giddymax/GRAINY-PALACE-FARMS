@@ -43,7 +43,7 @@ export default async function AdminContentPage() {
               </div>
               <div className="flex gap-1">
                 <HeroSlideFormDialog slide={slide} />
-                <EntityDeleteButton onDelete={() => deleteHeroSlideAction(slide.id)} />
+                <EntityDeleteButton onDelete={deleteHeroSlideAction.bind(null, slide.id)} />
               </div>
             </div>
           ))}
@@ -63,7 +63,7 @@ export default async function AdminContentPage() {
             <div key={item.id} className="group relative aspect-square overflow-hidden rounded-lg bg-muted">
               <Image src={item.image_url} alt={item.title ?? ""} fill className="object-cover" />
               <div className="absolute right-1 top-1 opacity-0 transition-opacity group-hover:opacity-100">
-                <EntityDeleteButton onDelete={() => deleteGalleryItemAction(item.id)} />
+                <EntityDeleteButton onDelete={deleteGalleryItemAction.bind(null, item.id)} />
               </div>
             </div>
           ))}

@@ -49,7 +49,7 @@ export default async function AdminCertificationsPage() {
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
                     <CertificationFormDialog certification={cert} />
-                    <EntityDeleteButton onDelete={() => deleteCertificationAction(cert.id)} />
+                    <EntityDeleteButton onDelete={deleteCertificationAction.bind(null, cert.id)} />
                   </div>
                 </TableCell>
               </TableRow>
