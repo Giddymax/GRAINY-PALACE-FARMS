@@ -1,6 +1,6 @@
-# Grainy Palace Farm
+# Grainy Palace Farms
 
-E-commerce + marketing website and operational backend for **Grainy Palace Farm Limited**, a Ghanaian integrated agribusiness (crops, livestock, aquaculture, food-safety lab, organic processing). Built as an installable, offline-tolerant PWA.
+E-commerce + marketing website and operational backend for **Grainy Palace Farms Limited**, a Ghanaian integrated agribusiness (crops, livestock, aquaculture, food-safety lab, organic processing). Built as an installable, offline-tolerant PWA.
 
 ## Stack
 

@@ -6,13 +6,13 @@
  * and the safety-net used if a `site_content` row is ever missing.
  */
 export const siteConfig = {
-  name: "Grainy Palace Farm Limited",
-  shortName: "Grainy Palace Farm",
+  name: "Grainy Palace Farms Limited",
+  shortName: "Grainy Palace Farms",
   tagline: "Cultivating Excellence. Feeding the Future.",
   brandPromise:
     "From our certified fields to your table — safe, natural, and traceable.",
   description:
-    "Grainy Palace Farm Limited is a Ghanaian integrated agribusiness supplying certified grains, livestock, fish, seedlings and processed foods across Ghana — grown, raised and processed with full farm-to-fork traceability.",
+    "Grainy Palace Farms Limited is a Ghanaian integrated agribusiness supplying certified grains, livestock, fish, seedlings and processed foods across Ghana — grown, raised and processed with full farm-to-fork traceability.",
   domain: "grainypalacefarm.com",
   altDomain: "grainypalacefarm.com.gh",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://grainypalacefarm.com",

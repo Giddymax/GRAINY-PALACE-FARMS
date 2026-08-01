@@ -24,7 +24,7 @@ export default async function PartnersPage({
         </h1>
         <p className="mt-3 text-muted-foreground">
           For supermarkets, hotels, restaurants, processors and exporters
-          buying from Grainy Palace Farm at volume. Approved partners get:
+          buying from Grainy Palace Farms at volume. Approved partners get:
         </p>
         <ul className="mt-4 flex flex-col gap-2 text-sm">
           <li>• Tiered bulk pricing on our full catalogue</li>

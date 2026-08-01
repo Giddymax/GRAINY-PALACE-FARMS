@@ -52,7 +52,7 @@ export function InstallPrompt() {
         <Download className="size-4 text-forest-600 dark:text-forest-300" />
       </span>
       <div className="flex-1 text-sm">
-        <p className="font-medium">Install Grainy Palace Farm</p>
+        <p className="font-medium">Install Grainy Palace Farms</p>
         {isIOS ? (
           <p className="mt-1 text-muted-foreground">
             Tap <Share className="inline size-3.5 align-text-bottom" aria-hidden /> then &quot;Add to

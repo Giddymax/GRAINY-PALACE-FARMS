@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "Careers & Outgrowers",
   description:
-    "Open roles at Grainy Palace Farm and our outgrower scheme for contract farmers — certified seeds, training and a fair, fixed offtake price.",
+    "Open roles at Grainy Palace Farms and our outgrower scheme for contract farmers — certified seeds, training and a fair, fixed offtake price.",
 };
 
 export default async function CareersPage() {

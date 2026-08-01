@@ -9,12 +9,12 @@ import { buildWhatsAppLink } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Livestock",
   description:
-    "Poultry, cage-free eggs, goats, sheep, pork, rabbit and guinea fowl from Grainy Palace Farm — humanely raised with antibiotic stewardship.",
+    "Poultry, cage-free eggs, goats, sheep, pork, rabbit and guinea fowl from Grainy Palace Farms — humanely raised with antibiotic stewardship.",
 };
 
 export default function LivestockPage() {
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I'd like to place a festive-season live-animal order."
+    "Hello Grainy Palace Farms, I'd like to place a festive-season live-animal order."
   );
 
   return (

@@ -6,7 +6,7 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = {
   title: "News & Events",
   description:
-    "Press releases, trade-fair appearances and community events from Grainy Palace Farm.",
+    "Press releases, trade-fair appearances and community events from Grainy Palace Farms.",
 };
 
 export default async function NewsPage() {

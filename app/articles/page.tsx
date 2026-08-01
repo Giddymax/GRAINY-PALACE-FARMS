@@ -18,7 +18,7 @@ import { formatDate, formatReadingTime } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Knowledge Hub",
   description:
-    "Nutrition, food safety, sustainable agriculture, livestock welfare, aquaculture, farming tips and recipes from Grainy Palace Farm.",
+    "Nutrition, food safety, sustainable agriculture, livestock welfare, aquaculture, farming tips and recipes from Grainy Palace Farms.",
 };
 
 export default async function ArticlesPage({

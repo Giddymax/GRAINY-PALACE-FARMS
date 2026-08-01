@@ -45,7 +45,7 @@ export default async function EnquirySuccessPage({
   const whatsappHref = buildWhatsAppLink(
     ref
       ? buildFollowUpMessage(ref, "I just submitted a request on your website.")
-      : `Hello Grainy Palace Farm, I just submitted a request on your website${topic ? ` about ${topic}` : ""}.`
+      : `Hello Grainy Palace Farms, I just submitted a request on your website${topic ? ` about ${topic}` : ""}.`
   );
 
   return (

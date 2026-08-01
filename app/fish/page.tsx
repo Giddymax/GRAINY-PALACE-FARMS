@@ -7,7 +7,7 @@ import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 export const metadata: Metadata = {
   title: "Fish & Aquaculture",
   description:
-    "Fresh, smoked and frozen tilapia and catfish from Grainy Palace Farm's integrated aquaculture ponds, with full farm-to-table traceability.",
+    "Fresh, smoked and frozen tilapia and catfish from Grainy Palace Farms' integrated aquaculture ponds, with full farm-to-table traceability.",
 };
 
 export default function FishPage() {

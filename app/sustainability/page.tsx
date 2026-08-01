@@ -5,7 +5,7 @@ import { Sprout, Beef, Fish, Package, Heart } from "lucide-react";
 export const metadata: Metadata = {
   title: "Sustainability",
   description:
-    "Grainy Palace Farm's four pillars of sustainability: agriculture, livestock, aquaculture and packaging — plus our community commitment.",
+    "Grainy Palace Farms' four pillars of sustainability: agriculture, livestock, aquaculture and packaging — plus our community commitment.",
 };
 
 const pillars = [

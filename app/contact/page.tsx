@@ -8,12 +8,12 @@ import { buildWhatsAppLink } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Grainy Palace Farm — phone, WhatsApp, email, or visit us in Greater Accra Region, Ghana.",
+    "Get in touch with Grainy Palace Farms — phone, WhatsApp, email, or visit us in Greater Accra Region, Ghana.",
 };
 
 export default function ContactPage() {
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I'd like to get in touch."
+    "Hello Grainy Palace Farms, I'd like to get in touch."
   );
   const mapQuery = encodeURIComponent(siteConfig.contact.address);
 
@@ -72,7 +72,7 @@ export default function ContactPage() {
 
           <div className="overflow-hidden rounded-xl border border-border">
             <iframe
-              title="Grainy Palace Farm location map"
+              title="Grainy Palace Farms location map"
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
               className="h-64 w-full"
               loading="lazy"

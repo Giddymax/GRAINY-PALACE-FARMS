@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/format";
 export const metadata: Metadata = {
   title: "Traceability Lookup",
   description:
-    "Scan the QR code on your Grainy Palace Farm pack or enter the batch code to see its origin, certifications and Certificate of Analysis.",
+    "Scan the QR code on your Grainy Palace Farms pack or enter the batch code to see its origin, certifications and Certificate of Analysis.",
 };
 
 export default async function TraceabilityPage({

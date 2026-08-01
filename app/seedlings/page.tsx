@@ -8,7 +8,7 @@ import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 export const metadata: Metadata = {
   title: "Seedlings",
   description:
-    "Tree and economic plant seedlings from Grainy Palace Farm's nursery — oil palm, cocoa, cashew, mango, moringa, teak and agroforestry mixes.",
+    "Tree and economic plant seedlings from Grainy Palace Farms' nursery — oil palm, cocoa, cashew, mango, moringa, teak and agroforestry mixes.",
 };
 
 export default function SeedlingsPage() {

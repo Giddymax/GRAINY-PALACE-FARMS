@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   applicationName: siteConfig.shortName,
   manifest: "/manifest.webmanifest",
   keywords: [
-    "Grainy Palace Farm",
+    "Grainy Palace Farms",
     "Ghana agribusiness",
     "buy grains Ghana",
     "farm to table Ghana",

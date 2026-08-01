@@ -1,5 +1,5 @@
 -- ============================================================================
--- Grainy Palace Farm Limited — database schema
+-- Grainy Palace Farms Limited — database schema
 -- Idempotent: safe to re-run. Run this once in the Supabase SQL Editor
 -- (or `supabase db push` locally) against a fresh project.
 -- ============================================================================
@@ -536,7 +536,7 @@ create table if not exists public.articles (
   cover_image text,
   body text not null default '',
   author_id uuid references public.profiles(id) on delete set null,
-  author_name text not null default 'Grainy Palace Farm Team',
+  author_name text not null default 'Grainy Palace Farms Team',
   status text not null default 'draft' check (status in ('draft', 'published')),
   featured boolean not null default false,
   seo_title text,
@@ -916,7 +916,7 @@ insert into public.article_categories (name, slug, description, sort_order) valu
   ('Livestock & Animal Welfare', 'livestock-animal-welfare', 'Humane rearing and antibiotic stewardship.', 5),
   ('Aquaculture & Fish Farming', 'aquaculture-fish-farming', 'Our integrated fish-crop circular system.', 6),
   ('Farming Tips & Guides', 'farming-tips-guides', 'Practical guidance for smallholders and outgrowers.', 7),
-  ('Recipes', 'recipes', 'Ghanaian recipes using Grainy Palace Farm produce.', 8),
+  ('Recipes', 'recipes', 'Ghanaian recipes using Grainy Palace Farms produce.', 8),
   ('Company News & Events', 'company-news-events', 'Announcements, trade fairs and community events.', 9)
 on conflict (slug) do nothing;
 
@@ -928,8 +928,8 @@ select
   (select id from public.article_categories where slug = 'nutrition'),
   array['grains', 'nutrition', 'diet'],
   'Milled maize, millet and sorghum carry more fibre and micronutrients than their refined counterparts — here''s what that means for your household''s health.',
-  E'# Why Whole Grains Belong on Every Ghanaian Plate\n\nAcross Greater Accra and Ashanti Region, maize, millet and sorghum have fed families for generations. What has changed in recent decades is how much of that grain reaches the table in its whole form.\n\n## What "whole grain" actually means\n\nA whole grain keeps its bran and germ layers intact through milling. Those layers carry most of the fibre, B-vitamins, iron and zinc in the kernel. Heavily refined flours strip much of this away, leaving mostly starch.\n\n## Why it matters for everyday meals\n\n- **Slower energy release** — whole grains digest more slowly, which helps with steady energy through a working day and better blood sugar control.\n- **More iron and zinc** — important in a country where anaemia remains common, especially among women and children.\n- **Better gut health** — the fibre in whole millet and sorghum feeds beneficial gut bacteria.\n\n## How we keep it whole\n\nAt Grainy Palace Farm, our milled maize and sorghum are stone-milled in small batches rather than industrially refined, so more of the bran stays in the final product. Every bag we sell carries a batch code you can look up on our [traceability page](/traceability) to see exactly which field it came from and when it was milled.\n\n## A simple swap to start with\n\nIf your household eats a lot of refined maize meal, try substituting our milled maize or sorghum flour for half the quantity in your next batch of banku or tuo zaafi. The taste difference is subtle; the nutrition difference is not.',
-  'Grainy Palace Farm Nutrition Desk',
+  E'# Why Whole Grains Belong on Every Ghanaian Plate\n\nAcross Greater Accra and Ashanti Region, maize, millet and sorghum have fed families for generations. What has changed in recent decades is how much of that grain reaches the table in its whole form.\n\n## What "whole grain" actually means\n\nA whole grain keeps its bran and germ layers intact through milling. Those layers carry most of the fibre, B-vitamins, iron and zinc in the kernel. Heavily refined flours strip much of this away, leaving mostly starch.\n\n## Why it matters for everyday meals\n\n- **Slower energy release** — whole grains digest more slowly, which helps with steady energy through a working day and better blood sugar control.\n- **More iron and zinc** — important in a country where anaemia remains common, especially among women and children.\n- **Better gut health** — the fibre in whole millet and sorghum feeds beneficial gut bacteria.\n\n## How we keep it whole\n\nAt Grainy Palace Farms, our milled maize and sorghum are stone-milled in small batches rather than industrially refined, so more of the bran stays in the final product. Every bag we sell carries a batch code you can look up on our [traceability page](/traceability) to see exactly which field it came from and when it was milled.\n\n## A simple swap to start with\n\nIf your household eats a lot of refined maize meal, try substituting our milled maize or sorghum flour for half the quantity in your next batch of banku or tuo zaafi. The taste difference is subtle; the nutrition difference is not.',
+  'Grainy Palace Farms Nutrition Desk',
   'published', true, 4, now() - interval '18 days'
 on conflict (slug) do nothing;
 
@@ -941,7 +941,7 @@ select
   array['fish', 'cold-chain', 'food-safety'],
   'A look inside the cold-chain and testing steps that stand between our aquaculture ponds and your kitchen.',
   E'# How We Keep Fresh Tilapia Safe From Pond to Market\n\nFish spoils faster than almost any other food we sell, so our food-safety controls for tilapia and catfish are the strictest in our operation.\n\n## Harvest and cooling\n\nFish are harvested early in the morning when water and air temperatures are lowest. From the moment they leave the pond, they move into ice-slurry crates — never left at ambient temperature.\n\n## Testing before dispatch\n\nOur [Lab Services](/lab-services) team runs microbiological and water-quality checks on every production pond on a rolling schedule, and spot-checks finished batches for histamine and heavy metals before they''re released for sale.\n\n## The cold chain to your door\n\nDelivery vehicles for fresh and frozen fish run insulated coolers with ice packs, and our riders are trained to reject any delivery window that would break the cold chain. If you order smoked catfish instead, the smoking process itself extends shelf life safely, but we still test finished batches for aflatoxin, a risk in poorly dried smoked fish.\n\n## What you can check at home\n\nFresh tilapia should have clear eyes, red gills and a clean sea-like smell — not a strong "fishy" odour. Every pack carries a batch code linking back to harvest date and pond, viewable on our [traceability page](/traceability).',
-  'Grainy Palace Farm Food Safety Lab',
+  'Grainy Palace Farms Food Safety Lab',
   'published', true, 4, now() - interval '11 days'
 on conflict (slug) do nothing;
 
@@ -952,8 +952,8 @@ select
   (select id from public.article_categories where slug = 'environmental-protection'),
   array['sustainability', 'circular economy', 'water'],
   'Fish pond water fertilises our fields, crop residue feeds our livestock — how one farm''s waste becomes another''s input.',
-  E'# Inside Our Zero-Waste, Circular Farm System\n\nGrainy Palace Farm was built around a simple idea: on an integrated farm, nothing has to go to waste — it just needs the right next use.\n\n## Fish pond water, field fertiliser\n\nNutrient-rich water from our tilapia and catfish ponds is periodically released to irrigate adjacent vegetable and grain plots, cutting our need for synthetic fertiliser while giving pond water somewhere useful to go instead of being discharged untreated.\n\n## Crop residue, livestock feed\n\nMaize stover, cassava peel and groundnut husks that would otherwise be burned or dumped are dried and blended into our livestock feed formulations, alongside purchased feed ingredients.\n\n## Manure, compost\n\nPoultry and livestock manure is composted on-site and sold as organic compost fertiliser, closing the loop back into crop production — ours and our customers''.\n\n## Packaging aligned with the Plastics Levy\n\nGhana''s 2021 Plastics Levy pushed the whole industry to rethink packaging. We pack dry goods in biodegradable or reusable woven bags wherever the product allows, and are phasing out single-use plastic sachets across our processed food lines.\n\n## Why this matters beyond our farm gate\n\nA circular system lowers our costs, which is part of how we keep prices fair for Ghanaian households — and it means less agricultural waste ending up in landfill or waterways in Greater Accra and Ashanti Region.',
-  'Grainy Palace Farm Sustainability Team',
+  E'# Inside Our Zero-Waste, Circular Farm System\n\nGrainy Palace Farms was built around a simple idea: on an integrated farm, nothing has to go to waste — it just needs the right next use.\n\n## Fish pond water, field fertiliser\n\nNutrient-rich water from our tilapia and catfish ponds is periodically released to irrigate adjacent vegetable and grain plots, cutting our need for synthetic fertiliser while giving pond water somewhere useful to go instead of being discharged untreated.\n\n## Crop residue, livestock feed\n\nMaize stover, cassava peel and groundnut husks that would otherwise be burned or dumped are dried and blended into our livestock feed formulations, alongside purchased feed ingredients.\n\n## Manure, compost\n\nPoultry and livestock manure is composted on-site and sold as organic compost fertiliser, closing the loop back into crop production — ours and our customers''.\n\n## Packaging aligned with the Plastics Levy\n\nGhana''s 2021 Plastics Levy pushed the whole industry to rethink packaging. We pack dry goods in biodegradable or reusable woven bags wherever the product allows, and are phasing out single-use plastic sachets across our processed food lines.\n\n## Why this matters beyond our farm gate\n\nA circular system lowers our costs, which is part of how we keep prices fair for Ghanaian households — and it means less agricultural waste ending up in landfill or waterways in Greater Accra and Ashanti Region.',
+  'Grainy Palace Farms Sustainability Team',
   'published', true, 4, now() - interval '25 days'
 on conflict (slug) do nothing;
 
@@ -963,9 +963,9 @@ select
   'contract-farming-explained-how-our-outgrower-scheme-works',
   (select id from public.article_categories where slug = 'sustainable-agriculture'),
   array['outgrowers', 'smallholders', 'contract farming'],
-  'Certified seeds, training and a guaranteed offtake price — what it actually means to farm alongside Grainy Palace Farm as an outgrower.',
-  E'# Contract Farming Explained: How Our Outgrower Scheme Works\n\nMost of the maize, soybean and sorghum we sell is grown on our own fields — but a growing share comes from independent smallholders in our outgrower scheme.\n\n## What we provide\n\n- **Certified seed** at the start of the season, deducted from final payment rather than paid upfront.\n- **Agronomy training** on spacing, fertiliser timing and post-harvest handling, delivered by our field officers.\n- **A fixed offtake price** agreed before planting, so farmers aren''t exposed to harvest-time price crashes.\n\n## What we ask in return\n\nOutgrowers commit to selling their contracted volume to Grainy Palace Farm at harvest, follow the agreed input and spacing guidelines (so produce meets our traceability and quality standards), and allow periodic field visits from our agronomy team.\n\n## Why this beats going it alone for many smallholders\n\nPrice volatility and lack of guaranteed buyers are two of the biggest risks smallholder farmers in Ghana face. A fixed-price contract removes the second risk almost entirely, and access to certified seed on credit removes a common cash-flow barrier at planting time.\n\n## How to apply\n\nIf you farm in Greater Accra or Ashanti Region and want to join the scheme, visit our [Careers & Outgrowers page](/careers) and submit the outgrower application form. Our field team reviews applications on a rolling basis ahead of each planting season.',
-  'Grainy Palace Farm Agronomy Team',
+  'Certified seeds, training and a guaranteed offtake price — what it actually means to farm alongside Grainy Palace Farms as an outgrower.',
+  E'# Contract Farming Explained: How Our Outgrower Scheme Works\n\nMost of the maize, soybean and sorghum we sell is grown on our own fields — but a growing share comes from independent smallholders in our outgrower scheme.\n\n## What we provide\n\n- **Certified seed** at the start of the season, deducted from final payment rather than paid upfront.\n- **Agronomy training** on spacing, fertiliser timing and post-harvest handling, delivered by our field officers.\n- **A fixed offtake price** agreed before planting, so farmers aren''t exposed to harvest-time price crashes.\n\n## What we ask in return\n\nOutgrowers commit to selling their contracted volume to Grainy Palace Farms at harvest, follow the agreed input and spacing guidelines (so produce meets our traceability and quality standards), and allow periodic field visits from our agronomy team.\n\n## Why this beats going it alone for many smallholders\n\nPrice volatility and lack of guaranteed buyers are two of the biggest risks smallholder farmers in Ghana face. A fixed-price contract removes the second risk almost entirely, and access to certified seed on credit removes a common cash-flow barrier at planting time.\n\n## How to apply\n\nIf you farm in Greater Accra or Ashanti Region and want to join the scheme, visit our [Careers & Outgrowers page](/careers) and submit the outgrower application form. Our field team reviews applications on a rolling basis ahead of each planting season.',
+  'Grainy Palace Farms Agronomy Team',
   'published', false, 5, now() - interval '6 days'
 on conflict (slug) do nothing;
 
@@ -977,7 +977,7 @@ select
   array['recipes', 'groundnut oil', 'cooking'],
   'From groundnut soup to a simple kontomire stir-fry, our cold-pressed oil holds its flavour better than refined alternatives.',
   E'# Five Ways to Cook With Our Cold-Pressed Groundnut Oil\n\nCold-pressing keeps more of groundnut oil''s natural flavour and nutrients than industrial refining. Here are five ways our customers use it most.\n\n1. **Base for groundnut soup** — a spoonful added at the start of frying your onion and tomato base deepens the nutty flavour the soup is named for.\n2. **Kontomire (cocoyam leaf) stir-fry** — a high smoke point makes it suitable for the hot pan this dish needs.\n3. **Frying plantain (kelewele or chips)** — holds up well to repeated frying without breaking down as quickly as some refined oils.\n4. **Salad dressings** — whisked with lime juice and a pinch of salt for a simple, nutty dressing.\n5. **Finishing drizzle on waakye** — a small amount stirred through just before serving adds richness.\n\nStore it in a cool, dark cupboard rather than next to the stove, and use within a few months of opening for the best flavour.',
-  'Grainy Palace Farm Kitchen',
+  'Grainy Palace Farms Kitchen',
   'published', false, 3, now() - interval '3 days'
 on conflict (slug) do nothing;
 
@@ -1003,7 +1003,7 @@ on conflict do nothing;
 
 -- Events
 insert into public.events (title, slug, body, event_date, location, is_published) values
-  ('Grainy Palace Farm at the Accra Agribusiness Trade Fair', 'accra-agribusiness-trade-fair-2026', 'Visit our stand at the Accra Agribusiness Trade Fair to sample our organic flours and meet our wholesale team.', current_date + interval '25 days', 'Accra International Conference Centre', true),
+  ('Grainy Palace Farms at the Accra Agribusiness Trade Fair', 'accra-agribusiness-trade-fair-2026', 'Visit our stand at the Accra Agribusiness Trade Fair to sample our organic flours and meet our wholesale team.', current_date + interval '25 days', 'Accra International Conference Centre', true),
   ('Community Health Outreach in Dodowa', 'community-health-outreach-dodowa', 'As part of our 2%-of-profit community commitment, we partnered with local health workers for a nutrition and food-safety outreach day.', current_date - interval '20 days', 'Dodowa, Greater Accra Region', true)
 on conflict (slug) do nothing;
 
@@ -1090,17 +1090,17 @@ on conflict (slug) do nothing;
 
 -- Sample traceability batches for a handful of flagship products
 insert into public.product_batches (batch_code, product_id, harvest_date, origin, certifications, notes)
-select 'GPF-MZ-2607', id, current_date - interval '10 days', 'Grainy Palace Farm, Greater Accra Region', array['FDA Registered','Certified'], 'Sun-dried and cleaned within 48 hours of harvest.'
+select 'GPF-MZ-2607', id, current_date - interval '10 days', 'Grainy Palace Farms, Greater Accra Region', array['FDA Registered','Certified'], 'Sun-dried and cleaned within 48 hours of harvest.'
 from public.products where slug = 'premium-white-maize-grain'
 on conflict (batch_code) do nothing;
 
 insert into public.product_batches (batch_code, product_id, harvest_date, origin, certifications, notes)
-select 'GPF-TL-2607', id, current_date - interval '2 days', 'Grainy Palace Farm Aquaculture Unit, Greater Accra Region', array['Fisheries Commission Licensed','HACCP'], 'Harvested at dawn and delivered same-day on ice.'
+select 'GPF-TL-2607', id, current_date - interval '2 days', 'Grainy Palace Farms Aquaculture Unit, Greater Accra Region', array['Fisheries Commission Licensed','HACCP'], 'Harvested at dawn and delivered same-day on ice.'
 from public.products where slug = 'fresh-tilapia'
 on conflict (batch_code) do nothing;
 
 insert into public.product_batches (batch_code, product_id, harvest_date, origin, certifications, notes)
-select 'GPF-EG-2607', id, current_date - interval '1 days', 'Grainy Palace Farm Poultry Unit, Ashanti Region', array['MOFA Certified','Cage-Free'], 'Packed within 24 hours of lay.'
+select 'GPF-EG-2607', id, current_date - interval '1 days', 'Grainy Palace Farms Poultry Unit, Ashanti Region', array['MOFA Certified','Cage-Free'], 'Packed within 24 hours of lay.'
 from public.products where slug = 'cage-free-table-eggs-crate-of-30'
 on conflict (batch_code) do nothing;
 
@@ -1114,7 +1114,7 @@ insert into public.site_content (section, key, value) values
   ('contact', 'email', 'info@grainypalacefarm.com'),
   ('contact', 'address', 'Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana'),
   ('contact', 'hours', 'Monday – Saturday, 7:00am – 6:00pm GMT'),
-  ('brand', 'name', 'Grainy Palace Farm Limited'),
+  ('brand', 'name', 'Grainy Palace Farms Limited'),
   ('brand', 'tagline', 'Cultivating Excellence. Feeding the Future.'),
   ('brand', 'promise', 'From our certified fields to your table — safe, natural, and traceable.'),
   ('delivery', 'accra_flat_fee', '25'),

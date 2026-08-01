@@ -128,7 +128,7 @@ export function ArticleForm({
               id="authorName"
               name="authorName"
               required
-              defaultValue={article?.author_name ?? "Grainy Palace Farm Team"}
+              defaultValue={article?.author_name ?? "Grainy Palace Farms Team"}
             />
           </div>
 

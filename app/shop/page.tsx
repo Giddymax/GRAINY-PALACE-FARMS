@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "Browse Grainy Palace Farm's full catalogue: grains, vegetables, livestock, fish, seedlings, processed foods and farm inputs — all with GHS pricing and farm-to-fork traceability.",
+    "Browse Grainy Palace Farms' full catalogue: grains, vegetables, livestock, fish, seedlings, processed foods and farm inputs — all with GHS pricing and farm-to-fork traceability.",
 };
 
 type ShopSearchParams = {

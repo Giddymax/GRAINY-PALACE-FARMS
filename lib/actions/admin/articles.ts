@@ -94,7 +94,7 @@ export async function saveArticleAction(
 
   if (isNewlyPublished) {
     await broadcastPush({
-      title: "New article on Grainy Palace Farm",
+      title: "New article on Grainy Palace Farms",
       body: parsed.data.title,
       url: `/articles/${parsed.data.slug}`,
     }).catch((err) => console.error("New-article push notification failed:", err));
@@ -133,7 +133,7 @@ export async function toggleArticleStatusAction(id: string, nextStatus: "draft" 
     }
     if (isNewlyPublished && existing) {
       await broadcastPush({
-        title: "New article on Grainy Palace Farm",
+        title: "New article on Grainy Palace Farms",
         body: existing.title,
         url: `/articles/${existing.slug}`,
       }).catch((err) => console.error("New-article push notification failed:", err));

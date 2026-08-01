@@ -36,7 +36,7 @@ export async function generateMetadata({
   if (!category) return {};
   return {
     title: category.name,
-    description: `${category.blurb} Shop ${category.name.toLowerCase()} from Grainy Palace Farm, delivered across Ghana.`,
+    description: `${category.blurb} Shop ${category.name.toLowerCase()} from Grainy Palace Farms, delivered across Ghana.`,
   };
 }
 

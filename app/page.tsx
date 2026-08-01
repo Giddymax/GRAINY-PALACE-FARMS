@@ -17,7 +17,7 @@ export default async function HomePage() {
   ]);
   const hero = heroSlides[0];
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I'd like to know more about your products."
+    "Hello Grainy Palace Farms, I'd like to know more about your products."
   );
 
   return (
