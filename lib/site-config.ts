@@ -18,7 +18,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://grainypalacefarm.com",
   currency: "GHS",
   currencySymbol: "₵",
-  region: "Greater Accra & Ashanti Region, Ghana",
+  region: "Across Ghana",
   contact: {
     phone: "+233 20 123 4567",
     whatsapp: "233201234567",
