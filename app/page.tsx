@@ -8,6 +8,16 @@ import { categories } from "@/lib/taxonomy";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { getCategoryThumbnails } from "@/lib/data/products";
 import { getHeroSlides } from "@/lib/data/misc";
+import { HeroCarousel, type HeroSlideData } from "@/components/home/hero-carousel";
+
+const FALLBACK_SLIDE: HeroSlideData = {
+  id: "fallback",
+  title: "Certified farm food, delivered across Ghana",
+  subtitle: siteConfig.brandPromise,
+  image_url: null,
+  cta_label: "Shop Now",
+  cta_href: "/shop",
+};
 
 export default async function HomePage() {
   const featuredCategories = categories.slice(0, 8);
@@ -15,7 +25,7 @@ export default async function HomePage() {
     getCategoryThumbnails(),
     getHeroSlides(),
   ]);
-  const hero = heroSlides[0];
+  const slides = heroSlides.length > 0 ? heroSlides : [FALLBACK_SLIDE];
   const whatsappHref = buildWhatsAppLink(
     "Hello Grainy Palace Farms, I'd like to know more about your products."
   );
@@ -24,54 +34,7 @@ export default async function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-forest-900 pb-14 text-forest-50">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:items-center md:py-24 lg:px-8">
-          <div className="flex flex-col gap-6">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-forest-800 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold-300">
-              <ShieldCheck className="size-4" /> {siteConfig.region}
-            </span>
-            <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              {hero?.title ?? "Certified farm food, delivered across Ghana"}
-            </h1>
-            <p className="max-w-xl text-lg text-forest-100">
-              {hero?.subtitle ?? siteConfig.brandPromise}
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="bg-gold-500 text-charcoal hover:bg-gold-400">
-                <Link href={hero?.cta_href ?? "/shop"}>
-                  {hero?.cta_label ?? "Shop Now"} <ArrowRight className="ml-1 size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-forest-100/30 bg-transparent text-forest-50 hover:bg-forest-800"
-              >
-                <Link href="/wholesale">Request Bulk Quote</Link>
-              </Button>
-            </div>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-2 text-sm font-medium text-forest-100 hover:text-gold-300"
-            >
-              <MessageCircle className="size-4" /> Or order directly on WhatsApp
-            </a>
-          </div>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-forest-700 to-forest-800 shadow-2xl">
-            {hero?.image_url && (
-              <Image
-                src={hero.image_url}
-                alt={hero.title}
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-                priority
-              />
-            )}
-          </div>
-        </div>
+        <HeroCarousel slides={slides} />
         <WaveDivider className="absolute inset-x-0 bottom-0 h-14 w-full text-background" fill="currentColor" />
       </section>
 

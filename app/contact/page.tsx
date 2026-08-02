@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { ContactForm } from "@/components/forms/contact-form";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
@@ -19,6 +20,7 @@ export default function ContactPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="contact" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">Contact Us</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">

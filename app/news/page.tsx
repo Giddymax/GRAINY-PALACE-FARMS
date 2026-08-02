@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CalendarDays, MapPin } from "lucide-react";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getPublishedEvents } from "@/lib/data/misc";
 import { formatDate } from "@/lib/format";
 
@@ -17,6 +18,7 @@ export default async function NewsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="news" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">News &amp; Events</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FlaskConical, CheckCircle2, Clock, Search, FileDown } from "lucide-react";
 import { LabSampleForm } from "@/components/forms/lab-sample-form";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { lookupLabSample } from "@/lib/data/misc";
 import { formatDate } from "@/lib/format";
 
@@ -29,6 +30,7 @@ export default async function LabServicesPage({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="lab-services" />
       <div className="mb-12 text-center">
         <FlaskConical className="mx-auto mb-3 size-10 text-forest-600" />
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">Lab Services</h1>

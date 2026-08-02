@@ -53,6 +53,43 @@ export async function getHeroSlides() {
   return data ?? [];
 }
 
+/** Known page-hero slots. Order here drives the admin list. */
+export const PAGE_HERO_SLUGS = [
+  { slug: "shop", label: "Shop" },
+  { slug: "livestock", label: "Livestock" },
+  { slug: "fish", label: "Fish & Aquaculture" },
+  { slug: "seedlings", label: "Seedlings" },
+  { slug: "lab-services", label: "Lab Services" },
+  { slug: "wholesale", label: "Wholesale" },
+  { slug: "partners", label: "Partners" },
+  { slug: "articles", label: "Knowledge Hub" },
+  { slug: "news", label: "News & Events" },
+  { slug: "about", label: "About" },
+  { slug: "sustainability", label: "Sustainability" },
+  { slug: "careers", label: "Careers" },
+  { slug: "traceability", label: "Traceability" },
+  { slug: "contact", label: "Contact" },
+] as const;
+
+export async function getPageHero(slug: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("page_heroes")
+    .select("*")
+    .eq("page_slug", slug)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+/** Staff-only: every page_heroes row, for the admin list (includes empty slots). */
+export async function getAllPageHeroes() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("page_heroes").select("*");
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function lookupTraceabilityBatch(code: string) {
   const supabase = await createClient();
   const { data: batch, error } = await supabase

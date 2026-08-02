@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getProducts, getPriceRange } from "@/lib/data/products";
 import { categories } from "@/lib/taxonomy";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { ShopFilters } from "@/components/shop/shop-filters";
 import { ProductGrid } from "@/components/shop/product-grid";
 import { ShopPagination } from "@/components/shop/shop-pagination";
@@ -35,6 +36,7 @@ export default async function ShopPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <PageHeroImage slug="shop" />
       <div className="mb-8">
         <h1 className="font-heading text-3xl font-semibold">Shop</h1>
         <p className="mt-1 text-muted-foreground">

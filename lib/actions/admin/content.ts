@@ -85,3 +85,31 @@ export async function deleteGalleryItemAction(id: string) {
   revalidatePath("/about");
   revalidatePath("/admin/content");
 }
+
+export async function savePageHeroAction(formData: FormData) {
+  await requireStaff();
+  const supabase = await createClient();
+
+  const pageSlug = String(formData.get("pageSlug") ?? "").trim();
+  if (!pageSlug) return;
+
+  const payload = {
+    page_slug: pageSlug,
+    title: String(formData.get("title") ?? "").trim() || pageSlug,
+    subtitle: (formData.get("subtitle") as string) || null,
+    image_url: (formData.get("imageUrl") as string) || null,
+  };
+
+  await supabase.from("page_heroes").upsert(payload, { onConflict: "page_slug" });
+
+  revalidatePath(`/${pageSlug}`);
+  revalidatePath("/admin/content");
+}
+
+export async function clearPageHeroImageAction(pageSlug: string) {
+  await requireStaff();
+  const supabase = await createClient();
+  await supabase.from("page_heroes").update({ image_url: null }).eq("page_slug", pageSlug);
+  revalidatePath(`/${pageSlug}`);
+  revalidatePath("/admin/content");
+}

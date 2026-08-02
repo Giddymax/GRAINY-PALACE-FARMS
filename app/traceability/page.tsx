@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { QrCode, ShieldCheck, MapPin, Calendar, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { lookupTraceabilityBatch } from "@/lib/data/misc";
 import { formatDate } from "@/lib/format";
 
@@ -21,6 +22,7 @@ export default async function TraceabilityPage({
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="traceability" />
       <div className="mb-10 text-center">
         <QrCode className="mx-auto mb-3 size-10 text-forest-600" />
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">

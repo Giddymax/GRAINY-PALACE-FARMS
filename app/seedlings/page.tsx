@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCategoryBySlug } from "@/lib/taxonomy";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 
@@ -16,6 +17,7 @@ export default function SeedlingsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="seedlings" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
           Tree &amp; Economic Plant Seedlings

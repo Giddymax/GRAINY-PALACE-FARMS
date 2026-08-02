@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ const benefits = [
 export default function WholesalePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="wholesale" />
       <div className="mb-10 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
           Wholesale &amp; B2B Supply

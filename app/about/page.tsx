@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCertifications, getGalleryItems } from "@/lib/data/misc";
 import { siteConfig } from "@/lib/site-config";
 
@@ -25,6 +26,7 @@ export default async function AboutPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="about" />
       <div className="mb-12 text-center">
         <Image
           src="/brand/grainy-palace-farms-seal.png"
