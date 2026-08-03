@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/taxonomy";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { getCategoryThumbnails } from "@/lib/data/products";
-import { getHeroSlides } from "@/lib/data/misc";
+import { getHeroSlides, getPageHero } from "@/lib/data/misc";
 import { HeroCarousel, type HeroSlideData } from "@/components/home/hero-carousel";
 
 const FALLBACK_SLIDE: HeroSlideData = {
@@ -21,9 +21,10 @@ const FALLBACK_SLIDE: HeroSlideData = {
 
 export default async function HomePage() {
   const featuredCategories = categories.slice(0, 8);
-  const [thumbnails, heroSlides] = await Promise.all([
+  const [thumbnails, heroSlides, heroBackground] = await Promise.all([
     getCategoryThumbnails(),
     getHeroSlides(),
+    getPageHero("home-hero-bg"),
   ]);
   const slides = heroSlides.length > 0 ? heroSlides : [FALLBACK_SLIDE];
   const whatsappHref = buildWhatsAppLink(
@@ -34,7 +35,23 @@ export default async function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-forest-900 pb-14 text-forest-50">
-        <HeroCarousel slides={slides} />
+        {heroBackground?.image_url && (
+          <>
+            <Image
+              src={heroBackground.image_url}
+              alt=""
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover"
+            />
+            {/* Tint so white hero text/badges stay readable over any photo. */}
+            <div className="absolute inset-0 bg-gradient-to-b from-forest-950/85 via-forest-900/80 to-forest-950/90" />
+          </>
+        )}
+        <div className="relative">
+          <HeroCarousel slides={slides} />
+        </div>
         <WaveDivider className="absolute inset-x-0 bottom-0 h-14 w-full text-background" fill="currentColor" />
       </section>
 

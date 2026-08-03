@@ -86,6 +86,11 @@ export async function deleteGalleryItemAction(id: string) {
   revalidatePath("/admin/content");
 }
 
+/** "home-hero-bg" isn't a route — it's the homepage hero's background slot. */
+function pageHeroRoute(pageSlug: string) {
+  return pageSlug === "home-hero-bg" ? "/" : `/${pageSlug}`;
+}
+
 export async function savePageHeroAction(formData: FormData) {
   await requireStaff();
   const supabase = await createClient();
@@ -102,7 +107,7 @@ export async function savePageHeroAction(formData: FormData) {
 
   await supabase.from("page_heroes").upsert(payload, { onConflict: "page_slug" });
 
-  revalidatePath(`/${pageSlug}`);
+  revalidatePath(pageHeroRoute(pageSlug));
   revalidatePath("/admin/content");
 }
 
@@ -110,6 +115,6 @@ export async function clearPageHeroImageAction(pageSlug: string) {
   await requireStaff();
   const supabase = await createClient();
   await supabase.from("page_heroes").update({ image_url: null }).eq("page_slug", pageSlug);
-  revalidatePath(`/${pageSlug}`);
+  revalidatePath(pageHeroRoute(pageSlug));
   revalidatePath("/admin/content");
 }

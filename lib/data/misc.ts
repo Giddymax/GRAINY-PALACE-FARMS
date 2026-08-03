@@ -55,6 +55,7 @@ export async function getHeroSlides() {
 
 /** Known page-hero slots. Order here drives the admin list. */
 export const PAGE_HERO_SLUGS = [
+  { slug: "home-hero-bg", label: "Homepage Hero (background)" },
   { slug: "shop", label: "Shop" },
   { slug: "livestock", label: "Livestock" },
   { slug: "fish", label: "Fish & Aquaculture" },
