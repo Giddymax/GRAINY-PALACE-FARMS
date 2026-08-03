@@ -45,8 +45,10 @@ export default async function HomePage() {
               priority
               className="object-cover"
             />
-            {/* Tint so white hero text/badges stay readable over any photo. */}
-            <div className="absolute inset-0 bg-gradient-to-b from-forest-950/85 via-forest-900/80 to-forest-950/90" />
+            {/* Light directional tint — just enough behind the text column for
+                contrast, fading to fully clear by the image side. */}
+            <div className="absolute inset-0 bg-gradient-to-r from-forest-950/80 via-forest-950/40 to-transparent md:via-forest-950/25" />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/50 via-transparent to-transparent" />
           </>
         )}
         <div className="relative">
