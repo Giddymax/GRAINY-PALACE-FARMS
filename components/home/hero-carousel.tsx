@@ -66,7 +66,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
             {active.title}
           </h1>
           {active.subtitle && (
-            <p className="max-w-xl text-lg text-forest-100">{active.subtitle}</p>
+            <p className="max-w-xl text-lg text-forest-800">{active.subtitle}</p>
           )}
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="bg-gold-500 text-charcoal hover:bg-gold-400">
@@ -78,7 +78,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
               asChild
               size="lg"
               variant="outline"
-              className="border-forest-100/30 bg-transparent text-forest-50 hover:bg-forest-800"
+              className="border-forest-900/30 bg-transparent text-forest-900 hover:bg-forest-900 hover:text-forest-50"
             >
               <Link href="/wholesale">Request Bulk Quote</Link>
             </Button>
@@ -87,7 +87,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 text-sm font-medium text-forest-100 hover:text-gold-300"
+            className="inline-flex w-fit items-center gap-2 text-sm font-medium text-forest-800 hover:text-gold-700"
           >
             <MessageCircle className="size-4" /> Or order directly on WhatsApp
           </a>
@@ -121,7 +121,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
                 aria-label={`Show slide ${i + 1}: ${slide.title}`}
                 onClick={() => goTo(i)}
                 className={`h-2 rounded-full transition-all ${
-                  i === index ? "w-6 bg-gold-400" : "w-2 bg-forest-100/40 hover:bg-forest-100/70"
+                  i === index ? "w-6 bg-gold-500" : "w-2 bg-forest-900/30 hover:bg-forest-900/50"
                 }`}
               />
             ))}
