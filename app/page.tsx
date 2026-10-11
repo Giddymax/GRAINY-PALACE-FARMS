@@ -37,7 +37,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-cream pb-14 text-forest-950">
+      <section className="relative overflow-hidden bg-white pb-14 text-forest-950">
         {heroBackground?.image_url && (
           <>
             <Image
@@ -51,8 +51,8 @@ export default async function HomePage() {
             {/* Light directional tint — just enough behind the text column for
                 contrast (dark-green text needs a light backdrop), fading to
                 fully clear by the image side. */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/70 to-transparent md:via-cream/45" />
-            <div className="absolute inset-0 bg-gradient-to-t from-cream/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent md:via-white/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent" />
           </>
         )}
         <div className="relative">
