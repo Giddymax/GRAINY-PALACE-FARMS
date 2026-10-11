@@ -35,7 +35,7 @@ as $$
 begin
   return exists (
     select 1 from public.profiles
-    where id = auth.uid() and role in ('admin', 'staff')
+    where id = auth.uid() and role in ('admin', 'staff') and is_active = true
   );
 end;
 $$;
@@ -50,7 +50,7 @@ as $$
 begin
   return exists (
     select 1 from public.profiles
-    where id = auth.uid() and role = 'admin'
+    where id = auth.uid() and role = 'admin' and is_active = true
   );
 end;
 $$;
@@ -64,8 +64,10 @@ set search_path = public
 as $$
 begin
   return exists (
-    select 1 from public.partners
-    where profile_id = auth.uid() and approved = true
+    select 1
+    from public.partners p
+    join public.profiles pr on pr.id = p.profile_id
+    where p.profile_id = auth.uid() and p.approved = true and pr.is_active = true
   );
 end;
 $$;
@@ -88,9 +90,8 @@ drop trigger if exists trg_profiles_updated_at on public.profiles;
 create trigger trg_profiles_updated_at before update on public.profiles
   for each row execute function public.set_updated_at();
 
--- Prevent self-escalation: a logged-in user cannot change their own role or
--- is_active. Service-role calls (auth.uid() is null in that context) and
--- admin-performed updates are unaffected.
+-- Prevent self-escalation: only service-role/SQL-editor calls or an active
+-- admin changing another profile may change role or is_active.
 create or replace function public.protect_profile_privileges()
 returns trigger
 language plpgsql
@@ -99,8 +100,8 @@ set search_path = public
 as $$
 begin
   if (new.role is distinct from old.role or new.is_active is distinct from old.is_active) then
-    if auth.uid() is not null and not public.is_admin() then
-      raise exception 'Only admins can change role or active status';
+    if auth.uid() is not null and (new.id = auth.uid() or not public.is_admin()) then
+      raise exception 'Only admins can change another user role or active status';
     end if;
   end if;
   return new;
