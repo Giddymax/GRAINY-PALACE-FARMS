@@ -69,13 +69,17 @@ export const categories: Category[] = [
   },
   {
     slug: "roots-tubers",
-    name: "Roots & Tubers",
-    blurb: "Cassava, yam and cocoyam straight from the farm.",
+    name: "Roots, Tubers & Plantain",
+    blurb: "Cassava, yam, cocoyam, potatoes and plantain straight from the farm.",
     icon: "sprout",
     subcategories: [
       { slug: "cassava", name: "Cassava" },
       { slug: "yam", name: "Yam" },
       { slug: "cocoyam", name: "Cocoyam" },
+      { slug: "sweet-potato", name: "Sweet Potato" },
+      { slug: "irish-potato", name: "Irish Potato" },
+      { slug: "plantain", name: "Plantain" },
+      { slug: "other-root-crops", name: "Other Root Crops & Tubers" },
     ],
   },
   {

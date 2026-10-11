@@ -34,7 +34,7 @@ export function WordMark({ className }: { className?: string }) {
         <span className="font-heading text-lg font-semibold tracking-tight text-foreground">
           Grainy Palace
         </span>
-        <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-gold-600 dark:text-gold-300">
+        <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-gold-700 dark:text-gold-300">
           Farm
         </span>
       </span>

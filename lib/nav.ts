@@ -30,6 +30,7 @@ export const secondaryNav: NavLink[] = [
 export const footerShopLinks: NavLink[] = [
   { label: "Grains & Cereals", href: "/shop/grains-cereals" },
   { label: "Vegetables", href: "/shop/vegetables" },
+  { label: "Roots & Tubers", href: "/shop/roots-tubers" },
   { label: "Poultry & Eggs", href: "/shop/poultry-eggs" },
   { label: "Fish & Seafood", href: "/shop/fish-seafood" },
   { label: "Seedlings", href: "/shop/seedlings" },
