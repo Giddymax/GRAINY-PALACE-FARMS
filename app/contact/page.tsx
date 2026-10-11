@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { ContactForm } from "@/components/forms/contact-form";
 import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
@@ -8,17 +9,18 @@ import { buildWhatsAppLink } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Grainy Palace Farm — phone, WhatsApp, email, or visit us in Greater Accra Region, Ghana.",
+    "Get in touch with Grainy Palace Farms — phone, WhatsApp, email, or visit us in Greater Accra Region, Ghana.",
 };
 
 export default function ContactPage() {
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I'd like to get in touch."
+    "Hello Grainy Palace Farms, I'd like to get in touch."
   );
   const mapQuery = encodeURIComponent(siteConfig.contact.address);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="contact" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">Contact Us</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
@@ -72,7 +74,7 @@ export default function ContactPage() {
 
           <div className="overflow-hidden rounded-xl border border-border">
             <iframe
-              title="Grainy Palace Farm location map"
+              title="Grainy Palace Farms location map"
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
               className="h-64 w-full"
               loading="lazy"

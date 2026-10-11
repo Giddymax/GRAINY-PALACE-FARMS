@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCategoryBySlug } from "@/lib/taxonomy";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 
 export const metadata: Metadata = {
   title: "Seedlings",
   description:
-    "Tree and economic plant seedlings from Grainy Palace Farm's nursery — oil palm, cocoa, cashew, mango, moringa, teak and agroforestry mixes.",
+    "Tree and economic plant seedlings from Grainy Palace Farms' nursery — oil palm, cocoa, cashew, mango, moringa, teak and agroforestry mixes.",
 };
 
 export default function SeedlingsPage() {
@@ -16,6 +17,7 @@ export default function SeedlingsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="seedlings" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
           Tree &amp; Economic Plant Seedlings

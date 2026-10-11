@@ -1,92 +1,80 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { X, Download, Share } from "lucide-react";
+import { Download, Share, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const DISMISS_KEY = "gpf.install-prompt.dismissed";
+const DISMISSED_KEY = "gpf-install-prompt-dismissed";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
 
-function isIos() {
-  return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-}
-
-function isStandalone() {
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    (window.navigator as unknown as { standalone?: boolean }).standalone === true
-  );
-}
-
 export function InstallPrompt() {
   const pathname = usePathname();
-  const [deferredEvent, setDeferredEvent] = React.useState<BeforeInstallPromptEvent | null>(null);
-  const [showIosHint, setShowIosHint] = React.useState(false);
-  const [dismissed, setDismissed] = React.useState(true);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isIOS, setIsIOS] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(true); // default true so it never flashes before we know
+  const [dismissed, setDismissed] = useState(true);
 
-  React.useEffect(() => {
-    if (isStandalone() || localStorage.getItem(DISMISS_KEY) === "1") return;
-    setDismissed(false);
+  useEffect(() => {
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window));
+    setIsStandalone(window.matchMedia("(display-mode: standalone)").matches);
+    setDismissed(localStorage.getItem(DISMISSED_KEY) === "1");
 
-    if (isIos()) {
-      setShowIosHint(true);
-      return;
-    }
-
-    function handler(e: Event) {
+    function onBeforeInstallPrompt(e: Event) {
       e.preventDefault();
-      setDeferredEvent(e as BeforeInstallPromptEvent);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
     }
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
   }, []);
 
+  if (pathname?.startsWith("/admin") || isStandalone || dismissed) return null;
+  if (!deferredPrompt && !isIOS) return null;
+
   function dismiss() {
-    localStorage.setItem(DISMISS_KEY, "1");
+    localStorage.setItem(DISMISSED_KEY, "1");
     setDismissed(true);
   }
 
-  async function handleInstall() {
-    if (!deferredEvent) return;
-    await deferredEvent.prompt();
-    const choice = await deferredEvent.userChoice;
-    if (choice.outcome === "accepted") setDismissed(true);
-    setDeferredEvent(null);
+  async function install() {
+    if (!deferredPrompt) return;
+    await deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") setDeferredPrompt(null);
+    dismiss();
   }
 
-  if (pathname?.startsWith("/admin")) return null;
-  if (dismissed || (!deferredEvent && !showIosHint)) return null;
-
   return (
-    <div className="fixed inset-x-4 bottom-24 z-40 mx-auto flex max-w-sm items-start gap-3 rounded-xl border border-border bg-card p-4 shadow-lg sm:left-auto sm:right-5">
-      {showIosHint ? (
-        <Share className="mt-0.5 size-5 shrink-0 text-forest-600" />
-      ) : (
-        <Download className="mt-0.5 size-5 shrink-0 text-forest-600" />
-      )}
+    <div className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-sm items-start gap-3 rounded-xl border border-border bg-card p-4 shadow-lg sm:left-4 sm:right-auto">
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-forest-100 dark:bg-forest-900/40">
+        <Download className="size-4 text-forest-600 dark:text-forest-300" />
+      </span>
       <div className="flex-1 text-sm">
-        <p className="font-medium">Install Grainy Palace Farm</p>
-        <p className="mt-0.5 text-muted-foreground">
-          {showIosHint
-            ? 'Tap the Share icon, then "Add to Home Screen" for quick, offline-friendly access.'
-            : "Add the app to your home screen for faster, offline-friendly access."}
-        </p>
-        {!showIosHint && (
-          <Button size="sm" className="mt-2" onClick={handleInstall}>
+        <p className="font-medium">Install Grainy Palace Farms</p>
+        {isIOS ? (
+          <p className="mt-1 text-muted-foreground">
+            Tap <Share className="inline size-3.5 align-text-bottom" aria-hidden /> then &quot;Add to
+            Home Screen&quot; to install this app.
+          </p>
+        ) : (
+          <p className="mt-1 text-muted-foreground">
+            Add the app to your home screen for faster, offline-friendly access.
+          </p>
+        )}
+        {!isIOS && (
+          <Button size="sm" className="mt-3" onClick={install}>
             Install
           </Button>
         )}
       </div>
       <button
-        type="button"
-        aria-label="Dismiss install prompt"
         onClick={dismiss}
-        className="text-muted-foreground hover:text-foreground"
+        aria-label="Dismiss install prompt"
+        className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted"
       >
         <X className="size-4" />
       </button>

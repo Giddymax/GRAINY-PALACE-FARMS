@@ -76,42 +76,42 @@
   --color-gold-700: #8a5e17;
   --color-gold-800: #6f4b19;
   --color-gold-900: #5c3f19;
-  --color-cream: #fbf7ee;
+  --color-cream: #f7f1de;
   --color-charcoal: #2a2420;
 }
 
 :root {
-  --background: #fbf7ee;
+  --background: #f7f1de;
   --foreground: #2a2420;
-  --card: #ffffff;
+  --card: #fffdf8;
   --card-foreground: #2a2420;
-  --popover: #ffffff;
+  --popover: #fffdf8;
   --popover-foreground: #2a2420;
   --primary: #1e5631;
   --primary-foreground: #fbf7ee;
-  --secondary: #f0e9d8;
+  --secondary: #eee2c4;
   --secondary-foreground: #2a2420;
-  --muted: #f3efe4;
+  --muted: #efe4c8;
   --muted-foreground: #6b6255;
   --accent: #c9971f;
   --accent-foreground: #2a2420;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e6dfcd;
-  --input: #e6dfcd;
+  --border: #e2d3ab;
+  --input: #e2d3ab;
   --ring: #1e5631;
   --chart-1: #1e5631;
   --chart-2: #c9971f;
   --chart-3: #4c8c68;
   --chart-4: #8a5e17;
   --chart-5: #6b6255;
-  --radius: 0.625rem;
-  --sidebar: #f3efe4;
+  --radius: 0.75rem;
+  --sidebar: #efe4c8;
   --sidebar-foreground: #2a2420;
   --sidebar-primary: #1e5631;
   --sidebar-primary-foreground: #fbf7ee;
-  --sidebar-accent: #e6dfcd;
+  --sidebar-accent: #e2d3ab;
   --sidebar-accent-foreground: #2a2420;
-  --sidebar-border: #e6dfcd;
+  --sidebar-border: #e2d3ab;
   --sidebar-ring: #1e5631;
 }
 
@@ -191,6 +191,28 @@
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 220ms;
+  }
+}
+
+/* The sticky header shouldn't participate in the root crossfade/morph. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Motion-sensitive users: skip all view-transition animation, not just CSS transitions/animations. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
   }
 }
 

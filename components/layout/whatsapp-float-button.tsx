@@ -10,7 +10,7 @@ export function WhatsAppFloatButton() {
   if (pathname?.startsWith("/admin")) return null;
 
   const href = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I have a question about your products."
+    "Hello Grainy Palace Farms, I have a question about your products."
   );
 
   return (
@@ -18,7 +18,7 @@ export function WhatsAppFloatButton() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Grainy Palace Farm on WhatsApp"
+      aria-label="Chat with Grainy Palace Farms on WhatsApp"
       className="fixed bottom-5 right-5 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none [padding-bottom:env(safe-area-inset-bottom)]"
     >
       <MessageCircle className="size-7" fill="currentColor" />

@@ -1,64 +1,61 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CategoryIcon } from "@/components/shop/category-icon";
+import { WaveDivider } from "@/components/layout/wave-divider";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/taxonomy";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { getCategoryThumbnails } from "@/lib/data/products";
+import { getHeroSlides, getPageHero } from "@/lib/data/misc";
+import { HeroCarousel, type HeroSlideData } from "@/components/home/hero-carousel";
 
-export default function HomePage() {
+const FALLBACK_SLIDE: HeroSlideData = {
+  id: "fallback",
+  title: "Certified farm food, delivered across Ghana",
+  subtitle: siteConfig.brandPromise,
+  image_url: null,
+  cta_label: "Shop Now",
+  cta_href: "/shop",
+};
+
+export default async function HomePage() {
   const featuredCategories = categories.slice(0, 8);
+  const [thumbnails, heroSlides, heroBackground] = await Promise.all([
+    getCategoryThumbnails(),
+    getHeroSlides(),
+    getPageHero("home-hero-bg"),
+  ]);
+  const slides = heroSlides.length > 0 ? heroSlides : [FALLBACK_SLIDE];
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farm, I'd like to know more about your products."
+    "Hello Grainy Palace Farms, I'd like to know more about your products."
   );
 
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-forest-900 text-forest-50">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:items-center md:py-24 lg:px-8">
-          <div className="flex flex-col gap-6">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-forest-800 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold-300">
-              <ShieldCheck className="size-4" /> {siteConfig.region}
-            </span>
-            <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Certified farm food, delivered across Ghana
-            </h1>
-            <p className="max-w-xl text-lg text-forest-100">
-              {siteConfig.brandPromise} Grains, livestock, fish, seedlings and
-              processed foods — grown, raised and packed by Grainy Palace Farm
-              Limited.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="bg-gold-500 text-charcoal hover:bg-gold-400">
-                <Link href="/shop">
-                  Shop Now <ArrowRight className="ml-1 size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-forest-100/30 bg-transparent text-forest-50 hover:bg-forest-800"
-              >
-                <Link href="/wholesale">Request Bulk Quote</Link>
-              </Button>
-            </div>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-2 text-sm font-medium text-forest-100 hover:text-gold-300"
-            >
-              <MessageCircle className="size-4" /> Or order directly on WhatsApp
-            </a>
-          </div>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-forest-700 to-forest-800 shadow-2xl">
-            <div className="flex h-full items-center justify-center">
-              <CategoryIcon name="wheat" className="size-32 text-gold-400/80" />
-            </div>
-          </div>
+      <section className="relative overflow-hidden bg-cream pb-14 text-forest-950">
+        {heroBackground?.image_url && (
+          <>
+            <Image
+              src={heroBackground.image_url}
+              alt=""
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover"
+            />
+            {/* Light directional tint — just enough behind the text column for
+                contrast (dark-green text needs a light backdrop), fading to
+                fully clear by the image side. */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/70 to-transparent md:via-cream/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-cream/60 via-transparent to-transparent" />
+          </>
+        )}
+        <div className="relative">
+          <HeroCarousel slides={slides} />
         </div>
+        <WaveDivider className="absolute inset-x-0 bottom-0 h-14 w-full text-background" fill="currentColor" />
       </section>
 
       {/* Trust / certification strip */}
@@ -94,23 +91,36 @@ export default function HomePage() {
           </Button>
         </div>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {featuredCategories.map((category) => (
-            <Link
-              key={category.slug}
-              href={`/shop/${category.slug}`}
-              className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-forest-400"
-            >
-              <div className="flex size-12 items-center justify-center rounded-lg bg-forest-100 text-forest-700 group-hover:bg-forest-600 group-hover:text-white dark:bg-forest-900 dark:text-forest-300">
-                <CategoryIcon name={category.icon} className="size-6" />
-              </div>
-              <div>
-                <h3 className="font-heading font-semibold">{category.name}</h3>
-                <p className="mt-0.5 text-sm text-muted-foreground">
-                  {category.blurb}
-                </p>
-              </div>
-            </Link>
-          ))}
+          {featuredCategories.map((category) => {
+            const thumbnail = thumbnails[category.slug];
+            return (
+              <Link
+                key={category.slug}
+                href={`/shop/${category.slug}`}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-md"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                  {thumbnail ? (
+                    <Image
+                      src={thumbnail}
+                      alt={category.name}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-gradient-to-br from-forest-100 to-gold-100 dark:from-forest-900 dark:to-forest-800" />
+                  )}
+                </div>
+                <div className="p-4">
+                  <h3 className="font-heading font-semibold">{category.name}</h3>
+                  <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">
+                    {category.blurb}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
         <div className="mt-6 text-center sm:hidden">
           <Button asChild variant="outline">
@@ -120,7 +130,8 @@ export default function HomePage() {
       </section>
 
       {/* Sustainability teaser */}
-      <section className="bg-forest-50 dark:bg-forest-950/40">
+      <section className="relative bg-forest-50 pt-14 dark:bg-forest-950/40">
+        <WaveDivider className="absolute inset-x-0 top-0 h-14 w-full -translate-y-full text-forest-50 dark:text-forest-950/40" fill="currentColor" />
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-2 md:items-center lg:px-8">
           <div>
             <h2 className="font-heading text-2xl font-semibold sm:text-3xl">
@@ -149,7 +160,7 @@ export default function HomePage() {
             ].map((pillar) => (
               <div
                 key={pillar.label}
-                className="rounded-xl border border-border bg-card p-4"
+                className="rounded-2xl border border-border bg-card p-4"
               >
                 <p className="font-heading font-semibold text-forest-700 dark:text-forest-300">
                   {pillar.label}
@@ -165,7 +176,7 @@ export default function HomePage() {
 
       {/* WhatsApp CTA */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-[#25D366]/10 p-8 text-center sm:flex-row sm:text-left">
+        <div className="flex flex-col items-center justify-between gap-6 rounded-3xl bg-[#25D366]/10 p-8 text-center sm:flex-row sm:text-left">
           <div>
             <h2 className="font-heading text-xl font-semibold">
               Prefer to order on WhatsApp?

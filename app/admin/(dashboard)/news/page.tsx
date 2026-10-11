@@ -56,7 +56,7 @@ export default async function AdminNewsPage() {
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
                     <EventFormDialog event={event} />
-                    <EntityDeleteButton onDelete={() => deleteEventAction(event.id)} />
+                    <EntityDeleteButton onDelete={deleteEventAction.bind(null, event.id)} />
                   </div>
                 </TableCell>
               </TableRow>

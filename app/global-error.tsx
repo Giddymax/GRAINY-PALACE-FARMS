@@ -35,7 +35,7 @@ export default function GlobalError({
         }}
       >
         <h1 style={{ fontSize: "1.75rem", fontWeight: 600 }}>
-          Grainy Palace Farm — something went wrong
+          Grainy Palace Farms — something went wrong
         </h1>
         <p style={{ color: "#6b6255", maxWidth: 420 }}>
           We&apos;ve hit an unexpected error loading the site. Please try

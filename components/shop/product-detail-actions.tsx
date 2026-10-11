@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Minus, Plus, MessageCircle, ShoppingCart } from "lucide-react";
+import { Check, Minus, Plus, MessageCircle, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart/context";
 import { formatGHS } from "@/lib/format";
 import { buildWhatsAppLink, buildProductOrderMessage } from "@/lib/whatsapp";
+import { useAddedFeedback } from "@/lib/hooks/use-added-feedback";
 import { toast } from "sonner";
 import type { Product } from "@/lib/data/products";
 
 export function ProductDetailActions({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = React.useState(1);
+  const [justAdded, pulseAdded] = useAddedFeedback();
 
   const whatsappHref = buildWhatsAppLink(
     buildProductOrderMessage({
@@ -68,11 +70,20 @@ export function ProductDetailActions({ product }: { product: Product }) {
               },
               quantity
             );
+            pulseAdded();
             toast.success(`${quantity} × ${product.name} added to cart`);
           }}
         >
-          <ShoppingCart className="mr-1 size-4" />
-          {product.is_available ? "Add to cart" : "Coming soon"}
+          {justAdded ? (
+            <>
+              <Check className="mr-1 size-4" /> Added to cart
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="mr-1 size-4" />
+              {product.is_available ? "Add to cart" : "Coming soon"}
+            </>
+          )}
         </Button>
         <Button size="lg" variant="outline" className="flex-1 border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10" asChild>
           <a href={whatsappHref} target="_blank" rel="noopener noreferrer">

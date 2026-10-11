@@ -102,6 +102,25 @@ export async function getFeaturedProducts(limit = 8) {
   return data ?? [];
 }
 
+/** One representative photo per category (first available, by sort_order) for photo-led category cards. */
+export async function getCategoryThumbnails(): Promise<Record<string, string>> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select("category, image_url")
+    .not("image_url", "is", null)
+    .order("sort_order", { ascending: true });
+  if (error) throw error;
+
+  const thumbnails: Record<string, string> = {};
+  for (const row of data ?? []) {
+    if (!thumbnails[row.category] && row.image_url) {
+      thumbnails[row.category] = row.image_url;
+    }
+  }
+  return thumbnails;
+}
+
 export async function getPriceRange() {
   const supabase = await createClient();
   const { data, error } = await supabase

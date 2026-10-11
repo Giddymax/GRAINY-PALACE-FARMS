@@ -25,7 +25,7 @@ export function buildWhatsAppLink(
 export function buildProductOrderMessage(item: WhatsAppOrderItem) {
   const total = item.price * item.quantity;
   return [
-    `Hello Grainy Palace Farm, I'd like to order:`,
+    `Hello Grainy Palace Farms, I'd like to order:`,
     ``,
     `*${item.name}*`,
     `Quantity: ${item.quantity} ${item.unit}`,
@@ -46,7 +46,7 @@ export function buildCartOrderMessage(items: WhatsAppOrderItem[]) {
   );
   const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   return [
-    `Hello Grainy Palace Farm, I'd like to place this order:`,
+    `Hello Grainy Palace Farms, I'd like to place this order:`,
     ``,
     ...lines,
     ``,
@@ -59,7 +59,7 @@ export function buildCartOrderMessage(items: WhatsAppOrderItem[]) {
 /** WhatsApp message after an order/quote/enquiry has been submitted on the site. */
 export function buildFollowUpMessage(reference: string, summary: string) {
   return [
-    `Hello Grainy Palace Farm, I just submitted a request on your website.`,
+    `Hello Grainy Palace Farms, I just submitted a request on your website.`,
     ``,
     `*Reference:* ${reference}`,
     summary,
@@ -69,7 +69,7 @@ export function buildFollowUpMessage(reference: string, summary: string) {
 }
 
 export function buildEnquiryMessage(topic: string, details: string) {
-  return [`Hello Grainy Palace Farm, I have an enquiry about *${topic}*.`, ``, details].join(
+  return [`Hello Grainy Palace Farms, I have an enquiry about *${topic}*.`, ``, details].join(
     "\n"
   );
 }

@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
-import { createClient } from "@/lib/supabase/server";
 import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/taxonomy";
+import { getProducts } from "@/lib/data/products";
+import { getPublishedArticles, getArticleCategories } from "@/lib/data/articles";
 
 const staticRoutes = [
   "",
   "/shop",
+  "/cart",
+  "/checkout",
   "/livestock",
   "/fish",
   "/seedlings",
@@ -23,63 +26,54 @@ const staticRoutes = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const entries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${siteConfig.url}${path}`,
+  const base = siteConfig.url;
+
+  const [{ products }, { articles }, articleCategories] = await Promise.all([
+    getProducts({ pageSize: 1000 }),
+    getPublishedArticles({ pageSize: 1000 }),
+    getArticleCategories(),
+  ]);
+
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
+    url: `${base}${route}`,
     lastModified: new Date(),
-    changeFrequency: path === "" ? "daily" : "weekly",
-    priority: path === "" ? 1 : 0.7,
+    changeFrequency: route === "" ? "daily" : "weekly",
+    priority: route === "" ? 1 : 0.7,
   }));
 
-  for (const category of categories) {
-    entries.push({
-      url: `${siteConfig.url}/shop/${category.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.6,
-    });
-  }
+  const categoryEntries: MetadataRoute.Sitemap = categories.map((category) => ({
+    url: `${base}/shop/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
 
-  try {
-    const supabase = await createClient();
+  const productEntries: MetadataRoute.Sitemap = products.map((product) => ({
+    url: `${base}/product/${product.slug}`,
+    lastModified: product.updated_at ? new Date(product.updated_at) : new Date(),
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
 
-    const { data: products } = await supabase
-      .from("products")
-      .select("slug, updated_at")
-      .eq("is_available", true);
-    for (const product of products ?? []) {
-      entries.push({
-        url: `${siteConfig.url}/product/${product.slug}`,
-        lastModified: new Date(product.updated_at),
-        changeFrequency: "weekly",
-        priority: 0.5,
-      });
-    }
+  const articleCategoryEntries: MetadataRoute.Sitemap = articleCategories.map((cat) => ({
+    url: `${base}/articles/${cat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
 
-    const { data: articles } = await supabase
-      .from("articles")
-      .select("slug, updated_at")
-      .eq("status", "published");
-    for (const article of articles ?? []) {
-      entries.push({
-        url: `${siteConfig.url}/articles/${article.slug}`,
-        lastModified: new Date(article.updated_at),
-        changeFrequency: "monthly",
-        priority: 0.5,
-      });
-    }
+  const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${base}/articles/${article.slug}`,
+    lastModified: article.published_at ? new Date(article.published_at) : new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
 
-    const { data: articleCategories } = await supabase.from("article_categories").select("slug");
-    for (const cat of articleCategories ?? []) {
-      entries.push({
-        url: `${siteConfig.url}/articles/${cat.slug}`,
-        changeFrequency: "weekly",
-        priority: 0.4,
-      });
-    }
-  } catch {
-    // No live Supabase project connected in this environment — ship the
-    // static routes only rather than failing sitemap generation.
-  }
-
-  return entries;
+  return [
+    ...staticEntries,
+    ...categoryEntries,
+    ...productEntries,
+    ...articleCategoryEntries,
+    ...articleEntries,
+  ];
 }

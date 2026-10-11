@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 
 export const metadata: Metadata = {
   title: "Partner Portal",
@@ -17,14 +18,16 @@ export default async function PartnersPage({
   const { pending } = await searchParams;
 
   return (
-    <div className="mx-auto grid max-w-5xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="partners" />
+      <div className="grid gap-10 md:grid-cols-2">
       <div>
         <h1 className="font-heading text-3xl font-semibold">
           Partner Portal
         </h1>
         <p className="mt-3 text-muted-foreground">
           For supermarkets, hotels, restaurants, processors and exporters
-          buying from Grainy Palace Farm at volume. Approved partners get:
+          buying from Grainy Palace Farms at volume. Approved partners get:
         </p>
         <ul className="mt-4 flex flex-col gap-2 text-sm">
           <li>• Tiered bulk pricing on our full catalogue</li>
@@ -56,6 +59,7 @@ export default async function PartnersPage({
           </h2>
           <LoginForm next="/partners/dashboard" signupHref="/signup" />
         </div>
+      </div>
       </div>
     </div>
   );

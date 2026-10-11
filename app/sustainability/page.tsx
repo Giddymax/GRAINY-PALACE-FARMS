@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sprout, Beef, Fish, Package, Heart } from "lucide-react";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 
 export const metadata: Metadata = {
   title: "Sustainability",
   description:
-    "Grainy Palace Farm's four pillars of sustainability: agriculture, livestock, aquaculture and packaging — plus our community commitment.",
+    "Grainy Palace Farms' four pillars of sustainability: agriculture, livestock, aquaculture and packaging — plus our community commitment.",
 };
 
 const pillars = [
@@ -34,6 +35,7 @@ const pillars = [
 export default function SustainabilityPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="sustainability" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">Sustainability</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">

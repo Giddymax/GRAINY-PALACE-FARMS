@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fish as FishIcon, Recycle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 
 export const metadata: Metadata = {
   title: "Fish & Aquaculture",
   description:
-    "Fresh, smoked and frozen tilapia and catfish from Grainy Palace Farm's integrated aquaculture ponds, with full farm-to-table traceability.",
+    "Fresh, smoked and frozen tilapia and catfish from Grainy Palace Farms' integrated aquaculture ponds, with full farm-to-table traceability.",
 };
 
 export default function FishPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="fish" />
       <div className="mb-12 text-center">
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
           Fish &amp; Aquaculture

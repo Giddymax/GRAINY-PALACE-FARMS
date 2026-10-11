@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
+import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCertifications, getGalleryItems } from "@/lib/data/misc";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Grainy Palace Farm Limited's story, mission, vision, core values and certifications — a Ghanaian integrated agribusiness across crops, livestock, aquaculture and processing.",
+    "Grainy Palace Farms Limited's story, mission, vision, core values and certifications — a Ghanaian integrated agribusiness across crops, livestock, aquaculture and processing.",
 };
 
 const coreValues = [
@@ -25,16 +26,17 @@ export default async function AboutPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageHeroImage slug="about" />
       <div className="mb-12 text-center">
         <Image
           src="/brand/grainy-palace-farms-seal.png"
-          alt="Grainy Palace Farm heritage seal"
+          alt="Grainy Palace Farms heritage seal"
           width={96}
           height={96}
           className="mx-auto mb-4 rounded-full"
         />
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
-          About Grainy Palace Farm
+          About Grainy Palace Farms
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
           {siteConfig.tagline}
@@ -44,7 +46,7 @@ export default async function AboutPage() {
       <section className="mb-12">
         <h2 className="mb-3 font-heading text-xl font-semibold">Our story</h2>
         <p className="text-muted-foreground">
-          Grainy Palace Farm Limited was built as an integrated agribusiness
+          Grainy Palace Farms Limited was built as an integrated agribusiness
           spanning the full value chain — grains and vegetables, poultry and
           livestock, fish and aquaculture, tree seedlings, and processed
           foods — based in Greater Accra with operations extending into
@@ -89,7 +91,7 @@ export default async function AboutPage() {
       <section className="mb-12">
         <h2 className="mb-3 font-heading text-xl font-semibold">Ownership &amp; governance</h2>
         <p className="text-muted-foreground">
-          Grainy Palace Farm Limited is a privately-held Ghanaian limited
+          Grainy Palace Farms Limited is a privately-held Ghanaian limited
           liability company, registered and operating under Ghanaian
           agribusiness regulation. Our operations are overseen by a small
           management team across crop production, livestock, aquaculture,

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, Settings } from "lucide-react";
 import { WordMark } from "@/components/brand/logo-mark";
 import {
   FacebookIcon,
@@ -35,7 +35,7 @@ export function SiteFooter() {
               href={siteConfig.social.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Grainy Palace Farm on Facebook"
+              aria-label="Grainy Palace Farms on Facebook"
               className="flex size-9 items-center justify-center rounded-full bg-forest-800 hover:bg-gold-500 hover:text-charcoal"
             >
               <FacebookIcon className="size-4" />
@@ -44,7 +44,7 @@ export function SiteFooter() {
               href={siteConfig.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Grainy Palace Farm on Instagram"
+              aria-label="Grainy Palace Farms on Instagram"
               className="flex size-9 items-center justify-center rounded-full bg-forest-800 hover:bg-gold-500 hover:text-charcoal"
             >
               <InstagramIcon className="size-4" />
@@ -53,7 +53,7 @@ export function SiteFooter() {
               href={siteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Grainy Palace Farm on LinkedIn"
+              aria-label="Grainy Palace Farms on LinkedIn"
               className="flex size-9 items-center justify-center rounded-full bg-forest-800 hover:bg-gold-500 hover:text-charcoal"
             >
               <LinkedInIcon className="size-4" />
@@ -112,7 +112,15 @@ export function SiteFooter() {
           <p>
             &copy; {year} {siteConfig.name}. {t("allRightsReserved")}
           </p>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin"
+              aria-label="Staff login"
+              title="Staff login"
+              className="text-gold-300 hover:text-gold-100"
+            >
+              <Settings className="size-4" />
+            </Link>
             <Link href="/contact" className="hover:underline">
               Contact
             </Link>

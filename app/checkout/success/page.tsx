@@ -4,6 +4,7 @@ import { CheckCircle2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
 import { ClearCartOnMount } from "@/components/checkout/clear-cart-on-mount";
+import { PushManager } from "@/components/pwa/push-manager";
 
 export const metadata: Metadata = { title: "Order placed" };
 
@@ -44,6 +45,7 @@ export default async function CheckoutSuccessPage({
           <Link href="/shop">Continue shopping</Link>
         </Button>
       </div>
+      <PushManager label="Notify me when my order status changes" />
     </div>
   );
 }

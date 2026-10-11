@@ -18,7 +18,7 @@ export default async function AdminLoginPage({
       </div>
       <h1 className="font-heading text-2xl font-semibold">Staff sign in</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        For Grainy Palace Farm admin and staff accounts only.
+        For Grainy Palace Farms admin and staff accounts only.
       </p>
       {error === "unauthorized" && (
         <p role="alert" className="mt-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">

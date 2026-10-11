@@ -1,12 +1,16 @@
+/// <reference types="react/canary" />
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { ShieldCheck, ChevronRight } from "lucide-react";
 import { getProductBySlug, getRelatedProducts } from "@/lib/data/products";
 import { getCategoryBySlug } from "@/lib/taxonomy";
 import { ProductImage } from "@/components/shop/product-image";
 import { ProductDetailActions } from "@/components/shop/product-detail-actions";
 import { ProductGrid } from "@/components/shop/product-grid";
+import { RecordProductView } from "@/components/shop/record-product-view";
+import { RecentlyViewed } from "@/components/shop/recently-viewed";
 import { Badge } from "@/components/ui/badge";
 import { formatGHS } from "@/lib/format";
 import { productJsonLd } from "@/lib/structured-data";
@@ -73,13 +77,15 @@ export default async function ProductPage({
 
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted">
-          <ProductImage
-            src={product.image_url}
-            alt={product.name}
-            categoryIcon={category?.icon}
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            priority
-          />
+          <ViewTransition name={`product-photo-${product.id}`}>
+            <ProductImage
+              src={product.image_url}
+              alt={product.name}
+              categoryIcon={category?.icon}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+            />
+          </ViewTransition>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -94,6 +100,15 @@ export default async function ProductPage({
             <span className="text-base font-normal text-muted-foreground">/ {product.unit}</span>
           </p>
           <p className="text-muted-foreground">{product.description}</p>
+
+          {product.is_available &&
+            product.stock_quantity !== null &&
+            product.stock_quantity > 0 &&
+            product.stock_quantity <= 5 && (
+              <p className="text-sm font-medium text-destructive">
+                Only {product.stock_quantity} left in stock — order soon.
+              </p>
+            )}
 
           <div className="flex items-start gap-2 rounded-lg bg-forest-50 p-3 text-sm dark:bg-forest-950/40">
             <ShieldCheck className="mt-0.5 size-4 shrink-0 text-forest-600" />
@@ -115,6 +130,17 @@ export default async function ProductPage({
           <ProductGrid products={related} />
         </section>
       )}
+
+      <RecentlyViewed excludeSlug={product.slug} />
+      <RecordProductView
+        item={{
+          slug: product.slug,
+          name: product.name,
+          price: product.price,
+          unit: product.unit,
+          imageUrl: product.image_url,
+        }}
+      />
     </div>
   );
 }
