@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, Egg, Beef, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { SubscriptionForm } from "@/components/forms/subscription-form";
@@ -47,37 +46,28 @@ export default function LivestockPage() {
       </div>
 
       <div className="mb-16 grid gap-8 rounded-2xl bg-forest-50 p-8 dark:bg-forest-950/40 md:grid-cols-2">
-        <div className="flex gap-3">
-          <ShieldCheck className="size-6 shrink-0 text-forest-600" />
-          <div>
-            <h3 className="font-heading font-semibold">Antibiotic stewardship</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              We follow a strict withdrawal-period protocol and avoid
-              routine antibiotic use for growth promotion — treatment is
-              reserved for diagnosed illness, under veterinary guidance from
-              our VSD-registered partners.
-            </p>
-          </div>
+        <div>
+          <h3 className="font-heading font-semibold">Antibiotic stewardship</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            We follow a strict withdrawal-period protocol and avoid
+            routine antibiotic use for growth promotion — treatment is
+            reserved for diagnosed illness, under veterinary guidance from
+            our VSD-registered partners.
+          </p>
         </div>
-        <div className="flex gap-3">
-          <Beef className="size-6 shrink-0 text-forest-600" />
-          <div>
-            <h3 className="font-heading font-semibold">Halal handling</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Our goat and sheep are processed under halal-certified
-              procedures. Halal beef is in development as part of our Phase
-              2 product range.
-            </p>
-          </div>
+        <div>
+          <h3 className="font-heading font-semibold">Halal handling</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Our goat and sheep are processed under halal-certified
+            procedures. Halal beef is in development as part of our Phase
+            2 product range.
+          </p>
         </div>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
         <div className="rounded-xl border border-border bg-card p-6">
-          <div className="mb-4 flex items-center gap-2">
-            <Egg className="size-5 text-forest-600" />
-            <h2 className="font-heading text-lg font-semibold">Egg &amp; produce subscription</h2>
-          </div>
+          <h2 className="mb-4 font-heading text-lg font-semibold">Egg &amp; produce subscription</h2>
           <p className="mb-4 text-sm text-muted-foreground">
             Get cage-free eggs, vegetables or fresh tilapia delivered on a
             weekly or monthly schedule — no need to reorder every time.
@@ -97,7 +87,7 @@ export default function LivestockPage() {
           <WholesaleQuoteForm defaultRequestType="bulk" defaultProduct="Live animals" />
           <Button asChild variant="outline" className="mt-3 w-full border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10">
             <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="mr-1 size-4" /> Or order directly on WhatsApp
+              Or order directly on WhatsApp
             </a>
           </Button>
         </div>

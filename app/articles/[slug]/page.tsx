@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
-import { ChevronRight } from "lucide-react";
 import {
   getArticleCategories,
   getPublishedArticles,
@@ -93,7 +92,7 @@ export default async function ArticleOrCategoryPage({
         <Link href="/articles" className="hover:underline">Knowledge Hub</Link>
         {currentCategory && (
           <>
-            <ChevronRight className="size-3.5" />
+        <span aria-hidden="true">/</span>
             <Link href={`/articles/${currentCategory.slug}`} className="hover:underline">
               {currentCategory.name}
             </Link>

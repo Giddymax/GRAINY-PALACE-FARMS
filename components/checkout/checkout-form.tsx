@@ -4,7 +4,6 @@ import * as React from "react";
 import { useActionState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CreditCard, Truck, Store, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -74,19 +73,16 @@ export function CheckoutForm({
           >
             <DeliveryOption
               value="accra"
-              icon={<Truck className="size-4" />}
               label="Accra intra-city delivery"
               fee={deliveryFees.accra}
             />
             <DeliveryOption
               value="nationwide"
-              icon={<Truck className="size-4" />}
               label="Nationwide courier"
               fee={deliveryFees.nationwide}
             />
             <DeliveryOption
               value="pickup"
-              icon={<Store className="size-4" />}
               label="Farm-gate pickup"
               fee={0}
             />
@@ -109,19 +105,16 @@ export function CheckoutForm({
           >
             <PaymentOption
               value="paystack"
-              icon={<CreditCard className="size-4" />}
               label="Card / Mobile Money (MTN, Telecel, AirtelTigo)"
               description="Pay securely via Paystack"
             />
             <PaymentOption
               value="cash"
-              icon={<Banknote className="size-4" />}
               label="Cash on delivery"
               description="Pay the rider when your order arrives"
             />
             <PaymentOption
               value="bank_transfer"
-              icon={<Banknote className="size-4" />}
               label="Bank transfer"
               description="We'll send account details after you place the order"
             />
@@ -181,19 +174,17 @@ export function CheckoutForm({
 
 function DeliveryOption({
   value,
-  icon,
   label,
   fee,
 }: {
   value: string;
-  icon: React.ReactNode;
   label: string;
   fee: number;
 }) {
   return (
     <label className="flex cursor-pointer items-center justify-between gap-3 rounded-lg border border-border p-3 has-[[data-state=checked]]:border-forest-500 has-[[data-state=checked]]:bg-forest-50 dark:has-[[data-state=checked]]:bg-forest-950/30">
       <span className="flex items-center gap-2 text-sm font-medium">
-        <RadioGroupItem value={value} /> {icon} {label}
+        <RadioGroupItem value={value} /> {label}
       </span>
       <span className="text-sm text-muted-foreground">
         {fee === 0 ? "Free" : formatGHS(fee)}
@@ -204,12 +195,10 @@ function DeliveryOption({
 
 function PaymentOption({
   value,
-  icon,
   label,
   description,
 }: {
   value: string;
-  icon: React.ReactNode;
   label: string;
   description: string;
 }) {
@@ -217,8 +206,8 @@ function PaymentOption({
     <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-3 has-[[data-state=checked]]:border-forest-500 has-[[data-state=checked]]:bg-forest-50 dark:has-[[data-state=checked]]:bg-forest-950/30">
       <RadioGroupItem value={value} className="mt-0.5" />
       <span className="flex flex-col gap-0.5">
-        <span className="flex items-center gap-2 text-sm font-medium">
-          {icon} {label}
+        <span className="text-sm font-medium">
+          {label}
         </span>
         <span className="text-xs text-muted-foreground">{description}</span>
       </span>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
 
@@ -50,7 +49,6 @@ export default async function EnquirySuccessPage({
 
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center gap-4 px-4 py-24 text-center">
-      <CheckCircle2 className="size-14 text-forest-600" />
       <h1 className="font-heading text-3xl font-semibold">{copy.title}</h1>
       {ref && (
         <p className="text-muted-foreground">
@@ -61,7 +59,7 @@ export default async function EnquirySuccessPage({
       <div className="mt-2 flex flex-col gap-3 sm:flex-row">
         <Button asChild size="lg" className="bg-[#25D366] text-white hover:bg-[#1fb958]">
           <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="mr-1 size-4" /> Continue on WhatsApp
+            Continue on WhatsApp
           </a>
         </Button>
         <Button asChild size="lg" variant="outline">

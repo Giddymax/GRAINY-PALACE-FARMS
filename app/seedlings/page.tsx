@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Trees } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCategoryBySlug } from "@/lib/taxonomy";
@@ -33,8 +32,7 @@ export default function SeedlingsPage() {
 
       <div className="mb-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {category?.subcategories.map((sub) => (
-          <div key={sub.slug} className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-5 text-center">
-            <Trees className="size-6 text-forest-600" />
+          <div key={sub.slug} className="rounded-xl border border-border bg-card p-5 text-center">
             <h3 className="font-heading text-sm font-semibold">{sub.name}</h3>
           </div>
         ))}

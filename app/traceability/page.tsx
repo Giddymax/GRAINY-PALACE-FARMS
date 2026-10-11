@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { QrCode, ShieldCheck, MapPin, Calendar, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { lookupTraceabilityBatch } from "@/lib/data/misc";
@@ -24,7 +23,6 @@ export default async function TraceabilityPage({
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
       <PageHeroImage slug="traceability" />
       <div className="mb-10 text-center">
-        <QrCode className="mx-auto mb-3 size-10 text-forest-600" />
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">
           Traceability Lookup
         </h1>
@@ -61,36 +59,27 @@ export default async function TraceabilityPage({
 
           <dl className="mt-4 flex flex-col gap-3 text-sm">
             {batch.origin && (
-              <div className="flex items-start gap-2">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-forest-600" />
-                <div>
-                  <dt className="font-medium">Origin</dt>
-                  <dd className="text-muted-foreground">{batch.origin}</dd>
-                </div>
+              <div>
+                <dt className="font-medium">Origin</dt>
+                <dd className="text-muted-foreground">{batch.origin}</dd>
               </div>
             )}
             {batch.harvest_date && (
-              <div className="flex items-start gap-2">
-                <Calendar className="mt-0.5 size-4 shrink-0 text-forest-600" />
-                <div>
-                  <dt className="font-medium">Harvest / production date</dt>
-                  <dd className="text-muted-foreground">{formatDate(batch.harvest_date)}</dd>
-                </div>
+              <div>
+                <dt className="font-medium">Harvest / production date</dt>
+                <dd className="text-muted-foreground">{formatDate(batch.harvest_date)}</dd>
               </div>
             )}
             {batch.certifications.length > 0 && (
-              <div className="flex items-start gap-2">
-                <ShieldCheck className="mt-0.5 size-4 shrink-0 text-forest-600" />
-                <div>
-                  <dt className="font-medium">Certifications</dt>
-                  <dd className="mt-1 flex flex-wrap gap-1.5">
-                    {batch.certifications.map((c) => (
-                      <span key={c} className="rounded-full bg-forest-100 px-2 py-0.5 text-xs text-forest-800 dark:bg-forest-900/50 dark:text-forest-200">
-                        {c}
-                      </span>
-                    ))}
-                  </dd>
-                </div>
+              <div>
+                <dt className="font-medium">Certifications</dt>
+                <dd className="mt-1 flex flex-wrap gap-1.5">
+                  {batch.certifications.map((c) => (
+                    <span key={c} className="rounded-full bg-forest-100 px-2 py-0.5 text-xs text-forest-800 dark:bg-forest-900/50 dark:text-forest-200">
+                      {c}
+                    </span>
+                  ))}
+                </dd>
               </div>
             )}
             {batch.notes && (
@@ -110,7 +99,7 @@ export default async function TraceabilityPage({
             {batch.coa_url && (
               <Button asChild>
                 <a href={batch.coa_url} target="_blank" rel="noopener noreferrer">
-                  <FileDown className="mr-1 size-4" /> Download CoA
+                  Download CoA
                 </a>
               </Button>
             )}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Fish as FishIcon, Recycle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
@@ -36,7 +35,6 @@ export default function FishPage() {
           { name: "Frozen Tilapia Fillets", note: "Boneless, individually quick-frozen." },
         ].map((item) => (
           <div key={item.name} className="rounded-xl border border-border bg-card p-5">
-            <FishIcon className="mb-2 size-6 text-forest-600" />
             <h3 className="font-heading font-semibold">{item.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{item.note}</p>
           </div>
@@ -44,30 +42,24 @@ export default function FishPage() {
       </div>
 
       <div className="mb-16 grid gap-8 rounded-2xl bg-forest-50 p-8 dark:bg-forest-950/40 md:grid-cols-2">
-        <div className="flex gap-3">
-          <Recycle className="size-6 shrink-0 text-forest-600" />
-          <div>
-            <h3 className="font-heading font-semibold">An integrated, circular system</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Nutrient-rich pond water periodically irrigates our adjacent
-              crop plots, cutting our need for synthetic fertiliser — one
-              part of the farm feeding another, rather than water going to
-              waste.
-            </p>
-          </div>
+        <div>
+          <h3 className="font-heading font-semibold">An integrated, circular system</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Nutrient-rich pond water periodically irrigates our adjacent
+            crop plots, cutting our need for synthetic fertiliser — one
+            part of the farm feeding another, rather than water going to
+            waste.
+          </p>
         </div>
-        <div className="flex gap-3">
-          <ShieldCheck className="size-6 shrink-0 text-forest-600" />
-          <div>
-            <h3 className="font-heading font-semibold">Farm-to-table traceability</h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Every batch carries a code you can look up on our{" "}
-              <Link href="/traceability" className="underline">
-                traceability page
-              </Link>{" "}
-              to see the pond of origin, harvest date and lab results.
-            </p>
-          </div>
+        <div>
+          <h3 className="font-heading font-semibold">Farm-to-table traceability</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Every batch carries a code you can look up on our{" "}
+            <Link href="/traceability" className="underline">
+              traceability page
+            </Link>{" "}
+            to see the pond of origin, harvest date and lab results.
+          </p>
         </div>
       </div>
 

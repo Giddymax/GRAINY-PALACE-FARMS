@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, X, ShoppingCart, MessageCircle } from "lucide-react";
+import { Minus, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart/context";
 import { formatGHS } from "@/lib/format";
@@ -14,7 +14,6 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-24 text-center">
-        <ShoppingCart className="size-12 text-muted-foreground" />
         <h1 className="font-heading text-2xl font-semibold">Your cart is empty</h1>
         <p className="text-muted-foreground">
           Browse our shop to add certified farm produce, livestock, fish and more.
@@ -99,7 +98,7 @@ export default function CartPage() {
         <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <Button asChild variant="outline" size="lg" className="border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10">
             <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="mr-1 size-4" /> Order on WhatsApp
+              Order on WhatsApp
             </a>
           </Button>
           <Button asChild size="lg">

@@ -13,29 +13,14 @@ export type Category = {
   slug: string;
   name: string;
   blurb: string;
-  icon: CategoryIconName;
   subcategories: Subcategory[];
 };
-
-export type CategoryIconName =
-  | "wheat"
-  | "bean"
-  | "carrot"
-  | "sprout"
-  | "flower"
-  | "egg"
-  | "beef"
-  | "fish"
-  | "trees"
-  | "package"
-  | "tractor";
 
 export const categories: Category[] = [
   {
     slug: "grains-cereals",
     name: "Grains & Cereals",
     blurb: "Maize, rice, millet and sorghum from certified fields.",
-    icon: "wheat",
     subcategories: [
       { slug: "maize-grain", name: "Maize (Grain)" },
       { slug: "milled-maize", name: "Milled Maize" },
@@ -48,7 +33,6 @@ export const categories: Category[] = [
     slug: "legumes-nuts",
     name: "Legumes & Nuts",
     blurb: "Protein-rich cowpea, soybean and groundnut.",
-    icon: "bean",
     subcategories: [
       { slug: "cowpea", name: "Cowpea (Beans)" },
       { slug: "soybean", name: "Soybean" },
@@ -59,7 +43,6 @@ export const categories: Category[] = [
     slug: "vegetables",
     name: "Vegetables",
     blurb: "Fresh and crated tomatoes, okra, garden eggs and pepper.",
-    icon: "carrot",
     subcategories: [
       { slug: "tomatoes", name: "Tomatoes" },
       { slug: "okra", name: "Okra" },
@@ -71,7 +54,6 @@ export const categories: Category[] = [
     slug: "roots-tubers",
     name: "Roots, Tubers & Plantain",
     blurb: "Cassava, yam, cocoyam, potatoes and plantain straight from the farm.",
-    icon: "sprout",
     subcategories: [
       { slug: "cassava", name: "Cassava" },
       { slug: "yam", name: "Yam" },
@@ -86,7 +68,6 @@ export const categories: Category[] = [
     slug: "cash-industrial-crops",
     name: "Cash & Industrial Crops",
     blurb: "Sesame (beniseed) and shea for processors and exporters.",
-    icon: "flower",
     subcategories: [
       { slug: "sesame", name: "Sesame (Beniseed)" },
       { slug: "shea", name: "Shea" },
@@ -96,7 +77,6 @@ export const categories: Category[] = [
     slug: "poultry-eggs",
     name: "Poultry & Eggs",
     blurb: "Cage-free eggs, dressed and frozen chicken, guinea fowl.",
-    icon: "egg",
     subcategories: [
       { slug: "dressed-chicken", name: "Dressed Chicken" },
       { slug: "frozen-chicken-portions", name: "Frozen Chicken Portions" },
@@ -109,7 +89,6 @@ export const categories: Category[] = [
     slug: "meat-livestock",
     name: "Meat & Livestock",
     blurb: "Chevon, mutton, pork, rabbit and live animals.",
-    icon: "beef",
     subcategories: [
       { slug: "chevon-goat", name: "Chevon (Goat)" },
       { slug: "mutton-sheep", name: "Mutton (Sheep)" },
@@ -123,7 +102,6 @@ export const categories: Category[] = [
     slug: "fish-seafood",
     name: "Fish & Seafood",
     blurb: "Fresh and smoked tilapia, catfish and frozen fillets.",
-    icon: "fish",
     subcategories: [
       { slug: "fresh-tilapia", name: "Fresh Tilapia" },
       { slug: "fresh-catfish", name: "Fresh Catfish" },
@@ -135,7 +113,6 @@ export const categories: Category[] = [
     slug: "seedlings",
     name: "Tree & Economic Plants (Seedlings)",
     blurb: "Oil palm, cocoa, cashew, moringa and agroforestry seedlings.",
-    icon: "trees",
     subcategories: [
       { slug: "oil-palm", name: "Oil Palm" },
       { slug: "cocoa", name: "Cocoa" },
@@ -153,7 +130,6 @@ export const categories: Category[] = [
     slug: "processed-foods",
     name: "Processed & Value-Added Foods",
     blurb: "Organic flours, porridge mixes, cold-pressed oils and gift baskets.",
-    icon: "package",
     subcategories: [
       { slug: "organic-flours", name: "Organic Flours" },
       { slug: "porridge-weaning-mixes", name: "Porridge & Weaning Mixes" },
@@ -166,7 +142,6 @@ export const categories: Category[] = [
     slug: "farm-inputs-feed",
     name: "Farm Inputs & Feed",
     blurb: "Livestock feed, organic compost and certified seeds/fingerlings.",
-    icon: "tractor",
     subcategories: [
       { slug: "livestock-feed", name: "Livestock/Poultry Feed" },
       { slug: "organic-compost", name: "Organic Compost Fertiliser" },

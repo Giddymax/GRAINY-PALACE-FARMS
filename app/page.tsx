@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WaveDivider } from "@/components/layout/wave-divider";
 import { siteConfig } from "@/lib/site-config";
@@ -66,7 +65,6 @@ export default async function HomePage() {
               key={badge}
               className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground"
             >
-              <ShieldCheck className="size-4 text-forest-600" />
               {badge}
             </span>
           ))}
@@ -86,7 +84,7 @@ export default async function HomePage() {
           </div>
           <Button asChild variant="link" className="hidden shrink-0 sm:inline-flex">
             <Link href="/shop">
-              View all categories <ArrowRight className="ml-1 size-4" />
+              View all categories
             </Link>
           </Button>
         </div>
@@ -147,7 +145,7 @@ export default async function HomePage() {
             </p>
             <Button asChild variant="link" className="mt-2 px-0">
               <Link href="/sustainability">
-                Read our sustainability policy <ArrowRight className="ml-1 size-4" />
+                Read our sustainability policy
               </Link>
             </Button>
           </div>
@@ -188,7 +186,7 @@ export default async function HomePage() {
           </div>
           <Button asChild size="lg" className="bg-[#25D366] text-white hover:bg-[#1fb958]">
             <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="mr-1 size-4" /> Chat on WhatsApp
+              Chat on WhatsApp
             </a>
           </Button>
         </div>

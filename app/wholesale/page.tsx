@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 
@@ -39,10 +38,7 @@ export default function WholesalePage() {
           </h2>
           <ul className="flex flex-col gap-3">
             {benefits.map((b) => (
-              <li key={b} className="flex items-start gap-2 text-sm">
-                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-forest-600" />
-                {b}
-              </li>
+              <li key={b} className="text-sm">{b}</li>
             ))}
           </ul>
           <p className="mt-6 text-sm text-muted-foreground">

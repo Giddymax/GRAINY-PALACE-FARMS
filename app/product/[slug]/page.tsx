@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ViewTransition } from "react";
-import { ShieldCheck, ChevronRight } from "lucide-react";
 import { getProductBySlug, getRelatedProducts } from "@/lib/data/products";
 import { getCategoryBySlug } from "@/lib/taxonomy";
 import { ProductImage } from "@/components/shop/product-image";
@@ -65,11 +64,11 @@ export default async function ProductPage({
 
       <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
         <Link href="/shop" className="hover:underline">Shop</Link>
-        <ChevronRight className="size-3.5" />
+        <span aria-hidden="true">/</span>
         {category && (
           <>
             <Link href={`/shop/${category.slug}`} className="hover:underline">{category.name}</Link>
-            <ChevronRight className="size-3.5" />
+            <span aria-hidden="true">/</span>
           </>
         )}
         <span className="text-foreground">{product.name}</span>
@@ -110,7 +109,6 @@ export default async function ProductPage({
             )}
 
           <div className="flex items-start gap-2 rounded-lg bg-forest-50 p-3 text-sm dark:bg-forest-950/40">
-            <ShieldCheck className="mt-0.5 size-4 shrink-0 text-forest-600" />
             <span>{product.traceability_note}</span>
           </div>
 

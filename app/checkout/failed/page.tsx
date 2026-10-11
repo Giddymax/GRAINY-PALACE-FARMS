@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { XCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
 
@@ -21,7 +20,6 @@ export default async function CheckoutFailedPage({
 
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center gap-4 px-4 py-24 text-center">
-      <XCircle className="size-14 text-destructive" />
       <h1 className="font-heading text-3xl font-semibold">
         Payment not completed
       </h1>
@@ -33,7 +31,7 @@ export default async function CheckoutFailedPage({
       <div className="mt-2 flex flex-col gap-3 sm:flex-row">
         <Button asChild size="lg" className="bg-[#25D366] text-white hover:bg-[#1fb958]">
           <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="mr-1 size-4" /> Message us on WhatsApp
+            Message us on WhatsApp
           </a>
         </Button>
         <Button asChild size="lg" variant="outline">

@@ -5,7 +5,6 @@ import * as React from "react";
 import { ViewTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { siteConfig } from "@/lib/site-config";
@@ -59,8 +58,8 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:items-center md:py-24 lg:px-8">
       <ViewTransition key={active.id} enter="auto" default="none">
         <div className="flex flex-col gap-6">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-forest-800 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold-300">
-            <ShieldCheck className="size-4" /> {siteConfig.region}
+          <span className="inline-flex w-fit rounded-full bg-forest-800 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gold-300">
+            {siteConfig.region}
           </span>
           <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
             {active.title}
@@ -71,7 +70,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="bg-gold-500 text-charcoal hover:bg-gold-400">
               <Link href={active.cta_href ?? "/shop"}>
-                {active.cta_label ?? "Shop Now"} <ArrowRight className="ml-1 size-4" />
+                {active.cta_label ?? "Shop Now"}
               </Link>
             </Button>
             <Button
@@ -87,9 +86,9 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 text-sm font-medium text-forest-800 hover:text-gold-700"
+            className="inline-flex w-fit text-sm font-medium text-forest-800 hover:text-gold-700"
           >
-            <MessageCircle className="size-4" /> Or order directly on WhatsApp
+            Or order directly on WhatsApp
           </a>
         </div>
       </ViewTransition>

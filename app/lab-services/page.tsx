@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { FlaskConical, CheckCircle2, Clock, Search, FileDown } from "lucide-react";
 import { LabSampleForm } from "@/components/forms/lab-sample-form";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
@@ -32,7 +31,6 @@ export default async function LabServicesPage({
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
       <PageHeroImage slug="lab-services" />
       <div className="mb-12 text-center">
-        <FlaskConical className="mx-auto mb-3 size-10 text-forest-600" />
         <h1 className="font-heading text-3xl font-semibold sm:text-4xl">Lab Services</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
           Independent food-safety testing for producers, processors and
@@ -57,7 +55,7 @@ export default async function LabServicesPage({
                   <td className="px-4 py-3 font-medium">{t.name}</td>
                   <td className="px-4 py-3">{t.price}</td>
                   <td className="px-4 py-3 text-muted-foreground">
-                    <Clock className="mr-1 inline size-3.5" /> {t.turnaround}
+                    {t.turnaround}
                   </td>
                 </tr>
               ))}
@@ -77,8 +75,8 @@ export default async function LabServicesPage({
         </section>
 
         <section className="rounded-xl border border-border bg-card p-6">
-          <h2 className="mb-4 flex items-center gap-2 font-heading text-lg font-semibold">
-            <Search className="size-5" /> Results tracker
+          <h2 className="mb-4 font-heading text-lg font-semibold">
+            Results tracker
           </h2>
           <form className="flex gap-2" method="get">
             <input
@@ -105,7 +103,7 @@ export default async function LabServicesPage({
               <p className="flex items-center gap-1.5">
                 <span className="font-medium">Status:</span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-forest-100 px-2 py-0.5 text-xs font-medium capitalize text-forest-800 dark:bg-forest-900/50 dark:text-forest-200">
-                  <CheckCircle2 className="size-3" /> {result.status}
+                  {result.status}
                 </span>
               </p>
               <p><span className="font-medium">Submitted:</span> {formatDate(result.submitted_at)}</p>
@@ -115,7 +113,7 @@ export default async function LabServicesPage({
               {result.status === "complete" && result.coa_url && (
                 <Button asChild size="sm" className="mt-2 w-fit">
                   <a href={result.coa_url} target="_blank" rel="noopener noreferrer">
-                    <FileDown className="mr-1 size-4" /> Download CoA
+                    Download CoA
                   </a>
                 </Button>
               )}

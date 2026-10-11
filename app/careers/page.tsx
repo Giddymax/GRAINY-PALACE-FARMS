@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Briefcase, Sprout } from "lucide-react";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getOpenJobs } from "@/lib/data/misc";
 import { JobApplicationForm } from "@/components/forms/job-application-form";
@@ -36,8 +35,8 @@ export default async function CareersPage() {
       </div>
 
       <section className="mb-16">
-        <h2 className="mb-6 flex items-center gap-2 font-heading text-xl font-semibold">
-          <Briefcase className="size-5 text-forest-600" /> Open roles
+        <h2 className="mb-6 font-heading text-xl font-semibold">
+          Open roles
         </h2>
         {jobs.length === 0 ? (
           <p className="text-muted-foreground">
@@ -67,8 +66,8 @@ export default async function CareersPage() {
       </section>
 
       <section className="rounded-xl border border-border bg-card p-6">
-        <h2 className="mb-2 flex items-center gap-2 font-heading text-xl font-semibold">
-          <Sprout className="size-5 text-forest-600" /> Outgrower scheme
+        <h2 className="mb-2 font-heading text-xl font-semibold">
+          Outgrower scheme
         </h2>
         <p className="mb-6 max-w-2xl text-sm text-muted-foreground">
           Grow maize, soybean or sorghum alongside us as a contract farmer.

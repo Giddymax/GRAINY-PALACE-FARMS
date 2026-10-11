@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ShieldCheck } from "lucide-react";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getCertifications, getGalleryItems } from "@/lib/data/misc";
 import { siteConfig } from "@/lib/site-config";
@@ -109,7 +108,6 @@ export default async function AboutPage() {
                 key={cert.id}
                 className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-sm"
               >
-                <ShieldCheck className="size-4 text-forest-600" />
                 {cert.name}
                 {cert.status === "pending" && (
                   <span className="text-xs text-muted-foreground">(in progress)</span>

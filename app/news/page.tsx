@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CalendarDays, MapPin } from "lucide-react";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { getPublishedEvents } from "@/lib/data/misc";
 import { formatDate } from "@/lib/format";
@@ -64,13 +63,13 @@ function EventCard({
       <h3 className="font-heading text-lg font-semibold">{event.title}</h3>
       <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
         {event.event_date && (
-          <span className="flex items-center gap-1">
-            <CalendarDays className="size-3.5" /> {formatDate(event.event_date)}
+          <span>
+            Date: {formatDate(event.event_date)}
           </span>
         )}
         {event.location && (
-          <span className="flex items-center gap-1">
-            <MapPin className="size-3.5" /> {event.location}
+          <span>
+            Location: {event.location}
           </span>
         )}
       </div>
