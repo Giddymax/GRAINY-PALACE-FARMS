@@ -19,7 +19,11 @@ const FALLBACK_SLIDE: HeroSlideData = {
 };
 
 export default async function HomePage() {
-  const featuredCategories = categories.slice(0, 8);
+  const featuredCategories = categories.slice(0, 7);
+  const agroInputsCategory = categories.find(
+    (category) => category.slug === "agrochemicals-inputs"
+  );
+  if (agroInputsCategory) featuredCategories.push(agroInputsCategory);
   const [thumbnails, heroSlides, heroBackground] = await Promise.all([
     getCategoryThumbnails(),
     getHeroSlides(),
@@ -94,7 +98,11 @@ export default async function HomePage() {
             return (
               <Link
                 key={category.slug}
-                href={`/shop/${category.slug}`}
+                href={
+                  category.slug === "agrochemicals-inputs"
+                    ? "/agrochemicals-inputs"
+                    : `/shop/${category.slug}`
+                }
                 className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-md"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">

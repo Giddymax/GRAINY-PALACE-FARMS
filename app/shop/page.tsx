@@ -45,6 +45,21 @@ export default async function ShopPage({
         </p>
       </div>
 
+      <div className="mb-8 flex flex-col gap-3 rounded-xl border border-border bg-forest-50 p-5 dark:bg-forest-950/40 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-heading text-lg font-semibold">Agrochemicals &amp; farm inputs</h2>
+          <p className="text-sm text-muted-foreground">
+            Browse crop-care products, soil inputs and practical farm supplies.
+          </p>
+        </div>
+        <Link
+          href="/agrochemicals-inputs"
+          className="shrink-0 text-sm font-medium text-forest-700 underline underline-offset-4 dark:text-forest-300"
+        >
+          Explore the range
+        </Link>
+      </div>
+
       <div className="mb-10 flex gap-3 overflow-x-auto pb-2">
         {categories.map((c) => (
           <Link

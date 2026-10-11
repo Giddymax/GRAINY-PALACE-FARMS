@@ -148,6 +148,17 @@ export const categories: Category[] = [
       { slug: "seeds-fingerlings", name: "Certified Seeds & Fingerlings" },
     ],
   },
+  {
+    slug: "agrochemicals-inputs",
+    name: "Agrochemicals & Inputs",
+    blurb: "Fertilisers, crop-protection products, planting materials and practical farm supplies.",
+    subcategories: [
+      { slug: "fertilisers-soil-amendments", name: "Fertilisers & Soil Amendments" },
+      { slug: "crop-protection", name: "Crop Protection" },
+      { slug: "seeds-planting-materials", name: "Seeds & Planting Materials" },
+      { slug: "farm-tools-safety", name: "Farm Tools & Protective Equipment" },
+    ],
+  },
 ];
 
 export const productUnits = [

@@ -12,6 +12,7 @@ export const primaryNav: NavLink[] = [
   { label: "Livestock", href: "/livestock", i18nKey: "livestock" },
   { label: "Fish & Aquaculture", href: "/fish", i18nKey: "fish" },
   { label: "Seedlings", href: "/seedlings", i18nKey: "seedlings" },
+  { label: "Agrochemicals & Inputs", href: "/agrochemicals-inputs" },
   { label: "Wholesale", href: "/wholesale", i18nKey: "wholesale" },
 ];
 
@@ -28,6 +29,8 @@ export const secondaryNav: NavLink[] = [
 ];
 
 export const footerShopLinks: NavLink[] = [
+  { label: "Agrochemicals & Inputs", href: "/agrochemicals-inputs" },
+  { label: "Shop Farm Inputs & Feed", href: "/shop/farm-inputs-feed" },
   { label: "Grains & Cereals", href: "/shop/grains-cereals" },
   { label: "Vegetables", href: "/shop/vegetables" },
   { label: "Roots & Tubers", href: "/shop/roots-tubers" },
