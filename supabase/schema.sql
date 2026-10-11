@@ -990,10 +990,13 @@ insert into public.certifications (name, issuing_body, status, sort_order) value
   ('Fisheries Commission Licensed', 'Fisheries Commission of Ghana', 'active', 4),
   ('EPA Compliant', 'Environmental Protection Agency, Ghana', 'active', 5),
   ('HACCP', 'Independent third-party audit', 'active', 6),
-  ('Halal Certified', 'Ghana Halal Certification Board', 'active', 7),
-  ('Organic Certified', 'Ecocert-affiliated inspector', 'active', 8),
-  ('ISO 22000', 'International Organization for Standardization', 'pending', 9)
+  ('Organic Certified', 'Ecocert-affiliated inspector', 'active', 7),
+  ('ISO 22000', 'International Organization for Standardization', 'pending', 8)
 on conflict do nothing;
+
+delete from public.certifications
+where lower(name) like '%halal%'
+   or lower(coalesce(issuing_body, '')) like '%halal%';
 
 -- Hero slides
 insert into public.hero_slides (title, subtitle, cta_label, cta_href, sort_order) values
@@ -1051,12 +1054,11 @@ insert into public.products (name, slug, category, subcategory, description, pri
 ('Cage-Free Table Eggs (Crate of 30)', 'cage-free-table-eggs-crate-of-30', 'poultry-eggs', 'table-eggs', 'A full crate of 30 cage-free table eggs from our free-range layer flock.', 58.00, 'crate', array['Cage-Free','Traceable'], true, 22),
 ('Guinea Fowl (Whole)', 'guinea-fowl-whole', 'poultry-eggs', 'guinea-fowl', 'Whole dressed guinea fowl, popular for festive and ceremonial meals.', 90.00, 'each', array['Fresh','Traceable'], true, 23),
 -- Meat & Livestock
-('Chevon (Goat Meat)', 'chevon-goat-meat', 'meat-livestock', 'chevon-goat', 'Fresh chevon (goat meat), butchered on request for light soup and grilling.', 65.00, 'kg', array['Fresh','Halal','Traceable'], true, 24),
-('Mutton (Sheep Meat)', 'mutton-sheep-meat', 'meat-livestock', 'mutton-sheep', 'Fresh mutton, well suited to waakye stew and grilled dishes.', 62.00, 'kg', array['Fresh','Halal','Traceable'], true, 25),
+('Chevon (Goat Meat)', 'chevon-goat-meat', 'meat-livestock', 'chevon-goat', 'Fresh chevon (goat meat), butchered on request for light soup and grilling.', 65.00, 'kg', array['Fresh','Traceable'], true, 24),
+('Mutton (Sheep Meat)', 'mutton-sheep-meat', 'meat-livestock', 'mutton-sheep', 'Fresh mutton, well suited to waakye stew and grilled dishes.', 62.00, 'kg', array['Fresh','Traceable'], true, 25),
 ('Fresh Pork Cuts', 'fresh-pork-cuts', 'meat-livestock', 'pork', 'Fresh pork cuts from our own piggery, chilled for same-week delivery.', 45.00, 'kg', array['Fresh','Traceable'], true, 26),
 ('Live Rabbit', 'live-rabbit', 'meat-livestock', 'rabbit', 'Live rabbit, raised on our small ruminant unit — a lean, low-fat meat option.', 80.00, 'each', array['Traceable'], true, 27),
 ('Live Goat (Festive Order)', 'live-goat-festive-order', 'meat-livestock', 'live-animals', 'Live goat for festive-season and ceremonial orders — please order at least 5 days ahead.', 850.00, 'each', array['Traceable'], true, 28),
-('Halal Beef (Coming Soon)', 'halal-beef-coming-soon', 'meat-livestock', 'halal-beef', 'Halal-certified beef is in development as part of our Phase 2 product range.', 50.00, 'kg', array['Halal'], false, 29),
 -- Fish & Seafood
 ('Fresh Tilapia', 'fresh-tilapia', 'fish-seafood', 'fresh-tilapia', 'Fresh tilapia harvested from our aquaculture ponds and delivered on ice the same day.', 35.00, 'kg', array['Fresh','Traceable'], true, 30),
 ('Fresh Catfish', 'fresh-catfish', 'fish-seafood', 'fresh-catfish', 'Fresh catfish from our integrated fish-crop ponds, delivered on ice.', 40.00, 'kg', array['Fresh','Traceable'], true, 31),
@@ -1088,6 +1090,28 @@ insert into public.products (name, slug, category, subcategory, description, pri
 ('Certified Maize Seed', 'certified-maize-seed', 'farm-inputs-feed', 'seeds-fingerlings', 'Certified, disease-tested maize seed for the coming planting season.', 25.00, 'kg', array['Certified'], true, 54),
 ('Tilapia Fingerlings (100)', 'tilapia-fingerlings-100', 'farm-inputs-feed', 'seeds-fingerlings', 'A batch of 100 certified tilapia fingerlings for pond stocking.', 90.00, 'pack', array['Certified'], true, 55)
 on conflict (slug) do nothing;
+
+update public.products
+set tags = coalesce(
+  (select array_agg(t.tag) from unnest(products.tags) as t(tag) where lower(t.tag) <> 'halal'),
+  '{}'::text[]
+)
+where exists (
+  select 1 from unnest(products.tags) as t(tag) where lower(t.tag) = 'halal'
+);
+
+delete from public.products
+where lower(slug) = 'halal-beef-coming-soon'
+   or lower(subcategory) = 'halal-beef';
+
+update public.product_batches
+set certifications = coalesce(
+  (select array_agg(c.value) from unnest(product_batches.certifications) as c(value) where lower(c.value) not like '%halal%'),
+  '{}'::text[]
+)
+where exists (
+  select 1 from unnest(product_batches.certifications) as c(value) where lower(c.value) like '%halal%'
+);
 
 -- Sample traceability batches for a handful of flagship products
 insert into public.product_batches (batch_code, product_id, harvest_date, origin, certifications, notes)

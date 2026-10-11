@@ -27,7 +27,7 @@ Build a complete, installable e-commerce + marketing website for **Grainy Palace
 - **Logo concept:** stylised grain head merging with a crown motif on a green field.
 - **Tone:** confident, warm, scientifically credible, community-driven.
 - **Look & feel:** clean, trustworthy, food-fresh. Real farm/produce/market imagery over stock gradients and decorative blobs. Category cards with product photography. Ghanaian cues — cedi pricing, local market language ("crate", "olonka/bowl", "bag", "dozen"), MoMo payment, WhatsApp ordering.
-- **Trust badges** surfaced on shop + product pages: `FDA-registered`, `Certified`, `HACCP`, `Cage-Free`, `Halal`, `QR-Traceable`, `Eco-Packaged`.
+- **Trust badges** surfaced on shop + product pages: `FDA-registered`, `Certified`, `HACCP`, `Cage-Free`, `QR-Traceable`, `Eco-Packaged`.
 - **Hero:** headline = the offer ("Certified farm food, delivered across Ghana"), one real hero visual, primary CTA `Shop Now`, secondary `Request Bulk Quote`.
 
 ---
@@ -41,7 +41,7 @@ Build a complete, installable e-commerce + marketing website for **Grainy Palace
 | `/shop/[category]` | Category listing with sub-category chips |
 | `/product/[slug]` | Product detail: gallery, price/unit, tags, traceability note, quantity, add-to-cart, WhatsApp-order |
 | `/cart` + `/checkout` | Cart, delivery info, payment (§4) |
-| `/livestock` | Poultry, ruminants, pork, rabbit, halal info, live-animal & egg-subscription orders |
+| `/livestock` | Poultry, ruminants, pork, rabbit, live-animal & egg-subscription orders |
 | `/fish` | Aquaculture: fresh/smoked/frozen tilapia & catfish, farm-to-table traceability |
 | `/seedlings` | Tree & economic plant seedlings (agroforestry / plantation value chain) |
 | `/lab-services` | Food-safety testing menu + sample-submission form + **results tracker** (lookup by reference) |
@@ -71,7 +71,7 @@ Public must see and purchase every product in **well-defined categories across a
 4. **Roots & Tubers** — Cassava, Yam, Cocoyam
 5. **Cash & Industrial Crops** — Sesame (Beniseed), Shea
 6. **Poultry & Eggs** — Dressed chicken, Frozen chicken portions, Live broilers, Table eggs *(cage-free, by crate/dozen)*, Guinea fowl
-7. **Meat & Livestock** — Chevon (goat), Mutton (sheep), Pork, Rabbit, Live animals; Halal beef *(Phase 2 — show as "Coming soon")*
+7. **Meat & Livestock** — Chevon (goat), Mutton (sheep), Pork, Rabbit and live animals
 8. **Fish & Seafood** — Fresh Tilapia, Fresh Catfish, Smoked Catfish, Frozen Tilapia Fillets
 9. **Tree & Economic Plants (Seedlings)** — Oil palm, Cocoa, Cashew, Mango, Citrus, Moringa, Shea, Teak, Plantain suckers, mixed agroforestry seedlings
 10. **Processed & Value-Added Foods** — Organic flours (maize/cassava/soybean), Porridge & weaning mixes, Cold-pressed groundnut & sesame oil, Dried vegetable packs, Branded grain gift baskets
@@ -104,18 +104,18 @@ Nutrition · Food Safety · Environmental Protection · Sustainable Agriculture 
 
 Build these so the site reflects the whole plan, not just the shop:
 
-- **Livestock page** — poultry (broilers, cage-free eggs), goats/sheep, pork, rabbit, guinea fowl; halal & antibiotic-stewardship notes; **egg subscription** sign-up (weekly/monthly crates) and **live-animal order** enquiry (festive-season surge).
+- **Livestock page** — poultry (broilers, cage-free eggs), goats/sheep, pork, rabbit, guinea fowl; antibiotic-stewardship notes; **egg subscription** sign-up (weekly/monthly crates) and **live-animal order** enquiry (festive-season surge).
 - **Fish & Aquaculture page** — tilapia & catfish (fresh/smoked/frozen fillet), farm-to-table traceability, wholesale enquiry; note the integrated fish-crop circular system.
 - **Lab Services** — testing menu (chemical residue, microbiological, nutritional, water quality, shelf-life), pricing, sample-submission form (with file upload), and a **results tracker** (public lookup by reference → CoA download once ready).
 - **Partner (B2B) portal** — Supabase-auth login for approved partners (supermarkets, hotels, processors, exporters): tiered bulk pricing, order history, invoices, downloadable Certificates of Analysis. Admin approves partner accounts.
 - **Careers & Outgrower** — open roles from the HR plan; equal-opportunity + youth/community hiring copy; **outgrower-scheme application** form (contract farming: certified seeds, training, fair-price offtake).
 - **Sustainability** — the four pillars from the plan (agricultural, livestock, aquaculture, packaging & community), circular zero-waste model, Ghana 2021 Plastics Levy alignment, community 2%-of-profit commitment.
-- **About & Certifications** — mission/vision/core values, ownership & governance summary, and a certifications strip (FDA, MOFA, VSD, Fisheries Commission, EPA, HACCP, ISO 22000 (Phase 2), Halal, Organic) rendered from CMS so badges update as certifications are earned.
+- **About & Certifications** — mission/vision/core values, ownership & governance summary, and a certifications strip (FDA, MOFA, VSD, Fisheries Commission, EPA, HACCP, ISO 22000 (Phase 2), Organic) rendered from CMS so badges update as certifications are earned.
 - **News & Events** — press releases, trade-fair appearances, community events (can reuse the articles engine with the "Company News & Events" category, or a lightweight `events` table with date/location).
 - **Traceability** — `/traceability?code=…` (and QR on packaging) resolves a batch → product, origin, certifications, and CoA link.
 
 ### Product model (each item)
-`name, slug, category, subcategory, description, image_url (+gallery), price (GHS), unit (kg / bag / crate / dozen / pack / each / seedling / litre), tags[] (Organic, Cage-Free, Halal, Smoked, Frozen, Fresh, Certified, Traceable), is_available, sort_order`. Include a short **traceability line** per product ("Farm-to-fork QR traceable").
+`name, slug, category, subcategory, description, image_url (+gallery), price (GHS), unit (kg / bag / crate / dozen / pack / each / seedling / litre), tags[] (Organic, Cage-Free, Smoked, Frozen, Fresh, Certified, Traceable), is_available, sort_order`. Include a short **traceability line** per product ("Farm-to-fork QR traceable").
 
 ### `/shop` UX
 - Category grid at top → click drills into `/shop/[category]` with sub-category chips.

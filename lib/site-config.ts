@@ -37,7 +37,6 @@ export const siteConfig = {
     "Certified",
     "HACCP",
     "Cage-Free",
-    "Halal",
     "QR-Traceable",
     "Eco-Packaged",
   ],

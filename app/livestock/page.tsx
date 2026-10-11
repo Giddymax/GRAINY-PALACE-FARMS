@@ -34,7 +34,7 @@ export default function LivestockPage() {
       <div className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { title: "Poultry", body: "Cage-free layers, dressed and frozen broilers, guinea fowl." },
-          { title: "Goats & Sheep", body: "Chevon and mutton, halal-handled from arrival to dressing." },
+          { title: "Goats & Sheep", body: "Chevon and mutton, available fresh and prepared to order." },
           { title: "Pork", body: "From our own piggery, chilled for same-week delivery." },
           { title: "Rabbit", body: "A lean, low-fat meat option raised on our small ruminant unit." },
         ].map((item) => (
@@ -45,24 +45,14 @@ export default function LivestockPage() {
         ))}
       </div>
 
-      <div className="mb-16 grid gap-8 rounded-2xl bg-forest-50 p-8 dark:bg-forest-950/40 md:grid-cols-2">
-        <div>
-          <h3 className="font-heading font-semibold">Antibiotic stewardship</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            We follow a strict withdrawal-period protocol and avoid
-            routine antibiotic use for growth promotion — treatment is
-            reserved for diagnosed illness, under veterinary guidance from
-            our VSD-registered partners.
-          </p>
-        </div>
-        <div>
-          <h3 className="font-heading font-semibold">Halal handling</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Our goat and sheep are processed under halal-certified
-            procedures. Halal beef is in development as part of our Phase
-            2 product range.
-          </p>
-        </div>
+      <div className="mb-16 rounded-2xl bg-forest-50 p-8 dark:bg-forest-950/40">
+        <h3 className="font-heading font-semibold">Antibiotic stewardship</h3>
+        <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
+          We follow a strict withdrawal-period protocol and avoid routine
+          antibiotic use for growth promotion — treatment is reserved for
+          diagnosed illness, under veterinary guidance from our VSD-registered
+          partners.
+        </p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">

@@ -95,7 +95,6 @@ export const categories: Category[] = [
       { slug: "pork", name: "Pork" },
       { slug: "rabbit", name: "Rabbit" },
       { slug: "live-animals", name: "Live Animals" },
-      { slug: "halal-beef", name: "Halal Beef (Coming Soon)" },
     ],
   },
   {
@@ -176,7 +175,6 @@ export const productUnits = [
 export const productTags = [
   "Organic",
   "Cage-Free",
-  "Halal",
   "Smoked",
   "Frozen",
   "Fresh",

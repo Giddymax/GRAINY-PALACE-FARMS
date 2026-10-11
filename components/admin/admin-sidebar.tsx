@@ -57,8 +57,11 @@ export function AdminSidebar({
     <>
       {/* Desktop sidebar */}
       <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-card py-6 lg:flex">
-        <div className="mb-6 px-4">
+        <div className="mb-6 flex flex-col items-start gap-3 px-4">
           <WordMark />
+          <Link href="/" className="text-sm font-medium text-forest-700 underline-offset-4 hover:underline dark:text-forest-300">
+            View public site
+          </Link>
         </div>
         <div className="flex-1 overflow-y-auto">
           <NavLinks groups={groups} />
@@ -76,9 +79,14 @@ export function AdminSidebar({
       {/* Mobile top bar + drawer */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card px-4 py-3 lg:hidden">
         <WordMark />
-        <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Open admin menu">
-          <Menu className="size-5" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Link href="/" className="text-sm font-medium text-forest-700 underline-offset-4 hover:underline dark:text-forest-300">
+            Public site
+          </Link>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Open admin menu">
+            <Menu className="size-5" />
+          </Button>
+        </div>
       </div>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="w-72">
