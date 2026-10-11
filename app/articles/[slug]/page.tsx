@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
+import { ChevronRight } from "lucide-react";
 import {
   getArticleCategories,
   getPublishedArticles,
