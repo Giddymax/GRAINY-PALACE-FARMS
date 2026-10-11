@@ -81,7 +81,6 @@ export default async function ProductPage({
             <ProductImage
               src={product.image_url}
               alt={product.name}
-              categoryIcon={category?.icon}
               sizes="(min-width: 1024px) 50vw, 100vw"
               priority
             />

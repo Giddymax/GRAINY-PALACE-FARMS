@@ -10,14 +10,12 @@ import { ProductImage } from "@/components/shop/product-image";
 import { useCart } from "@/lib/cart/context";
 import { formatGHS } from "@/lib/format";
 import { buildWhatsAppLink, buildProductOrderMessage } from "@/lib/whatsapp";
-import { getCategoryBySlug } from "@/lib/taxonomy";
 import { useAddedFeedback } from "@/lib/hooks/use-added-feedback";
 import { toast } from "sonner";
 import type { Product } from "@/lib/data/products";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
-  const category = getCategoryBySlug(product.category);
   const [justAdded, pulseAdded] = useAddedFeedback();
 
   const handleAddToCart = () => {
@@ -55,7 +53,6 @@ export function ProductCard({ product }: { product: Product }) {
           <ProductImage
             src={product.image_url}
             alt={product.name}
-            categoryIcon={category?.icon}
           />
         </ViewTransition>
         {!product.is_available && (

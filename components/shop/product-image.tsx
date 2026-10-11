@@ -1,17 +1,13 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { CategoryIcon } from "@/components/shop/category-icon";
-import type { CategoryIconName } from "@/lib/taxonomy";
 
 /**
  * Renders the product photo when one has been uploaded via the admin
- * Catalogue, otherwise falls back to a branded icon tile keyed to the
- * product's category (a stand-in for real photography, not decoration).
+ * Catalogue, otherwise falls back to a neutral branded color tile.
  */
 export function ProductImage({
   src,
   alt,
-  categoryIcon = "package",
   sizes,
   fill = true,
   className,
@@ -19,7 +15,6 @@ export function ProductImage({
 }: {
   src: string | null;
   alt: string;
-  categoryIcon?: CategoryIconName;
   sizes?: string;
   fill?: boolean;
   className?: string;
@@ -33,12 +28,7 @@ export function ProductImage({
           fill && "absolute inset-0",
           className
         )}
-      >
-        <CategoryIcon
-          name={categoryIcon}
-          className="size-10 text-forest-600 dark:text-forest-300"
-        />
-      </div>
+      />
     );
   }
 

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Package } from "lucide-react";
 import { getRecentlyViewed, type RecentlyViewedItem } from "@/lib/recently-viewed";
 import { formatGHS } from "@/lib/format";
 
@@ -30,9 +29,7 @@ export function RecentlyViewed({ excludeSlug }: { excludeSlug?: string }) {
               {item.imageUrl ? (
                 <Image src={item.imageUrl} alt={item.name} fill sizes="144px" className="object-cover" />
               ) : (
-                <div className="flex h-full items-center justify-center bg-gradient-to-br from-forest-100 to-gold-100 dark:from-forest-900 dark:to-forest-800">
-                  <Package className="size-6 text-forest-600 dark:text-forest-300" />
-                </div>
+                <div className="h-full bg-gradient-to-br from-forest-100 to-gold-100 dark:from-forest-900 dark:to-forest-800" />
               )}
             </div>
             <p className="line-clamp-2 text-xs font-medium leading-snug">{item.name}</p>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
-import { BookOpen } from "lucide-react";
 import {
   getArticleCategories,
   getPublishedArticles,
@@ -60,9 +59,7 @@ export default async function ArticlesPage({
                 priority
               />
             ) : (
-              <div className="flex h-full items-center justify-center bg-gradient-to-br from-forest-100 to-gold-100 dark:from-forest-900 dark:to-forest-800">
-                <BookOpen className="size-10 text-forest-600 dark:text-forest-300" />
-              </div>
+              <div className="h-full bg-gradient-to-br from-forest-100 to-gold-100 dark:from-forest-900 dark:to-forest-800" />
             )}
           </div>
           <div className="flex flex-1 flex-col justify-center gap-3 p-6 md:p-8">
