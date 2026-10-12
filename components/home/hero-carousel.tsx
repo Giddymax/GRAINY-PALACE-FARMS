@@ -95,14 +95,14 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
 
       <div className="flex flex-col gap-4">
         <ViewTransition key={active.id} enter="auto" default="none">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-forest-700 to-forest-800 shadow-2xl">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border-4 border-white bg-gradient-to-br from-forest-700 to-forest-800 shadow-2xl ring-1 ring-forest-900/20">
             {active.image_url && (
               <Image
                 src={active.image_url}
                 alt={active.title}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
+                className="object-cover contrast-110 saturate-110"
                 priority
               />
             )}
