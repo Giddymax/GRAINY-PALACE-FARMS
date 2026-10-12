@@ -39,6 +39,7 @@ export const adminNavGroups: AdminNavGroup[] = [
       { label: "Farm locations", href: "/admin/locations" },
       { label: "Site content", href: "/admin/content" },
       { label: "Footer content", href: "/admin/footer" },
+      { label: "Agrochemicals & Farm Inputs", href: "/admin/agrochemicals-inputs" },
     ],
   },
   {
