@@ -56,6 +56,7 @@ Build a complete, installable e-commerce + marketing website for **Grainy Palace
 | `/careers` | Recruitment (roles from HR plan), **outgrower-scheme sign-up**, youth/community hiring |
 | `/traceability` | QR / batch lookup → shows product origin, certifications, CoA for a scanned pack |
 | `/contact` | Map embed, WhatsApp button, enquiry form, hours, locations |
+| `/farm-locations` | Published regional farms with GPS maps and directions |
 
 ---
 
@@ -149,12 +150,13 @@ Build these so the site reflects the whole plan, not just the shop:
 - `article_categories` — name, slug, description, sort_order (seed the nine topics; editable).
 - `certifications` — name, badge_image, issuing_body, status (active/pending), sort_order — drives the About/shop badge strip.
 - `events` — title, slug, body, cover, event_date, location, is_published (News & Events).
+- `farm_locations` — regional farm address, GPS coordinates, map URL, route notes, display order and publication status. Its setup SQL is in `supabase/farm_locations.sql`, separate from the base `supabase/schema.sql`.
 - `subscriptions` — egg/produce subscription sign-ups: customer, plan (weekly/monthly), item, quantity, status. Anonymous insert.
 - `outgrower_applications` — farmer name, contact, location, crop, land size, notes, status. Anonymous insert.
 - `job_openings` (title, dept, description, is_open) + `job_applications` (opening_id, applicant, contact, cv_url, status; anonymous insert).
 - `partners` — approved B2B accounts linked to a `profiles` row with role `partner`: business name, tier, approved_by. Powers the `/partners` portal.
 - `lab_samples` — reference, client, sample_type, tests[], status (received → testing → complete), coa_url. Public read of **status + CoA by reference only** (results tracker); full table staff-only.
-- **RLS:** public read on `products`, published `articles`/`events`, content & `certifications` tables; staff/admin only on inventory, orders, quotes, lab_samples (except the reference lookup), applications; anonymous insert on `orders`, `quote_requests`, `subscriptions`, `outgrower_applications`, `job_applications`; `partner`-role read on their own orders/invoices/CoAs. `set_updated_at()` trigger on every table with `updated_at`. Index FKs used in RLS.
+- **RLS:** public read on `products`, published `articles`/`events`/`farm_locations`, content & `certifications` tables; staff/admin only on inventory, orders, quotes, lab_samples (except the reference lookup), applications; anonymous insert on `orders`, `quote_requests`, `subscriptions`, `outgrower_applications`, `job_applications`; `partner`-role read on their own orders/invoices/CoAs. `set_updated_at()` trigger on every table with `updated_at`. Index FKs used in RLS.
 - Seed: all §3 categories/products with realistic GHS prices and images; nine article categories + 4–5 real starter articles (one each on nutrition, food safety, environmental protection, sustainable agriculture); hero slides; certifications; a couple of events.
 
 ---
@@ -169,6 +171,7 @@ Sidebar shell (off-canvas drawer on mobile), role-filtered nav. Modules:
 - **Orders** — status-filtered table, detail view, mark dispatched/delivered/cancelled, print.
 - **Articles (Knowledge Hub)** — full authoring per §3B: rich-text editor, cover upload, category/tags, draft↔publish, featured toggle, SEO fields, live preview. Category CRUD.
 - **News & Events** — CRUD for `events`.
+- **Farm Locations** — manage regional farm details, GPS coordinates, map links, route notes, display order and public visibility.
 - **Certifications** — CRUD (badge upload, active/pending) feeding the public badge strip.
 - **Enquiries hub** — one place for quotes/wholesale, lab samples (with CoA upload + status), subscriptions, outgrower & job applications — each a status-workflow list + detail.
 - **Partners** — approve/reject B2B accounts, set pricing tier, view partner activity.

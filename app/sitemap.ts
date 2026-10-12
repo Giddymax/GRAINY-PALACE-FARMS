@@ -22,6 +22,7 @@ const staticRoutes = [
   "/careers",
   "/traceability",
   "/contact",
+  "/farm-locations",
   "/privacy",
 ];
 

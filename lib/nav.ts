@@ -24,6 +24,7 @@ export const secondaryNav: NavLink[] = [
   { label: "Sustainability", href: "/sustainability", i18nKey: "sustainability" },
   { label: "Careers", href: "/careers", description: "Jobs & the outgrower scheme", i18nKey: "careers" },
   { label: "Traceability", href: "/traceability", description: "Look up a batch by QR/reference", i18nKey: "traceability" },
+  { label: "Farm Locations", href: "/farm-locations", description: "Find our regional farms and get directions" },
   { label: "About Us", href: "/about", i18nKey: "about" },
   { label: "Contact", href: "/contact", i18nKey: "contact" },
 ];
@@ -44,6 +45,7 @@ export const footerCompanyLinks: NavLink[] = [
   { label: "About Us", href: "/about" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "Careers & Outgrowers", href: "/careers" },
+  { label: "Farm Locations", href: "/farm-locations" },
   { label: "News & Events", href: "/news" },
   { label: "Knowledge Hub", href: "/articles" },
   { label: "Contact", href: "/contact" },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { ContactForm } from "@/components/forms/contact-form";
@@ -66,6 +67,10 @@ export default function ContactPage() {
               Chat on WhatsApp
             </a>
           </Button>
+
+          <Link href="/farm-locations" className="w-fit text-sm font-medium text-forest-700 underline-offset-4 hover:underline dark:text-forest-300">
+            View regional farms and directions
+          </Link>
 
           <div className="overflow-hidden rounded-xl border border-border">
             <iframe

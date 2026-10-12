@@ -33,7 +33,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80"
+      className="sticky top-0 z-40 border-b border-forest-900 bg-forest-950 text-forest-50 [&_[data-slot=button]]:text-forest-50 [&_[data-slot=button]:hover]:bg-forest-900 [&_[data-slot=button]:hover]:text-white backdrop-blur supports-backdrop-filter:bg-forest-950/95"
       style={{ viewTransitionName: "site-header" }}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:px-6 lg:px-8">
@@ -53,8 +53,8 @@ export function SiteHeader() {
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium text-foreground/80 hover:bg-muted hover:text-foreground",
-                pathname === link.href && "bg-muted text-foreground"
+                "rounded-md px-3 py-2 text-sm font-medium text-forest-50/85 hover:bg-forest-900 hover:text-white",
+                pathname === link.href && "bg-forest-900 text-white"
               )}
             >
               {navLabel(link)}
@@ -64,7 +64,7 @@ export function SiteHeader() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="gap-1 text-sm font-medium text-foreground/80"
+                className="gap-1 text-sm font-medium text-forest-50/85 hover:bg-forest-900 hover:text-white"
               >
                 {t("more")} <ChevronDown className="size-4" />
               </Button>

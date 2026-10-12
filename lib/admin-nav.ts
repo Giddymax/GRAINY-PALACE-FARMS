@@ -36,6 +36,7 @@ export const adminNavGroups: AdminNavGroup[] = [
     items: [
       { label: "Knowledge Hub", href: "/admin/articles" },
       { label: "News & Events", href: "/admin/news" },
+      { label: "Farm locations", href: "/admin/locations" },
       { label: "Site content", href: "/admin/content" },
     ],
   },

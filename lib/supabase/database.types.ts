@@ -73,6 +73,33 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["page_heroes"]["Row"]>;
         Relationships: [];
       };
+      farm_locations: {
+        Row: {
+          id: string;
+          name: string;
+          region: string;
+          locality: string;
+          address: string | null;
+          description: string | null;
+          latitude: number;
+          longitude: number;
+          map_url: string | null;
+          route_notes: string | null;
+          is_published: boolean;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["farm_locations"]["Row"]> & {
+          name: string;
+          region: string;
+          locality: string;
+          latitude: number;
+          longitude: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["farm_locations"]["Row"]>;
+        Relationships: [];
+      };
       gallery_items: {
         Row: {
           id: string;

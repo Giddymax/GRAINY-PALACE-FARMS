@@ -11,6 +11,19 @@ export async function getCertifications() {
   return data ?? [];
 }
 
+export async function getPublishedFarmLocations() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("farm_locations")
+    .select("*")
+    .eq("is_published", true)
+    .order("region", { ascending: true })
+    .order("sort_order", { ascending: true })
+    .order("name", { ascending: true });
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function getGalleryItems(category?: string) {
   const supabase = await createClient();
   let query = supabase.from("gallery_items").select("*").order("sort_order", { ascending: true });
@@ -70,6 +83,7 @@ export const PAGE_HERO_SLUGS = [
   { slug: "careers", label: "Careers" },
   { slug: "traceability", label: "Traceability" },
   { slug: "contact", label: "Contact" },
+  { slug: "farm-locations", label: "Farm Locations" },
 ] as const;
 
 export async function getPageHero(slug: string) {
