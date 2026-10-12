@@ -48,11 +48,22 @@ export default async function AboutPage() {
           Grainy Palace Farms Limited was built as an integrated agribusiness
           spanning the full value chain — grains and vegetables, poultry and
           livestock, fish and aquaculture, tree seedlings, and processed
-          foods — based in Greater Accra with operations extending into
-          Ashanti Region. Rather than specialising in one product line, we
+          foods — based in Ghana&apos;s Eastern Region and extending nationwide.
+          Rather than specialising in one product line, we
           deliberately built a circular system where each part of the farm
           feeds another: pond water irrigates our fields, crop residue
           feeds our livestock, and manure returns to the soil as compost.
+        </p>
+      </section>
+
+      <section className="mb-12 rounded-xl border border-border bg-card p-6 sm:p-8">
+        <h2 className="mb-3 font-heading text-xl font-semibold">Making agriculture attractive to all</h2>
+        <p className="text-muted-foreground">
+          We want to make agriculture and every part of its value chain
+          attractive to young people and all Ghanaians. We pursue that goal
+          through environmental, social and economic sustainability—building
+          responsible production, meaningful livelihoods and lasting value for
+          communities across Ghana.
         </p>
       </section>
 
