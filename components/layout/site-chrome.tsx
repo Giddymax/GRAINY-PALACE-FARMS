@@ -10,7 +10,7 @@ import { WhatsAppFloatButton } from "@/components/layout/whatsapp-float-button";
  * public marketing header/footer/WhatsApp button — this is the single
  * place that decides which chrome wraps a given route.
  */
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+export function SiteChrome({ children, footerContent }: { children: React.ReactNode; footerContent: Record<string, string> }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
@@ -28,7 +28,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      <SiteFooter />
+      <SiteFooter content={footerContent} />
       <WhatsAppFloatButton />
     </>
   );

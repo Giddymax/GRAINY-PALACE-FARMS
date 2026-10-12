@@ -38,6 +38,7 @@ export const adminNavGroups: AdminNavGroup[] = [
       { label: "News & Events", href: "/admin/news" },
       { label: "Farm locations", href: "/admin/locations" },
       { label: "Site content", href: "/admin/content" },
+      { label: "Footer content", href: "/admin/footer" },
     ],
   },
   {

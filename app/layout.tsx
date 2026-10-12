@@ -13,6 +13,7 @@ import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { ConsentBanner } from "@/components/consent/consent-banner";
 import { AnalyticsGate } from "@/components/analytics/analytics-gate";
+import { getSiteContentSection } from "@/lib/data/site-content";
 
 const bodyFont = Inter({
   variable: "--font-body",
@@ -68,11 +69,12 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const footerContent = await getSiteContentSection("footer");
   return (
     <html
       lang="en"
@@ -106,7 +108,7 @@ export default function RootLayout({
                 <a href="#main-content" className="skip-link">
                   Skip to content
                 </a>
-                <SiteChrome>{children}</SiteChrome>
+                <SiteChrome footerContent={footerContent}>{children}</SiteChrome>
                 <Toaster position="top-right" richColors closeButton />
                 <ServiceWorkerRegister />
                 <InstallPrompt />
