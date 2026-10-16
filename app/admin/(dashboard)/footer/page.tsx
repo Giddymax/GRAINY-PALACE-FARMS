@@ -1,7 +1,7 @@
 import { requireStaff } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
 import { FooterContentForm } from "@/components/admin/footer-content-form";
-import { footerDefaultValues } from "@/lib/footer-content";
+import { footerDefaultValues, getFooterCollections } from "@/lib/footer-content";
 
 export const metadata = { title: "Footer Content — Admin" };
 
@@ -23,7 +23,7 @@ export default async function AdminFooterPage() {
       <p className="mb-6 text-sm text-muted-foreground">
         Edit the footer description, contact details, headings, and every displayed link label and destination.
       </p>
-      <FooterContentForm values={values} />
+      <FooterContentForm values={values} initialCollections={getFooterCollections(values)} />
     </div>
   );
 }

@@ -4,22 +4,20 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { WordMark } from "@/components/brand/logo-mark";
 import { siteConfig } from "@/lib/site-config";
-import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/brand/social-icons";
-import {
-  footerShopLinks,
-  footerCompanyLinks,
-  footerBusinessLinks,
-} from "@/lib/nav";
+import { FacebookIcon, InstagramIcon, LinkedInIcon, XIcon } from "@/components/brand/social-icons";
+import { getFooterCollections } from "@/lib/footer-content";
 
 export function SiteFooter({ content }: { content: Record<string, string> }) {
   const year = new Date().getFullYear();
   const t = useTranslations("footer");
   const value = (key: string, fallback: string) => content[key] || fallback;
-  const links = (group: string, defaults: { label: string; href: string }[]) =>
-    defaults.map((link, index) => ({
-      label: value(`${group}_${index}_label`, link.label),
-      href: value(`${group}_${index}_href`, link.href),
-    }));
+  const collections = getFooterCollections(content);
+  const socialIcons = {
+    facebook: FacebookIcon,
+    instagram: InstagramIcon,
+    linkedin: LinkedInIcon,
+    x: XIcon,
+  };
 
   return (
     <footer className="border-t border-border bg-forest-950 text-forest-50">
@@ -31,42 +29,28 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
           <p className="max-w-sm text-sm text-forest-100">
             {value("brand_promise", siteConfig.brandPromise)}
           </p>
-          <div className="flex items-center gap-3">
-            <a
-              href={value("facebook_url", siteConfig.social.facebook)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={value("facebook_label", "Facebook")}
-              title={value("facebook_label", "Facebook")}
-              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
-            >
-              <FacebookIcon className="size-5" />
-            </a>
-            <a
-              href={value("instagram_url", siteConfig.social.instagram)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={value("instagram_label", "Instagram")}
-              title={value("instagram_label", "Instagram")}
-              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
-            >
-              <InstagramIcon className="size-5" />
-            </a>
-            <a
-              href={value("linkedin_url", siteConfig.social.linkedin)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={value("linkedin_label", "LinkedIn")}
-              title={value("linkedin_label", "LinkedIn")}
-              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
-            >
-              <LinkedInIcon className="size-5" />
-            </a>
+          <div className="flex flex-wrap items-center gap-3">
+            {collections.social.map((social) => {
+              const Icon = socialIcons[social.platform];
+              return (
+                <a
+                  key={`${social.platform}:${social.href}`}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                  className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+                >
+                  <Icon className="size-5" />
+                </a>
+              );
+            })}
           </div>
         </div>
 
-        <FooterColumn title={value("shop_title", t("shop"))} links={links("shop", footerShopLinks)} />
-        <FooterColumn title={value("company_title", t("company"))} links={links("company", footerCompanyLinks)} />
+        <FooterColumn title={value("shop_title", t("shop"))} links={collections.shop} />
+        <FooterColumn title={value("company_title", t("company"))} links={collections.company} />
 
         <div className="flex flex-col gap-3">
           <h3 className="font-heading text-sm font-semibold uppercase tracking-wide text-gold-300">
@@ -97,7 +81,7 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
               {value("business_title", t("forBusiness"))}
             </h4>
             <ul className="flex flex-col gap-1.5 text-sm text-forest-100">
-              {links("business", footerBusinessLinks).map((l) => (
+              {collections.business.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="hover:underline">
                     {l.label}
@@ -115,24 +99,15 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
             &copy; {year} {value("copyright_name", siteConfig.name)}. {value("rights_reserved", t("allRightsReserved"))}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end">
-            <Link
-              href={value("staff_login_href", "/admin")}
-              className="text-gold-300 hover:text-gold-100"
-            >
-              {value("staff_login_label", "Staff login")}
-            </Link>
-            <Link href={value("contact_link_href", "/contact")} className="hover:underline">
-              {value("contact_link_label", "Contact")}
-            </Link>
-            <Link href={value("traceability_link_href", "/traceability")} className="hover:underline">
-              {value("traceability_link_label", "Traceability")}
-            </Link>
-            <Link href={value("sustainability_link_href", "/sustainability")} className="hover:underline">
-              {value("sustainability_link_label", "Sustainability")}
-            </Link>
-            <Link href={value("privacy_link_href", "/privacy")} className="hover:underline">
-              {value("privacy_link_label", "Privacy")}
-            </Link>
+            {collections.bottom.map((link) => (
+              <Link
+                key={`${link.href}:${link.label}`}
+                href={link.href}
+                className={link.href === "/admin" ? "text-gold-300 hover:text-gold-100" : "hover:underline"}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

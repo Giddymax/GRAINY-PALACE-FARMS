@@ -25,6 +25,7 @@ export async function saveSiteContentAction(formData: FormData) {
 
   revalidatePath("/", "layout");
   revalidatePath("/admin/content");
+  revalidatePath("/admin/footer");
 }
 
 export async function saveHeroSlideAction(formData: FormData) {
