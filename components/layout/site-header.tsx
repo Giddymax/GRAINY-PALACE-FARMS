@@ -46,7 +46,7 @@ export function SiteHeader() {
 
         <nav
           aria-label="Primary"
-          className="hidden flex-1 items-center gap-1 lg:flex"
+          className="hidden flex-1 items-center gap-1 xl:flex"
         >
           {primaryNav.map((link) => (
             <Link
@@ -86,7 +86,7 @@ export function SiteHeader() {
           </DropdownMenu>
         </nav>
 
-        <div className="flex flex-1 items-center justify-end gap-1 lg:flex-none">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-0.5 sm:gap-1 xl:flex-none">
           <Button variant="ghost" size="icon" className="size-11 shrink-0" asChild>
             <Link href="/shop?focus=search" aria-label={t("search")}>
               <Search className="size-5" />
@@ -108,7 +108,7 @@ export function SiteHeader() {
           <Button
             variant="ghost"
             size="icon"
-            className="size-11 shrink-0 lg:hidden"
+            className="size-11 shrink-0 xl:hidden"
             aria-label="Open menu"
             onClick={() => setMobileOpen(true)}
           >

@@ -18,7 +18,7 @@ export function WhatsAppFloatButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Grainy Palace Farms on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none [padding-bottom:env(safe-area-inset-bottom)]"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-50 rounded-full bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none sm:right-5 sm:px-4 sm:py-3 sm:text-sm"
     >
       Chat on WhatsApp
     </a>

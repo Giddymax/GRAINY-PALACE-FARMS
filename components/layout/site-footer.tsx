@@ -22,7 +22,7 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
 
   return (
     <footer className="border-t border-border bg-forest-950 text-forest-50">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 sm:gap-10 sm:px-6 sm:py-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:px-8">
         <div className="flex flex-col gap-4">
           <div className="[&_span]:text-forest-50">
             <WordMark />
@@ -107,7 +107,7 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
           <p>
             &copy; {year} {value("copyright_name", siteConfig.name)}. {value("rights_reserved", t("allRightsReserved"))}
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end">
             <Link
               href={value("staff_login_href", "/admin")}
               className="text-gold-300 hover:text-gold-100"
