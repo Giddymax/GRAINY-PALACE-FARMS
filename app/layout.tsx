@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { DM_Sans, Lora } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { ThemeProvider, THEME_INIT_SCRIPT } from "@/components/theme-provider";
@@ -15,13 +15,13 @@ import { ConsentBanner } from "@/components/consent/consent-banner";
 import { AnalyticsGate } from "@/components/analytics/analytics-gate";
 import { getSiteContentSection } from "@/lib/data/site-content";
 
-const bodyFont = Inter({
+const bodyFont = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const displayFont = Fraunces({
+const displayFont = Lora({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
