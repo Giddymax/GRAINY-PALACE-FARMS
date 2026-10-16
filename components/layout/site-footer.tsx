@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { WordMark } from "@/components/brand/logo-mark";
 import { siteConfig } from "@/lib/site-config";
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/brand/social-icons";
 import {
   footerShopLinks,
   footerCompanyLinks,
@@ -30,30 +31,36 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
           <p className="max-w-sm text-sm text-forest-100">
             {value("brand_promise", siteConfig.brandPromise)}
           </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <div className="flex items-center gap-3">
             <a
               href={value("facebook_url", siteConfig.social.facebook)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-forest-100 underline-offset-4 hover:text-gold-300 hover:underline"
+              aria-label={value("facebook_label", "Facebook")}
+              title={value("facebook_label", "Facebook")}
+              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
             >
-              {value("facebook_label", "Facebook")}
+              <FacebookIcon className="size-5" />
             </a>
             <a
               href={value("instagram_url", siteConfig.social.instagram)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-forest-100 underline-offset-4 hover:text-gold-300 hover:underline"
+              aria-label={value("instagram_label", "Instagram")}
+              title={value("instagram_label", "Instagram")}
+              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
             >
-              {value("instagram_label", "Instagram")}
+              <InstagramIcon className="size-5" />
             </a>
             <a
               href={value("linkedin_url", siteConfig.social.linkedin)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-forest-100 underline-offset-4 hover:text-gold-300 hover:underline"
+              aria-label={value("linkedin_label", "LinkedIn")}
+              title={value("linkedin_label", "LinkedIn")}
+              className="inline-flex size-10 items-center justify-center rounded-full text-forest-100 transition-colors hover:bg-forest-900 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
             >
-              {value("linkedin_label", "LinkedIn")}
+              <LinkedInIcon className="size-5" />
             </a>
           </div>
         </div>
