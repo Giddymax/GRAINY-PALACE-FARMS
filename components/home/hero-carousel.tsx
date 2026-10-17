@@ -102,7 +102,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
                 alt={active.title}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover contrast-110 saturate-110"
+                className="object-cover brightness-90 contrast-125 saturate-110 opacity-100"
                 priority
               />
             )}
