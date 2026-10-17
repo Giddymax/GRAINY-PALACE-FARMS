@@ -9,7 +9,12 @@ export type WhatsAppOrderItem = {
 };
 
 function digitsOnly(phone: string) {
-  return phone.replace(/[^\d]/g, "");
+  const digits = phone.replace(/[^\d]/g, "");
+  // Convert a Ghana local mobile number to the international format required
+  // by wa.me while keeping the editable contact value in its familiar form.
+  return digits.length === 10 && digits.startsWith("0")
+    ? `233${digits.slice(1)}`
+    : digits;
 }
 
 /** Builds a wa.me deep link with a pre-filled, bold-labelled message. */

@@ -65,7 +65,7 @@ In Vercel: **Project → Settings → Environment Variables**. Add every variabl
 | `NEXT_PUBLIC_SITE_URL` | Your live domain, e.g. `https://grainypalacefarm.com` |
 | `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Paystack → API Keys & Webhooks |
 | `PAYSTACK_SECRET_KEY` | Paystack → API Keys & Webhooks (mark it "Sensitive") |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Fallback business WhatsApp number, digits only, country code first, no `+` (e.g. `233596871415`). The Admin → Site Content → Contact value takes precedence. |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Fallback business WhatsApp number. Accepts Ghana local format (`0596871415`) or international digits (`233596871415`). The Admin → Site Content → Contact value takes precedence. |
 | `NEXT_PUBLIC_CONTACT_PHONE` | Fallback public contact phone number. Admin → Site Content → Contact takes precedence. |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Optional — see step 5 |
 | `NEXT_PUBLIC_VERCEL_ANALYTICS` | `true` to enable Vercel Analytics, otherwise `false` |
