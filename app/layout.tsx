@@ -52,11 +52,20 @@ export const metadata: Metadata = {
     siteName: siteConfig.shortName,
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
+    images: [
+      {
+        url: "/brand/grainy-palace-farms-seal.png",
+        width: 500,
+        height: 500,
+        alt: "Grainy Palace Farms green-lettered seal",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: ["/brand/grainy-palace-farms-seal.png"],
   },
 };
 

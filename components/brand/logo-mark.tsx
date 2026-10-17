@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/** Shared uploaded brand logo used throughout the site and admin areas. */
+/** Green-lettered farm seal shared across public and admin pages. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <Image
@@ -10,7 +10,7 @@ export function LogoMark({ className }: { className?: string }) {
       width={64}
       height={64}
       priority
-      className={cn("size-12 shrink-0 object-contain", className)}
+      className={cn("size-12 shrink-0 object-contain sm:size-14", className)}
     />
   );
 }
