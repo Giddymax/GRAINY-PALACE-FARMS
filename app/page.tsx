@@ -6,7 +6,9 @@ import { siteConfig } from "@/lib/site-config";
 import { categories } from "@/lib/taxonomy";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { getCategoryThumbnails } from "@/lib/data/products";
-import { getHeroSlides, getPageHero } from "@/lib/data/misc";
+import { getGalleryItems, getHeroSlides, getPageHero } from "@/lib/data/misc";
+import { getPublishedArticles } from "@/lib/data/articles";
+import { ArticleCard } from "@/components/articles/article-card";
 import { HeroCarousel, type HeroSlideData } from "@/components/home/hero-carousel";
 
 const FALLBACK_SLIDE: HeroSlideData = {
@@ -24,10 +26,12 @@ export default async function HomePage() {
     (category) => category.slug === "agrochemicals-inputs"
   );
   if (agroInputsCategory) featuredCategories.push(agroInputsCategory);
-  const [thumbnails, heroSlides, heroBackground] = await Promise.all([
+  const [thumbnails, heroSlides, heroBackground, gallery, guides] = await Promise.all([
     getCategoryThumbnails(),
     getHeroSlides(),
     getPageHero("home-hero-bg"),
+    getGalleryItems(undefined, 4),
+    getPublishedArticles({ pageSize: 3 }),
   ]);
   const slides = heroSlides.length > 0 ? heroSlides : [FALLBACK_SLIDE];
   const whatsappHref = buildWhatsAppLink(
@@ -73,6 +77,15 @@ export default async function HomePage() {
             </span>
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:grid-cols-[1fr_auto] md:items-center lg:px-8">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-300">Rooted in the Eastern Region</p>
+          <h2 className="mt-1 font-heading text-xl font-semibold sm:text-2xl">Growing with Ghana, serving nationwide</h2>
+          <p className="mt-2 max-w-2xl text-muted-foreground">Explore our farm locations, GPS points and directions, or contact our team to confirm access and delivery details.</p>
+        </div>
+        <Button asChild variant="outline"><Link href="/farm-locations">Explore our locations</Link></Button>
       </section>
 
       {/* Category teaser */}
@@ -135,6 +148,83 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Farm-to-table and proof points */}
+      <section className="bg-white py-14 dark:bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-300">How we work</p>
+            <h2 className="mt-1 font-heading text-2xl font-semibold sm:text-3xl">From farm to your table</h2>
+            <p className="mt-2 text-muted-foreground">See where our food begins, how to check available product information, and how to reach our team.</p>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { number: "01", title: "Grown and raised in Ghana", body: "Our integrated agribusiness is based in the Eastern Region and works across crops, livestock, fish and processed foods.", href: "/about", link: "Our story" },
+              { number: "02", title: "Handled with care", body: "For fish, our handling process starts with early-morning harvest and immediate transfer into ice-slurry crates.", href: "/fish", link: "Fish handling" },
+              { number: "03", title: "Check product details", body: "Use batch traceability and our lab services pages to find the information available for products and samples.", href: "/traceability", link: "Traceability" },
+              { number: "04", title: "Choose how to receive it", body: "Select Accra delivery, nationwide courier or farm-gate pickup at checkout; our team confirms delivery timing after an order.", href: "/checkout", link: "Delivery at checkout" },
+            ].map((step) => (
+              <article key={step.number} className="rounded-2xl border border-border bg-card p-5">
+                <p className="text-sm font-semibold text-gold-700 dark:text-gold-300">{step.number}</p>
+                <h3 className="mt-3 font-heading text-lg font-semibold">{step.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{step.body}</p>
+                <Link href={step.href} className="mt-4 inline-block text-sm font-semibold text-forest-700 hover:underline dark:text-forest-300">{step.link}</Link>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3 border-t border-border pt-6">
+            <Button asChild variant="outline"><Link href="/about#story">Our standards</Link></Button>
+            <Button asChild variant="outline"><Link href="/lab-services">Lab services</Link></Button>
+            <Button asChild variant="outline"><Link href="/contact">Talk to our team</Link></Button>
+          </div>
+        </div>
+      </section>
+
+      {gallery.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-300">On the ground</p>
+              <h2 className="mt-1 font-heading text-2xl font-semibold sm:text-3xl">A look at our farms</h2>
+            </div>
+            <Button asChild variant="link" className="hidden sm:inline-flex"><Link href="/about">More about us</Link></Button>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {gallery.slice(0, 4).map((item) => (
+              <div key={item.id} className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+                <Image src={item.image_url} alt={item.title ?? "Grainy Palace Farms"} fill sizes="(min-width: 640px) 25vw, 50vw" className="object-cover" />
+                {item.title && <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-3 pt-8 text-sm font-medium text-white">{item.title}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Practical guides */}
+      <section className="bg-secondary/40 py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-300">Learn and explore</p>
+              <h2 className="mt-1 font-heading text-2xl font-semibold sm:text-3xl">Useful guides from our team</h2>
+              <p className="mt-2 text-muted-foreground">Read the latest articles, then explore related products and farm supplies.</p>
+            </div>
+            <Button asChild variant="outline"><Link href="/articles">Visit the Knowledge Hub</Link></Button>
+          </div>
+          {guides.articles.length > 0 ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {guides.articles.map((article) => <ArticleCard key={article.id} article={article} category={null} />)}
+            </div>
+          ) : (
+            <p className="rounded-xl border border-dashed border-border bg-background p-6 text-sm text-muted-foreground">Our farming, food and nutrition guides are being prepared. Browse the Knowledge Hub for new articles.</p>
+          )}
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild variant="outline"><Link href="/agrochemicals-inputs">Explore crop inputs</Link></Button>
+            <Button asChild variant="outline"><Link href="/shop/roots-tubers">Shop roots, tubers &amp; plantain</Link></Button>
+            <Button asChild variant="outline"><Link href="/shop">Browse all products</Link></Button>
+          </div>
+        </div>
+      </section>
+
       {/* Sustainability teaser */}
       <section className="relative bg-forest-50 pt-14 dark:bg-forest-950/40">
         <WaveDivider className="absolute inset-x-0 top-0 h-14 w-full -translate-y-full text-forest-50 dark:text-forest-950/40" fill="currentColor" />
@@ -144,7 +234,10 @@ export default async function HomePage() {
               A circular, zero-waste farm
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Our integrated crop-livestock-aquaculture system feeds farm
+              We want agriculture and its value chain to be attractive to young
+              people and all Ghanaians. Our environmental, social and economic
+              sustainability approach includes an integrated crop-livestock-
+              aquaculture system that feeds farm
               by-products back into the loop — fish pond effluent nourishes our
               fields, and crop residue feeds our livestock. We pack in
               eco-friendly materials aligned with Ghana&apos;s 2021 Plastics

@@ -42,7 +42,7 @@ export default async function AboutPage() {
         </p>
       </div>
 
-      <section className="mb-12">
+      <section id="story" className="mb-12">
         <h2 className="mb-3 font-heading text-xl font-semibold">Our story</h2>
         <p className="text-muted-foreground">
           Grainy Palace Farms Limited was built as an integrated agribusiness
@@ -111,7 +111,7 @@ export default async function AboutPage() {
       </section>
 
       {certifications.length > 0 && (
-        <section className="mb-12">
+        <section id="certifications" className="mb-12">
           <h2 className="mb-4 font-heading text-xl font-semibold">Certifications</h2>
           <div className="flex flex-wrap gap-3">
             {certifications.map((cert) => (

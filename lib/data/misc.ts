@@ -24,10 +24,11 @@ export async function getPublishedFarmLocations() {
   return data ?? [];
 }
 
-export async function getGalleryItems(category?: string) {
+export async function getGalleryItems(category?: string, limit?: number) {
   const supabase = await createClient();
   let query = supabase.from("gallery_items").select("*").order("sort_order", { ascending: true });
   if (category) query = query.eq("category", category);
+  if (limit) query = query.limit(limit);
   const { data, error } = await query;
   if (error) throw error;
   return data ?? [];

@@ -87,6 +87,13 @@ export function CheckoutForm({
               fee={0}
             />
           </RadioGroup>
+          <p className="mt-3 rounded-lg bg-muted/60 p-3 text-sm text-muted-foreground">
+            {zone === "accra"
+              ? "For addresses within Accra. The fee shown is added to your order; our team will contact you to confirm the delivery arrangement and timing."
+              : zone === "nationwide"
+                ? "For destinations outside Accra. Add your region and locality to the address; our team will confirm the courier arrangement and timing."
+                : "Pickup is free. Our team will contact you to confirm the farm location and collection arrangements."}
+          </p>
           {zone !== "pickup" && (
             <div className="mt-4 flex flex-col gap-1.5">
               <Label htmlFor="deliveryAddress">Delivery address</Label>

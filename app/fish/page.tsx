@@ -41,6 +41,14 @@ export default function FishPage() {
         ))}
       </div>
 
+      <section className="mb-16 rounded-2xl border border-border bg-card p-6 sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-forest-700 dark:text-forest-300">Cold-chain handling</p>
+        <h2 className="mt-1 font-heading text-xl font-semibold">From pond to ice slurry</h2>
+        <p className="mt-2 max-w-3xl text-muted-foreground">
+          Fish are harvested early in the morning, when water and air temperatures are lowest. From the moment they leave the pond, they go into ice-slurry crates and are never left at ambient temperature.
+        </p>
+      </section>
+
       <div className="mb-16 grid gap-8 rounded-2xl bg-forest-50 p-8 dark:bg-forest-950/40 md:grid-cols-2">
         <div>
           <h3 className="font-heading font-semibold">An integrated, circular system</h3>
