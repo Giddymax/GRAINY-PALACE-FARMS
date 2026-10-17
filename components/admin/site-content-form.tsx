@@ -36,6 +36,11 @@ export function SiteContentForm({ rows }: { rows: ContentRow[] }) {
       {Object.entries(sections).map(([section, items]) => (
         <div key={section} className="rounded-xl border border-border bg-card p-5">
           <h2 className="mb-4 font-heading text-lg font-semibold capitalize">{section}</h2>
+          {section === "contact" && (
+            <p className="mb-4 text-sm text-muted-foreground">
+              These public contact fields drive the Contact page, site WhatsApp links, and contact fallbacks across the site.
+            </p>
+          )}
           <div className="grid gap-4 sm:grid-cols-2">
             {items.map((row) => (
               <div key={`${row.section}:${row.key}`} className="flex flex-col gap-1.5">

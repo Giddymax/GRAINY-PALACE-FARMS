@@ -1,5 +1,14 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { siteConfig } from "@/lib/site-config";
+
+export type PublicContactSettings = {
+  phone: string;
+  whatsapp: string;
+  email: string;
+  address: string;
+  hours: string;
+};
 
 /** Reads one site_content value, falling back to `fallback` if missing (no
  *  live Supabase project connected yet, or the row hasn't been seeded). */
@@ -35,6 +44,18 @@ export async function getSiteContentSection(
   } catch {
     return {};
   }
+}
+
+/** Public contact fields are editable from Admin → Site Content. */
+export async function getPublicContactSettings(): Promise<PublicContactSettings> {
+  const content = await getSiteContentSection("contact");
+  return {
+    phone: content.phone || siteConfig.contact.phone,
+    whatsapp: content.whatsapp || siteConfig.contact.whatsapp,
+    email: content.email || siteConfig.contact.email,
+    address: content.address || siteConfig.contact.address,
+    hours: content.hours || siteConfig.contact.hours,
+  };
 }
 
 export type DeliveryZone = "accra" | "nationwide" | "pickup";

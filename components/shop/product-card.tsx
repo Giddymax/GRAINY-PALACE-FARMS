@@ -13,10 +13,12 @@ import { buildWhatsAppLink, buildProductOrderMessage } from "@/lib/whatsapp";
 import { useAddedFeedback } from "@/lib/hooks/use-added-feedback";
 import { toast } from "sonner";
 import type { Product } from "@/lib/data/products";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [justAdded, pulseAdded] = useAddedFeedback();
+  const contactSettings = usePublicContactSettings();
 
   const handleAddToCart = () => {
     addItem(
@@ -40,7 +42,8 @@ export function ProductCard({ product }: { product: Product }) {
       quantity: 1,
       unit: product.unit,
       price: product.price,
-    })
+    }),
+    contactSettings.whatsapp
   );
 
   return (

@@ -1,6 +1,7 @@
 import { siteConfig } from "@/lib/site-config";
+import type { PublicContactSettings } from "@/lib/data/site-content";
 
-export function organizationJsonLd() {
+export function organizationJsonLd(contact: PublicContactSettings = siteConfig.contact) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -11,14 +12,14 @@ export function organizationJsonLd() {
     description: siteConfig.description,
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.contact.address,
+      streetAddress: contact.address,
       addressRegion: "Greater Accra",
       addressCountry: "GH",
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: siteConfig.contact.phone,
-      email: siteConfig.contact.email,
+      telephone: contact.phone,
+      email: contact.email,
       contactType: "customer service",
       areaServed: "GH",
     },
@@ -26,18 +27,18 @@ export function organizationJsonLd() {
   };
 }
 
-export function localBusinessJsonLd() {
+export function localBusinessJsonLd(contact: PublicContactSettings = siteConfig.contact) {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: siteConfig.name,
     image: `${siteConfig.url}/brand/grainy-palace-farms-seal.png`,
     url: siteConfig.url,
-    telephone: siteConfig.contact.phone,
+    telephone: contact.phone,
     priceRange: "₵₵",
     address: {
       "@type": "PostalAddress",
-      streetAddress: siteConfig.contact.address,
+      streetAddress: contact.address,
       addressRegion: "Greater Accra",
       addressCountry: "GH",
     },

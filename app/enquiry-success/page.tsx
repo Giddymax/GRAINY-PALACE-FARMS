@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = { title: "Request received" };
 
@@ -40,11 +41,13 @@ export default async function EnquirySuccessPage({
 }) {
   const { type, topic, ref } = await searchParams;
   const copy = copyByType[type ?? ""] ?? copyByType.contact;
+  const contact = await getPublicContactSettings();
 
   const whatsappHref = buildWhatsAppLink(
     ref
       ? buildFollowUpMessage(ref, "I just submitted a request on your website.")
-      : `Hello Grainy Palace Farms, I just submitted a request on your website${topic ? ` about ${topic}` : ""}.`
+      : `Hello Grainy Palace Farms, I just submitted a request on your website${topic ? ` about ${topic}` : ""}.`,
+    contact.whatsapp
   );
 
   return (

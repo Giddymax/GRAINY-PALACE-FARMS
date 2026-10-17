@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatGHS, formatDate } from "@/lib/format";
 import { OrderStatusActions } from "@/components/admin/order-status-actions";
 import { siteConfig } from "@/lib/site-config";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata = { title: "Order — Admin" };
 
@@ -15,6 +16,7 @@ export default async function AdminOrderDetailPage({
 }) {
   await requireStaff();
   const { id } = await params;
+  const contact = await getPublicContactSettings();
   const supabase = await createClient();
 
   const { data: order } = await supabase.from("orders").select("*").eq("id", id).maybeSingle();
@@ -28,7 +30,7 @@ export default async function AdminOrderDetailPage({
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="font-heading text-xl font-semibold">{siteConfig.name}</h1>
-            <p className="text-xs text-muted-foreground">{siteConfig.contact.address}</p>
+            <p className="text-xs text-muted-foreground">{contact.address}</p>
           </div>
           <div className="text-right">
             <p className="font-mono text-sm">{order.reference}</p>

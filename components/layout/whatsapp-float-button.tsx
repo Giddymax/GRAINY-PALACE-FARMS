@@ -3,13 +3,14 @@
 import { usePathname } from "next/navigation";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
-export function WhatsAppFloatButton() {
+export function WhatsAppFloatButton({ phone }: { phone: string }) {
   const pathname = usePathname();
   // Hide on admin/partner dashboards where it would overlap operational UI.
   if (pathname?.startsWith("/admin")) return null;
 
   const href = buildWhatsAppLink(
-    "Hello Grainy Palace Farms, I have a question about your products."
+    "Hello Grainy Palace Farms, I have a question about your products.",
+    phone
   );
 
   return (

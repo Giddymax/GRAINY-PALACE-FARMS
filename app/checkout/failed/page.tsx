@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = { title: "Payment not completed" };
 
@@ -11,11 +12,13 @@ export default async function CheckoutFailedPage({
   searchParams: Promise<{ ref?: string }>;
 }) {
   const { ref } = await searchParams;
+  const contact = await getPublicContactSettings();
   const whatsappHref = buildWhatsAppLink(
     buildFollowUpMessage(
       ref ?? "",
       "My card/Mobile Money payment didn't go through — please help me complete my order."
-    )
+    ),
+    contact.whatsapp
   );
 
   return (

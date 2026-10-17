@@ -5,6 +5,7 @@ import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { SubscriptionForm } from "@/components/forms/subscription-form";
 import { WholesaleQuoteForm } from "@/components/forms/wholesale-quote-form";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = {
   title: "Livestock",
@@ -12,9 +13,11 @@ export const metadata: Metadata = {
     "Poultry, cage-free eggs, goats, sheep, pork, rabbit and guinea fowl from Grainy Palace Farms — humanely raised with antibiotic stewardship.",
 };
 
-export default function LivestockPage() {
+export default async function LivestockPage() {
+  const contact = await getPublicContactSettings();
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farms, I'd like to place a festive-season live-animal order."
+    "Hello Grainy Palace Farms, I'd like to place a festive-season live-animal order.",
+    contact.whatsapp
   );
 
   return (

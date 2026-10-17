@@ -13,7 +13,10 @@ import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { ConsentBanner } from "@/components/consent/consent-banner";
 import { AnalyticsGate } from "@/components/analytics/analytics-gate";
-import { getSiteContentSection } from "@/lib/data/site-content";
+import {
+  getPublicContactSettings,
+  getSiteContentSection,
+} from "@/lib/data/site-content";
 
 const bodyFont = DM_Sans({
   variable: "--font-body",
@@ -83,7 +86,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const footerContent = await getSiteContentSection("footer");
+  const [footerContent, contactSettings] = await Promise.all([
+    getSiteContentSection("footer"),
+    getPublicContactSettings(),
+  ]);
   return (
     <html
       lang="en"
@@ -101,13 +107,13 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd()).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(organizationJsonLd(contactSettings)).replace(/</g, "\\u003c"),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd()).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(localBusinessJsonLd(contactSettings)).replace(/</g, "\\u003c"),
           }}
         />
         <IntlClientRoot>
@@ -117,7 +123,9 @@ export default async function RootLayout({
                 <a href="#main-content" className="skip-link">
                   Skip to content
                 </a>
-                <SiteChrome footerContent={footerContent}>{children}</SiteChrome>
+                <SiteChrome footerContent={footerContent} contactSettings={contactSettings}>
+                  {children}
+                </SiteChrome>
                 <Toaster position="top-right" richColors closeButton />
                 <ServiceWorkerRegister />
                 <InstallPrompt />

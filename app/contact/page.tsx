@@ -3,20 +3,22 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PageHeroImage } from "@/components/layout/page-hero-image";
 import { ContactForm } from "@/components/forms/contact-form";
-import { siteConfig } from "@/lib/site-config";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Grainy Palace Farms — phone, WhatsApp, email, or visit us in Greater Accra Region, Ghana.",
+    "Get in touch with Grainy Palace Farms — phone, WhatsApp, email, or visit our farms in Ghana.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const contact = await getPublicContactSettings();
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farms, I'd like to get in touch."
+    "Hello Grainy Palace Farms, I'd like to get in touch.",
+    contact.whatsapp
   );
-  const mapQuery = encodeURIComponent(siteConfig.contact.address);
+  const mapQuery = encodeURIComponent(contact.address);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
@@ -35,29 +37,29 @@ export default function ContactPage() {
             <li>
               <div>
                 <p className="font-medium">Phone</p>
-                <a href={`tel:${siteConfig.contact.phone}`} className="text-sm text-muted-foreground hover:underline">
-                  {siteConfig.contact.phone}
+                <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:underline">
+                  {contact.phone}
                 </a>
               </div>
             </li>
             <li>
               <div>
                 <p className="font-medium">Email</p>
-                <a href={`mailto:${siteConfig.contact.email}`} className="text-sm text-muted-foreground hover:underline">
-                  {siteConfig.contact.email}
+                <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:underline">
+                  {contact.email}
                 </a>
               </div>
             </li>
             <li>
               <div>
                 <p className="font-medium">Address</p>
-                <p className="text-sm text-muted-foreground">{siteConfig.contact.address}</p>
+                <p className="text-sm text-muted-foreground">{contact.address}</p>
               </div>
             </li>
             <li>
               <div>
                 <p className="font-medium">Hours</p>
-                <p className="text-sm text-muted-foreground">{siteConfig.contact.hours}</p>
+                <p className="text-sm text-muted-foreground">{contact.hours}</p>
               </div>
             </li>
           </ul>

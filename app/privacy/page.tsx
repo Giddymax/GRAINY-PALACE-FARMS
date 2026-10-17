@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = {
   title: "Privacy & Data Practices",
   description: "How Grainy Palace Farm collects, uses and protects your information.",
 };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const contact = await getPublicContactSettings();
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="mb-6 font-heading text-3xl font-semibold">Privacy &amp; Data Practices</h1>
@@ -57,8 +58,8 @@ export default function PrivacyPage() {
             needed for fulfilment, accounting and legal record-keeping. To
             ask about, correct, or request deletion of your data, contact
             us at{" "}
-            <a href={`mailto:${siteConfig.contact.email}`} className="underline">
-              {siteConfig.contact.email}
+            <a href={`mailto:${contact.email}`} className="underline">
+              {contact.email}
             </a>
             .
           </p>

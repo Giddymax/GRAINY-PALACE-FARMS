@@ -1134,8 +1134,8 @@ on conflict (batch_code) do nothing;
 -- ============================================================================
 
 insert into public.site_content (section, key, value) values
-  ('contact', 'phone', '+233 20 123 4567'),
-  ('contact', 'whatsapp', '233201234567'),
+  ('contact', 'phone', '+233 59 687 1415'),
+  ('contact', 'whatsapp', '233596871415'),
   ('contact', 'email', 'info@grainypalacefarm.com'),
   ('contact', 'address', 'Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana'),
   ('contact', 'hours', 'Monday – Saturday, 7:00am – 6:00pm GMT'),

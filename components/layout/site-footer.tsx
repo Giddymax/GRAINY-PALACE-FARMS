@@ -6,8 +6,15 @@ import { WordMark } from "@/components/brand/logo-mark";
 import { siteConfig } from "@/lib/site-config";
 import { FacebookIcon, InstagramIcon, LinkedInIcon, XIcon } from "@/components/brand/social-icons";
 import { getFooterCollections } from "@/lib/footer-content";
+import type { PublicContactSettings } from "@/lib/data/site-content";
 
-export function SiteFooter({ content }: { content: Record<string, string> }) {
+export function SiteFooter({
+  content,
+  contactSettings,
+}: {
+  content: Record<string, string>;
+  contactSettings: PublicContactSettings;
+}) {
   const year = new Date().getFullYear();
   const t = useTranslations("footer");
   const value = (key: string, fallback: string) => content[key] || fallback;
@@ -58,22 +65,22 @@ export function SiteFooter({ content }: { content: Record<string, string> }) {
           </h3>
           <ul className="flex flex-col gap-2 text-sm text-forest-100">
             <li>
-              <span className="font-medium text-gold-300">{value("address_label", "Address")}: </span>{value("address", siteConfig.contact.address)}
+              <span className="font-medium text-gold-300">{value("address_label", "Address")}: </span>{value("address", contactSettings.address)}
             </li>
             <li>
               <span className="font-medium text-gold-300">{value("phone_label", "Phone")}: </span>
-              <a href={`tel:${value("phone", siteConfig.contact.phone)}`} className="hover:underline">
-                {value("phone", siteConfig.contact.phone)}
+              <a href={`tel:${value("phone", contactSettings.phone)}`} className="hover:underline">
+                {value("phone", contactSettings.phone)}
               </a>
             </li>
             <li>
               <span className="font-medium text-gold-300">{value("email_label", "Email")}: </span>
-              <a href={`mailto:${value("email", siteConfig.contact.email)}`} className="hover:underline">
-                {value("email", siteConfig.contact.email)}
+              <a href={`mailto:${value("email", contactSettings.email)}`} className="hover:underline">
+                {value("email", contactSettings.email)}
               </a>
             </li>
             <li>
-              <span className="font-medium text-gold-300">{value("hours_label", "Hours")}: </span>{value("hours", siteConfig.contact.hours)}
+              <span className="font-medium text-gold-300">{value("hours_label", "Hours")}: </span>{value("hours", contactSettings.hours)}
             </li>
           </ul>
           <div className="mt-2">

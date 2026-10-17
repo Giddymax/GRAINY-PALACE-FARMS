@@ -20,8 +20,8 @@ export const siteConfig = {
   currencySymbol: "₵",
   region: "Across Ghana",
   contact: {
-    phone: "+233 20 123 4567",
-    whatsapp: "233201234567",
+    phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+233 59 687 1415",
+    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "233596871415",
     email: "info@grainypalacefarm.com",
     address: "Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana",
     hours: "Monday – Saturday, 7:00am – 6:00pm GMT",

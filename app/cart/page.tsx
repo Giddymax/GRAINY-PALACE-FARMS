@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart/context";
 import { formatGHS } from "@/lib/format";
 import { buildWhatsAppLink, buildCartOrderMessage } from "@/lib/whatsapp";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem } = useCart();
+  const contactSettings = usePublicContactSettings();
 
   if (items.length === 0) {
     return (
@@ -28,7 +30,8 @@ export default function CartPage() {
   const whatsappHref = buildWhatsAppLink(
     buildCartOrderMessage(
       items.map((i) => ({ name: i.name, quantity: i.quantity, unit: i.unit, price: i.price }))
-    )
+    ),
+    contactSettings.whatsapp
   );
 
   return (

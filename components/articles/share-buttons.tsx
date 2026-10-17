@@ -4,9 +4,11 @@ import { Share2, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { toast } from "sonner";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 export function ShareButtons({ title, url }: { title: string; url: string }) {
-  const whatsappHref = buildWhatsAppLink(`${title}\n\n${url}`);
+  const contactSettings = usePublicContactSettings();
+  const whatsappHref = buildWhatsAppLink(`${title}\n\n${url}`, contactSettings.whatsapp);
 
   async function handleShare() {
     if (navigator.share) {

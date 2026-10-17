@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink, buildFollowUpMessage } from "@/lib/whatsapp";
 import { ClearCartOnMount } from "@/components/checkout/clear-cart-on-mount";
 import { PushManager } from "@/components/pwa/push-manager";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 
 export const metadata: Metadata = { title: "Order placed" };
 
@@ -14,9 +15,11 @@ export default async function CheckoutSuccessPage({
 }) {
   const { ref } = await searchParams;
   const reference = ref ?? "";
+  const contact = await getPublicContactSettings();
 
   const whatsappHref = buildWhatsAppLink(
-    buildFollowUpMessage(reference, "I've just placed an order on your website.")
+    buildFollowUpMessage(reference, "I've just placed an order on your website."),
+    contact.whatsapp
   );
 
   return (

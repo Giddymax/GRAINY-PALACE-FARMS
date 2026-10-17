@@ -9,11 +9,13 @@ import { buildWhatsAppLink, buildProductOrderMessage } from "@/lib/whatsapp";
 import { useAddedFeedback } from "@/lib/hooks/use-added-feedback";
 import { toast } from "sonner";
 import type { Product } from "@/lib/data/products";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 export function ProductDetailActions({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = React.useState(1);
   const [justAdded, pulseAdded] = useAddedFeedback();
+  const contactSettings = usePublicContactSettings();
 
   const whatsappHref = buildWhatsAppLink(
     buildProductOrderMessage({
@@ -21,7 +23,8 @@ export function ProductDetailActions({ product }: { product: Product }) {
       quantity,
       unit: product.unit,
       price: product.price,
-    })
+    }),
+    contactSettings.whatsapp
   );
 
   return (

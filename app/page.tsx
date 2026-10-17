@@ -8,6 +8,7 @@ import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { getCategoryThumbnails } from "@/lib/data/products";
 import { getGalleryItems, getHeroSlides, getPageHero } from "@/lib/data/misc";
 import { getPublishedArticles } from "@/lib/data/articles";
+import { getPublicContactSettings } from "@/lib/data/site-content";
 import { ArticleCard } from "@/components/articles/article-card";
 import { HeroCarousel, type HeroSlideData } from "@/components/home/hero-carousel";
 
@@ -26,16 +27,18 @@ export default async function HomePage() {
     (category) => category.slug === "agrochemicals-inputs"
   );
   if (agroInputsCategory) featuredCategories.push(agroInputsCategory);
-  const [thumbnails, heroSlides, heroBackground, gallery, guides] = await Promise.all([
+  const [thumbnails, heroSlides, heroBackground, gallery, guides, contactSettings] = await Promise.all([
     getCategoryThumbnails(),
     getHeroSlides(),
     getPageHero("home-hero-bg"),
     getGalleryItems(undefined, 4),
     getPublishedArticles({ pageSize: 3 }),
+    getPublicContactSettings(),
   ]);
   const slides = heroSlides.length > 0 ? heroSlides : [FALLBACK_SLIDE];
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farms, I'd like to know more about your products."
+    "Hello Grainy Palace Farms, I'd like to know more about your products.",
+    contactSettings.whatsapp
   );
 
   return (

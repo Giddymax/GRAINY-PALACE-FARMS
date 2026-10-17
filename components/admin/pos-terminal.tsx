@@ -9,6 +9,7 @@ import { formatGHS, formatDate } from "@/lib/format";
 import { siteConfig } from "@/lib/site-config";
 import { toast } from "sonner";
 import type { Database } from "@/lib/supabase/database.types";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 type InventoryItem = Database["public"]["Tables"]["inventory_items"]["Row"];
 
@@ -21,6 +22,7 @@ type CartLine = {
 };
 
 export function PosTerminal({ items }: { items: InventoryItem[] }) {
+  const contactSettings = usePublicContactSettings();
   const [search, setSearch] = React.useState("");
   const [cart, setCart] = React.useState<CartLine[]>([]);
   const [customerName, setCustomerName] = React.useState("");
@@ -97,7 +99,7 @@ export function PosTerminal({ items }: { items: InventoryItem[] }) {
       <div className="mx-auto max-w-sm">
         <div id="receipt" className="rounded-xl border border-border bg-card p-6 font-mono text-sm">
           <p className="text-center font-semibold">{siteConfig.name}</p>
-          <p className="text-center text-xs text-muted-foreground">{siteConfig.contact.address}</p>
+          <p className="text-center text-xs text-muted-foreground">{contactSettings.address}</p>
           <div className="my-3 border-t border-dashed border-border" />
           <p>Ref: {receipt.reference}</p>
           <p>Date: {formatDate(receipt.date)}</p>

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import { siteConfig } from "@/lib/site-config";
+import { usePublicContactSettings } from "@/components/contact-settings-provider";
 
 const AUTOPLAY_MS = 6000;
 
@@ -36,8 +37,10 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
   const [index, setIndex] = React.useState(0);
   const [, startTransition] = React.useTransition();
   const reducedMotion = usePrefersReducedMotion();
+  const contactSettings = usePublicContactSettings();
   const whatsappHref = buildWhatsAppLink(
-    "Hello Grainy Palace Farms, I'd like to know more about your products."
+    "Hello Grainy Palace Farms, I'd like to know more about your products.",
+    contactSettings.whatsapp
   );
 
   React.useEffect(() => {
