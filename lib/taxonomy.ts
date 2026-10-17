@@ -163,6 +163,7 @@ export const categories: Category[] = [
 export const productUnits = [
   "kg",
   "bag",
+  "bunch",
   "crate",
   "dozen",
   "pack",
