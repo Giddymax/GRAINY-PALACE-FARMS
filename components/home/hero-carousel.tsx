@@ -68,7 +68,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
             {active.title}
           </h1>
           {active.subtitle && (
-            <p className="max-w-xl text-lg text-forest-800">{active.subtitle}</p>
+            <p className="max-w-xl text-lg text-charcoal">{active.subtitle}</p>
           )}
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="bg-gold-500 text-charcoal hover:bg-gold-400">
