@@ -23,6 +23,7 @@ export const secondaryNav: NavLink[] = [
   { label: "News & Events", href: "/news", i18nKey: "newsEvents" },
   { label: "Sustainability", href: "/sustainability", i18nKey: "sustainability" },
   { label: "Careers", href: "/careers", description: "Jobs & the outgrower scheme", i18nKey: "careers" },
+  { label: "Join Our Farm Network", href: "/partnerships", description: "Sign up as an outgrower, offtaker or cooperative" },
   { label: "Traceability", href: "/traceability", description: "Look up a batch by QR/reference", i18nKey: "traceability" },
   { label: "Farm Locations", href: "/farm-locations", description: "Find our regional farms and get directions" },
   { label: "About Us", href: "/about", i18nKey: "about" },
@@ -43,6 +44,7 @@ export const footerShopLinks: NavLink[] = [
 
 export const footerCompanyLinks: NavLink[] = [
   { label: "About Us", href: "/about" },
+  { label: "Join Our Farm Network", href: "/partnerships" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "Careers & Outgrowers", href: "/careers" },
   { label: "Farm Locations", href: "/farm-locations" },

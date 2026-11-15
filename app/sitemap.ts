@@ -20,6 +20,7 @@ const staticRoutes = [
   "/about",
   "/sustainability",
   "/careers",
+  "/partnerships",
   "/traceability",
   "/contact",
   "/farm-locations",

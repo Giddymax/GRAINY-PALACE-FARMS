@@ -17,9 +17,11 @@ import { submitQuoteRequestAction, type EnquiryActionState } from "@/lib/actions
 export function WholesaleQuoteForm({
   defaultRequestType = "wholesale",
   defaultProduct,
+  submitLabel = "Request a quote",
 }: {
-  defaultRequestType?: "wholesale" | "bulk";
+  defaultRequestType?: "wholesale" | "bulk" | "general";
   defaultProduct?: string;
+  submitLabel?: string;
 }) {
   const [state, formAction, pending] = useActionState<EnquiryActionState, FormData>(
     submitQuoteRequestAction,
@@ -86,7 +88,7 @@ export function WholesaleQuoteForm({
       )}
 
       <Button type="submit" size="lg" disabled={pending}>
-        {pending ? "Submitting…" : "Request a quote"}
+        {pending ? "Submitting…" : submitLabel}
       </Button>
     </form>
   );
