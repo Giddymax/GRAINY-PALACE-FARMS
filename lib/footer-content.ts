@@ -73,7 +73,10 @@ export function getFooterCollections(content: Record<string, string>) {
     shop: parseLinks<FooterLink>(content.shop_links) ?? fromLegacy("shop", footerShopLinks),
     company: parseLinks<FooterLink>(content.company_links) ?? fromLegacy("company", footerCompanyLinks),
     business: parseLinks<FooterLink>(content.business_links) ?? fromLegacy("business", footerBusinessLinks),
-    bottom: bottom.filter((link) => link.href !== "/contact"),
+    bottom: bottom.filter((link) => {
+      const path = link.href.split(/[?#]/, 1)[0].replace(/\/+$/, "").toLowerCase();
+      return link.label.trim().toLowerCase() !== "contact" && !path.endsWith("/contact");
+    }),
     social: validSocials ?? socialLinks.map((link, index) => ({
       ...link,
       ...legacySocials[index],
