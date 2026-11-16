@@ -66,8 +66,13 @@ export default async function AdminEnquiriesPage() {
                   <TableRow key={q.id}>
                     <TableCell className="font-medium">{q.name}{q.company && ` (${q.company})`}</TableCell>
                     <TableCell className="text-muted-foreground">{q.phone}{q.email && ` · ${q.email}`}</TableCell>
-                    <TableCell className="capitalize">{q.request_type.replace("_", " ")}</TableCell>
-                    <TableCell className="max-w-xs truncate">{q.product_or_service ?? "—"}</TableCell>
+                    <TableCell className="capitalize">{q.notes?.match(/^Partner type: (.+)$/m)?.[1] ? `Partner · ${q.notes.match(/^Partner type: (.+)$/m)?.[1]}` : q.request_type.replace("_", " ")}</TableCell>
+                    <TableCell className="max-w-sm whitespace-pre-wrap text-sm">
+                      <p>{q.product_or_service ?? "—"}</p>
+                      {q.quantity && <p className="mt-1 text-xs text-muted-foreground">Capacity: {q.quantity}</p>}
+                      {q.timeline && <p className="mt-1 text-xs text-muted-foreground">Start: {q.timeline}</p>}
+                      {q.notes && <p className="mt-2 text-xs leading-5 text-muted-foreground">{q.notes}</p>}
+                    </TableCell>
                     <TableCell className="text-muted-foreground">{formatDate(q.created_at)}</TableCell>
                     <TableCell>
                       <StatusSelect

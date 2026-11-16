@@ -20,6 +20,10 @@ const copyByType: Record<string, { title: string; body: (topic?: string) => stri
     title: "Outgrower application received",
     body: (topic) => `Thanks for applying to our outgrower scheme${topic ? ` for ${topic}` : ""}. Our agronomy team reviews applications ahead of each planting season.`,
   },
+  partner: {
+    title: "Partnership application received",
+    body: (topic) => `Thanks for applying to join the Grainy Palace Farms network${topic ? ` as a ${topic}` : ""}. Our team will review your details and contact you about next steps.`,
+  },
   job: {
     title: "Application received",
     body: () => "Thanks for applying. Our HR team reviews every application and will contact shortlisted candidates.",

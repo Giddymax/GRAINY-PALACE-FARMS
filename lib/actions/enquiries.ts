@@ -9,6 +9,7 @@ import {
   jobApplicationSchema,
   labSampleSchema,
   contactSchema,
+  partnerApplicationSchema,
 } from "@/lib/validations/enquiry";
 import { generateLabReference } from "@/lib/orders/reference";
 
@@ -106,6 +107,48 @@ export async function submitOutgrowerApplicationAction(
   if (error) return { error: "Could not submit your application. Please try again." };
 
   redirect(`/enquiry-success?type=outgrower&topic=${encodeURIComponent(parsed.data.crop)}`);
+}
+
+export async function submitPartnerApplicationAction(
+  _prevState: EnquiryActionState,
+  formData: FormData
+): Promise<EnquiryActionState> {
+  const parsed = partnerApplicationSchema.safeParse({
+    partnerType: formData.get("partnerType"),
+    name: formData.get("name"),
+    phone: formData.get("phone"),
+    email: formData.get("email"),
+    organization: formData.get("organization"),
+    location: formData.get("location"),
+    registrationNumber: formData.get("registrationNumber"),
+    interest: formData.get("interest"),
+    capacity: formData.get("capacity"),
+    timeline: formData.get("timeline"),
+    details: formData.get("details"),
+  });
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Please check the form." };
+
+  const supabase = await createClient();
+  const notes = [
+    `Partner type: ${parsed.data.partnerType}`,
+    `Location: ${parsed.data.location}`,
+    parsed.data.registrationNumber && `Business / cooperative registration: ${parsed.data.registrationNumber}`,
+    parsed.data.details && `Partnership details: ${parsed.data.details}`,
+  ].filter(Boolean).join("\n");
+  const { error } = await supabase.from("quote_requests").insert({
+    name: parsed.data.name,
+    phone: parsed.data.phone,
+    email: parsed.data.email,
+    company: parsed.data.organization || null,
+    request_type: "general",
+    product_or_service: parsed.data.interest,
+    quantity: parsed.data.capacity || null,
+    timeline: parsed.data.timeline || null,
+    notes,
+  });
+  if (error) return { error: "Could not submit your application. Please try again." };
+
+  redirect(`/enquiry-success?type=partner&topic=${encodeURIComponent(parsed.data.partnerType)}`);
 }
 
 export async function submitJobApplicationAction(

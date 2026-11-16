@@ -36,6 +36,32 @@ export const outgrowerApplicationSchema = z.object({
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
 });
 
+export const partnerApplicationSchema = z.object({
+  partnerType: z.enum([
+    "Farmer / Outgrower",
+    "Farmer Cooperative",
+    "Client / Buyer",
+    "Offtaker / Bulk Buyer",
+    "Supplier",
+    "Processor / Manufacturer",
+    "Distributor / Exporter",
+    "Retailer / Supermarket",
+    "Hospitality / Food Service",
+    "Institutional Buyer",
+    "Other",
+  ]),
+  name,
+  phone,
+  email: z.string().trim().email("Enter a valid email address."),
+  organization: z.string().trim().max(160).optional().or(z.literal("")),
+  location: z.string().trim().min(2, "Enter your town and region."),
+  registrationNumber: z.string().trim().max(100).optional().or(z.literal("")),
+  interest: z.string().trim().min(2, "Tell us what you grow, buy, or supply."),
+  capacity: z.string().trim().max(160).optional().or(z.literal("")),
+  timeline: z.string().trim().max(100).optional().or(z.literal("")),
+  details: z.string().trim().max(2000).optional().or(z.literal("")),
+});
+
 export const jobApplicationSchema = z.object({
   openingId: z.string().uuid().optional().or(z.literal("")),
   applicantName: name,
