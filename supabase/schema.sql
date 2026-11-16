@@ -1133,10 +1133,14 @@ on conflict (batch_code) do nothing;
 -- Default site_content (contact/brand fields — Ghana defaults, editable in /admin)
 -- ============================================================================
 
+update public.site_content
+set value = 'grainypalacefarms@gmail.com'
+where section = 'contact' and key = 'email';
+
 insert into public.site_content (section, key, value) values
   ('contact', 'phone', '+233 59 687 1415'),
   ('contact', 'whatsapp', '0596871415'),
-  ('contact', 'email', 'info@grainypalacefarm.com'),
+  ('contact', 'email', 'grainypalacefarms@gmail.com'),
   ('contact', 'address', 'Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana'),
   ('contact', 'hours', 'Monday – Saturday, 7:00am – 6:00pm GMT'),
   ('brand', 'name', 'Grainy Palace Farms Limited'),

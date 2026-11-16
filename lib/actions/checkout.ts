@@ -112,7 +112,7 @@ export async function createOrderAction(
     let authorizationUrl: string | null = null;
     try {
       const result = await initializeTransaction({
-        email: parsed.data.customerEmail || "orders@grainypalacefarm.com",
+        email: parsed.data.customerEmail || "grainypalacefarms@gmail.com",
         amountGHS: total,
         reference,
         callbackUrl: `${siteConfig.url}/checkout/verify?reference=${reference}`,
