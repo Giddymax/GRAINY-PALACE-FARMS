@@ -26,6 +26,21 @@ export function formatDate(value: string | Date): string {
   return dateFormatter.format(date);
 }
 
+/** Stable, staff-friendly application reference that includes its Ghana submission date. */
+export function formatPartnerApplicationId(id: string, createdAt: string | Date): string {
+  const date = typeof createdAt === "string" ? new Date(createdAt) : createdAt;
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Africa/Accra",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "0000";
+  const dateStamp = `${part("year")}-${part("month")}-${part("day")}`;
+  const suffix = id.replace(/-/g, "").slice(-12).toUpperCase();
+  return `GPF-APP-${dateStamp}-${suffix}`;
+}
+
 export function formatReadingTime(minutes: number): string {
   return `${minutes} min read`;
 }

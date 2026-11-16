@@ -3,7 +3,7 @@ import { LogoMark } from "@/components/brand/logo-mark";
 import { PrintApplicationButton } from "@/components/admin/print-application-button";
 import { requireStaff } from "@/lib/auth/require-role";
 import { createClient } from "@/lib/supabase/server";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatPartnerApplicationId } from "@/lib/format";
 
 export const metadata = { title: "Partner Application — Print" };
 
@@ -28,6 +28,7 @@ export default async function PrintPartnerApplicationPage({
   const location = application.notes?.match(/^Location: (.+)$/m)?.[1];
   const registration = application.notes?.match(/^Business \/ cooperative registration: (.+)$/m)?.[1];
   const details = application.notes?.match(/^Partnership details: ([\s\S]*)$/m)?.[1];
+  const applicationNumber = formatPartnerApplicationId(application.id, application.created_at);
   const fields = [
     { label: "Applicant type", value: partnerType },
     { label: "Contact person", value: application.name },
@@ -74,7 +75,9 @@ export default async function PrintPartnerApplicationPage({
               <p className="mt-2 inline-flex rounded-full border border-forest-800/20 bg-forest-50 px-3 py-1 text-sm font-semibold text-forest-900">{partnerType}</p>
             </div>
             <div className="rounded-lg border border-slate-200 px-4 py-3 text-sm">
-              <p className="text-xs uppercase tracking-wider text-slate-500">Application status</p>
+              <p className="text-xs uppercase tracking-wider text-slate-500">Application ID</p>
+              <p className="mt-1 font-mono text-xs font-semibold sm:text-sm">{applicationNumber}</p>
+              <p className="mt-3 text-xs uppercase tracking-wider text-slate-500">Review status</p>
               <p className="mt-1 font-semibold capitalize">{application.status}</p>
             </div>
           </div>
@@ -101,7 +104,7 @@ export default async function PrintPartnerApplicationPage({
           <footer className="mt-12 border-t border-slate-200 pt-4 text-xs text-slate-500">
             <div className="flex flex-wrap justify-between gap-3">
               <span>Grainy Palace Farms · Partner Network</span>
-              <span>Application ID: {application.id}</span>
+              <span>Application ID: {applicationNumber}</span>
             </div>
           </footer>
         </div>

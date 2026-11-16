@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { CreatePartnerDialog } from "@/components/admin/create-partner-dialog";
 import { PartnerTierSelect } from "@/components/admin/partner-tier-select";
 import { PartnerApprovalButtons } from "@/components/admin/partner-approval-buttons";
-import { formatDate } from "@/lib/format";
+import { formatDate, formatPartnerApplicationId } from "@/lib/format";
 
 export const metadata = { title: "Partners — Admin" };
 
@@ -62,6 +62,7 @@ export default async function AdminPartnersPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Applicant</TableHead>
+                <TableHead>Application ID</TableHead>
                 <TableHead>Partner type</TableHead>
                 <TableHead>Contact</TableHead>
                 <TableHead>Interest / capacity</TableHead>
@@ -79,6 +80,7 @@ export default async function AdminPartnersPage() {
                       {application.name}
                       {application.company && <span className="block text-xs font-normal text-muted-foreground">{application.company}</span>}
                     </TableCell>
+                    <TableCell className="font-mono text-xs font-medium">{formatPartnerApplicationId(application.id, application.created_at)}</TableCell>
                     <TableCell><Badge variant="outline">{partnerType}</Badge></TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       <span className="block">{application.phone}</span>
@@ -99,7 +101,7 @@ export default async function AdminPartnersPage() {
                 );
               })}
               {(!applications || applications.length === 0) && (
-                <TableRow><TableCell colSpan={7} className="py-8 text-center text-muted-foreground">No partner applications yet.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={8} className="py-8 text-center text-muted-foreground">No partner applications yet.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>
