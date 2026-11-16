@@ -69,9 +69,19 @@ export function getFooterCollections(content: Record<string, string>) {
     label: content[legacyBottomKeys[index][0]] || link.label,
     href: content[legacyBottomKeys[index][1]] || link.href,
   }));
+  const company = parseLinks<FooterLink>(content.company_links) ?? fromLegacy("company", footerCompanyLinks);
+  let foundContact = false;
+  const uniqueCompany = company.filter((link) => {
+    const path = link.href.split(/[?#]/, 1)[0].replace(/\/+$/, "").toLowerCase();
+    const isContact = link.label.trim().toLowerCase() === "contact" || path.endsWith("/contact");
+    if (!isContact) return true;
+    if (foundContact) return false;
+    foundContact = true;
+    return true;
+  });
   return {
     shop: parseLinks<FooterLink>(content.shop_links) ?? fromLegacy("shop", footerShopLinks),
-    company: parseLinks<FooterLink>(content.company_links) ?? fromLegacy("company", footerCompanyLinks),
+    company: uniqueCompany,
     business: parseLinks<FooterLink>(content.business_links) ?? fromLegacy("business", footerBusinessLinks),
     bottom: bottom.filter((link) => {
       const path = link.href.split(/[?#]/, 1)[0].replace(/\/+$/, "").toLowerCase();
