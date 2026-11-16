@@ -25,6 +25,12 @@ export default async function AdminPartnersPage() {
     .select("*")
     .order("created_at", { ascending: false });
 
+  const { data: applications } = await supabase
+    .from("quote_requests")
+    .select("*")
+    .like("notes", "Partner type:%")
+    .order("created_at", { ascending: false });
+
   const profileIds = (partners ?? []).map((p) => p.profile_id);
   const { data: profiles } =
     profileIds.length > 0
@@ -42,6 +48,63 @@ export default async function AdminPartnersPage() {
         </div>
         <CreatePartnerDialog />
       </div>
+
+      <section className="mb-10">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <h2 className="font-heading text-xl font-semibold">Partner applications</h2>
+            <p className="text-sm text-muted-foreground">New applications from farmers, buyers, offtakers, suppliers and other partners.</p>
+          </div>
+          <Badge variant="outline">{applications?.length ?? 0} total</Badge>
+        </div>
+        <div className="overflow-x-auto rounded-xl border border-border bg-card">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Applicant</TableHead>
+                <TableHead>Partner type</TableHead>
+                <TableHead>Contact</TableHead>
+                <TableHead>Interest / capacity</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Submitted</TableHead>
+                <TableHead className="text-right">Printable form</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {(applications ?? []).map((application) => {
+                const partnerType = application.notes?.match(/^Partner type: (.+)$/m)?.[1] ?? "Partner";
+                return (
+                  <TableRow key={application.id}>
+                    <TableCell className="font-medium">
+                      {application.name}
+                      {application.company && <span className="block text-xs font-normal text-muted-foreground">{application.company}</span>}
+                    </TableCell>
+                    <TableCell><Badge variant="outline">{partnerType}</Badge></TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      <span className="block">{application.phone}</span>
+                      {application.email && <span className="block">{application.email}</span>}
+                    </TableCell>
+                    <TableCell className="max-w-xs text-sm">
+                      <span className="block">{application.product_or_service ?? "—"}</span>
+                      {application.quantity && <span className="mt-1 block text-xs text-muted-foreground">{application.quantity}</span>}
+                    </TableCell>
+                    <TableCell><Badge variant={application.status === "new" ? "default" : "outline"} className="capitalize">{application.status}</Badge></TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{formatDate(application.created_at)}</TableCell>
+                    <TableCell className="text-right">
+                      <a href={`/admin/partners/applications/${application.id}/print`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-forest-800 underline underline-offset-4">
+                        View / print PDF
+                      </a>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+              {(!applications || applications.length === 0) && (
+                <TableRow><TableCell colSpan={7} className="py-8 text-center text-muted-foreground">No partner applications yet.</TableCell></TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </section>
 
       <div className="overflow-x-auto rounded-xl border border-border bg-card">
         <Table>
