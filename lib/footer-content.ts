@@ -65,14 +65,15 @@ export function getFooterCollections(content: Record<string, string>) {
     ["sustainability_link_label", "sustainability_link_href"],
     ["privacy_link_label", "privacy_link_href"],
   ];
+  const bottom = parseLinks<FooterLink>(content.bottom_links) ?? bottomLinks.map((link, index) => ({
+    label: content[legacyBottomKeys[index][0]] || link.label,
+    href: content[legacyBottomKeys[index][1]] || link.href,
+  }));
   return {
     shop: parseLinks<FooterLink>(content.shop_links) ?? fromLegacy("shop", footerShopLinks),
     company: parseLinks<FooterLink>(content.company_links) ?? fromLegacy("company", footerCompanyLinks),
     business: parseLinks<FooterLink>(content.business_links) ?? fromLegacy("business", footerBusinessLinks),
-    bottom: parseLinks<FooterLink>(content.bottom_links) ?? bottomLinks.map((link, index) => ({
-      label: content[legacyBottomKeys[index][0]] || link.label,
-      href: content[legacyBottomKeys[index][1]] || link.href,
-    })),
+    bottom: bottom.filter((link) => link.href !== "/contact"),
     social: validSocials ?? socialLinks.map((link, index) => ({
       ...link,
       ...legacySocials[index],
