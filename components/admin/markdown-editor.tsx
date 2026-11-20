@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArticleBody } from "@/components/articles/article-body";
+import { uploadMediaAction } from "@/lib/actions/admin/media";
+import { toast } from "sonner";
 
 type Wrap = { before: string; after?: string; placeholder?: string };
 
@@ -37,7 +39,9 @@ export function MarkdownEditor({
   defaultValue?: string;
 }) {
   const [value, setValue] = React.useState(defaultValue);
+  const [uploading, setUploading] = React.useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   function applyWrap(wrap: Wrap) {
     const textarea = textareaRef.current;
@@ -54,49 +58,117 @@ export function MarkdownEditor({
     });
   }
 
+  async function handleImageUpload(file: File | null) {
+    if (!file) return;
+    setUploading(true);
+    let result: Awaited<ReturnType<typeof uploadMediaAction>>;
+    try {
+      result = await uploadMediaAction("articles", file);
+    } catch {
+      setUploading(false);
+      toast.error("Image upload failed. Please try again.");
+      return;
+    }
+    setUploading(false);
+    if (result.error || !result.url) {
+      toast.error(result.error ?? "Could not upload this image.");
+      return;
+    }
+
+    const textarea = textareaRef.current;
+    const alt =
+      file.name
+        .replace(/\.[^.]+$/, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/[\[\]\\\n]+/g, " ")
+        .trim() || "Article image";
+    const markdown = `![${alt}](${result.url})`;
+    const start = textarea?.selectionStart ?? value.length;
+    const end = textarea?.selectionEnd ?? value.length;
+    const before = value.slice(0, start);
+    const after = value.slice(end);
+    const separatorBefore = before && !before.endsWith("\n\n") ? "\n\n" : "";
+    const separatorAfter = after && !after.startsWith("\n\n") ? "\n\n" : "";
+    const insertion = `${separatorBefore}${markdown}${separatorAfter}`;
+    const next = before + insertion + after;
+    setValue(next);
+
+    requestAnimationFrame(() => {
+      const cursor = before.length + insertion.length;
+      textarea?.focus();
+      textarea?.setSelectionRange(cursor, cursor);
+    });
+    toast.success("Image uploaded and inserted. You can edit its alt text in the Markdown.");
+  }
+
   return (
-    <Tabs defaultValue="write">
-      <div className="mb-2 flex items-center justify-between">
-        <div className="flex flex-wrap gap-1">
-          {toolbarActions.map((action) => (
+    <>
+      <input type="hidden" name={name} value={value} />
+      <Tabs defaultValue="write">
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-1">
+            {toolbarActions.map((action) => (
+              <Button
+                key={action.label}
+                type="button"
+                variant="outline"
+                size="icon-sm"
+                aria-label={action.label}
+                onClick={() => applyWrap(action.wrap)}
+              >
+                {action.icon}
+              </Button>
+            ))}
             <Button
-              key={action.label}
               type="button"
               variant="outline"
-              size="icon-sm"
-              aria-label={action.label}
-              onClick={() => applyWrap(action.wrap)}
+              size="sm"
+              onClick={() => imageInputRef.current?.click()}
+              disabled={uploading}
             >
-              {action.icon}
+              {uploading ? "Uploading…" : "Upload image"}
             </Button>
-          ))}
+            <input
+              ref={imageInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(event) => {
+                const file = event.currentTarget.files?.[0] ?? null;
+                event.currentTarget.value = "";
+                void handleImageUpload(file);
+              }}
+            />
+          </div>
+          <TabsList>
+            <TabsTrigger value="write">Write</TabsTrigger>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+          </TabsList>
         </div>
-        <TabsList>
-          <TabsTrigger value="write">Write</TabsTrigger>
-          <TabsTrigger value="preview">Preview</TabsTrigger>
-        </TabsList>
-      </div>
-      <TabsContent value="write">
-        <Textarea
-          ref={textareaRef}
-          name={name}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          rows={18}
-          required
-          className="font-mono text-sm"
-          placeholder="Write your article in Markdown — headings with ##, **bold**, _italic_, - lists, > quotes, [links](url), ![images](url)."
-        />
-      </TabsContent>
-      <TabsContent value="preview">
-        <div className="min-h-96 rounded-md border border-border p-4">
-          {value.trim() ? (
-            <ArticleBody body={value} />
-          ) : (
-            <p className="text-sm text-muted-foreground">Nothing to preview yet.</p>
-          )}
-        </div>
-      </TabsContent>
-    </Tabs>
+        <TabsContent value="write">
+          <p className="mb-2 text-xs text-muted-foreground">
+            Place the cursor where the image should appear, then upload it. Images are inserted at that point in the article.
+          </p>
+          <Textarea
+            ref={textareaRef}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            rows={18}
+            required
+            className="font-mono text-sm"
+            placeholder="Write your article in Markdown — headings with ##, **bold**, _italic_, - lists, > quotes, [links](url), ![images](url)."
+          />
+        </TabsContent>
+        <TabsContent value="preview">
+          <div className="min-h-96 rounded-md border border-border p-4">
+            {value.trim() ? (
+              <ArticleBody body={value} />
+            ) : (
+              <p className="text-sm text-muted-foreground">Nothing to preview yet.</p>
+            )}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </>
   );
 }
