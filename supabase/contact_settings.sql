@@ -17,6 +17,12 @@ set value = 'grainypalacefarms@gmail.com'
 where section = 'contact'
   and key = 'email';
 
+update public.site_content
+set value = 'grainypalacefarms@gmail.com'
+where section = 'footer'
+  and key = 'email'
+  and lower(trim(value)) = 'info@grainypalacefarm.com';
+
 insert into public.site_content (section, key, value) values
   ('contact', 'phone', '+233 59 687 1415'),
   ('contact', 'whatsapp', '0596871415'),

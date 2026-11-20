@@ -10,6 +10,8 @@ export type PublicContactSettings = {
   hours: string;
 };
 
+const LEGACY_CONTACT_EMAIL = "info@grainypalacefarm.com";
+
 /** Reads one site_content value, falling back to `fallback` if missing (no
  *  live Supabase project connected yet, or the row hasn't been seeded). */
 export async function getSiteContentValue(
@@ -40,7 +42,16 @@ export async function getSiteContentSection(
       .from("site_content")
       .select("key, value")
       .eq("section", section);
-    return Object.fromEntries((data ?? []).map((row) => [row.key, row.value ?? ""]));
+    const content = Object.fromEntries(
+      (data ?? []).map((row) => [row.key, row.value ?? ""])
+    );
+    if (
+      (section === "contact" || section === "footer") &&
+      content.email?.trim().toLowerCase() === LEGACY_CONTACT_EMAIL
+    ) {
+      content.email = siteConfig.contact.email;
+    }
+    return content;
   } catch {
     return {};
   }
