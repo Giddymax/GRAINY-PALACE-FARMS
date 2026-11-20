@@ -6,7 +6,7 @@ export function LogoMark({ className }: { className?: string }) {
   return (
     <Image
       src="/brand/grainy-palace-farms-seal.png"
-      alt="Grainy Palace Farms — Safe Food for All"
+      alt="Grainy Palace Farms — Safe Food For All"
       width={64}
       height={64}
       priority

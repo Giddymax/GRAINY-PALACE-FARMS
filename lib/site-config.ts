@@ -8,7 +8,7 @@
 export const siteConfig = {
   name: "Grainy Palace Farms Limited",
   shortName: "Grainy Palace Farms",
-  tagline: "Cultivating Excellence. Feeding the Future.",
+  tagline: "Safe Food For All",
   brandPromise:
     "From our certified fields to your table — safe, natural, and traceable.",
   description:

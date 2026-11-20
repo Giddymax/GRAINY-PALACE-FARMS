@@ -1141,6 +1141,10 @@ update public.site_content
 set value = 'Begoro, Eastern Region, Ghana'
 where section in ('contact', 'footer') and key = 'address';
 
+update public.site_content
+set value = 'Safe Food For All'
+where section = 'brand' and key = 'tagline';
+
 insert into public.site_content (section, key, value) values
   ('contact', 'phone', '+233 59 687 1415'),
   ('contact', 'whatsapp', '0596871415'),
@@ -1148,7 +1152,7 @@ insert into public.site_content (section, key, value) values
   ('contact', 'address', 'Begoro, Eastern Region, Ghana'),
   ('contact', 'hours', 'Monday – Saturday, 7:00am – 6:00pm GMT'),
   ('brand', 'name', 'Grainy Palace Farms Limited'),
-  ('brand', 'tagline', 'Cultivating Excellence. Feeding the Future.'),
+  ('brand', 'tagline', 'Safe Food For All'),
   ('brand', 'promise', 'From our certified fields to your table — safe, natural, and traceable.'),
   ('delivery', 'accra_flat_fee', '25'),
   ('delivery', 'nationwide_flat_fee', '60'),

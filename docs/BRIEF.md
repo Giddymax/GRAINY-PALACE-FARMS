@@ -13,7 +13,7 @@ Build a complete, installable e-commerce + marketing website for **Grainy Palace
 - **Real copy only** — write realistic copy from this brief. No lorem ipsum, no invented testimonials or fake statistics.
 
 **Real details (make these CMS-editable, not hardcoded):**
-- Name: Grainy Palace Farm Limited · Tagline: *Cultivating Excellence. Feeding the Future.*
+- Name: Grainy Palace Farm Limited · Tagline: *Safe Food For All*
 - Domain: grainypalacefarm.com (+ .com.gh)
 - Region: Greater Accra / Ashanti, Ghana · Currency: **GHS (₵)**
 - Brand promise: *From our certified fields to your table — safe, natural, and traceable.*
