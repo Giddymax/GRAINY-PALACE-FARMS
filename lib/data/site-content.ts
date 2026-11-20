@@ -11,6 +11,8 @@ export type PublicContactSettings = {
 };
 
 const LEGACY_CONTACT_EMAIL = "info@grainypalacefarm.com";
+const LEGACY_CONTACT_ADDRESS =
+  "Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana";
 
 /** Reads one site_content value, falling back to `fallback` if missing (no
  *  live Supabase project connected yet, or the row hasn't been seeded). */
@@ -50,6 +52,12 @@ export async function getSiteContentSection(
       content.email?.trim().toLowerCase() === LEGACY_CONTACT_EMAIL
     ) {
       content.email = siteConfig.contact.email;
+    }
+    if (
+      (section === "contact" || section === "footer") &&
+      content.address?.trim().toLowerCase() === LEGACY_CONTACT_ADDRESS.toLowerCase()
+    ) {
+      content.address = siteConfig.contact.address;
     }
     return content;
   } catch {

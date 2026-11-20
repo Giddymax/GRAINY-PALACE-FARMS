@@ -1137,11 +1137,15 @@ update public.site_content
 set value = 'grainypalacefarms@gmail.com'
 where section = 'contact' and key = 'email';
 
+update public.site_content
+set value = 'Begoro, Eastern Region, Ghana'
+where section in ('contact', 'footer') and key = 'address';
+
 insert into public.site_content (section, key, value) values
   ('contact', 'phone', '+233 59 687 1415'),
   ('contact', 'whatsapp', '0596871415'),
   ('contact', 'email', 'grainypalacefarms@gmail.com'),
-  ('contact', 'address', 'Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana'),
+  ('contact', 'address', 'Begoro, Eastern Region, Ghana'),
   ('contact', 'hours', 'Monday – Saturday, 7:00am – 6:00pm GMT'),
   ('brand', 'name', 'Grainy Palace Farms Limited'),
   ('brand', 'tagline', 'Cultivating Excellence. Feeding the Future.'),
