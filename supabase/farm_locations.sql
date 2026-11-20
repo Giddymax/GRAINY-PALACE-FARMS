@@ -42,3 +42,22 @@ create policy "farm_locations_staff_write" on public.farm_locations for all
 grant select on public.farm_locations to anon, authenticated;
 grant insert, update, delete on public.farm_locations to authenticated;
 grant all on public.farm_locations to service_role;
+
+-- Normalize the existing Begoro record name and locality if the old alias was used.
+update public.farm_locations
+set name = case
+      when lower(regexp_replace(trim(name), '[[:space:]]+', '', 'g')) = 'begoro(agoradarko)' then 'Begoro'
+      else name
+    end,
+    locality = case
+      when lower(regexp_replace(trim(locality), '[[:space:]]+', '', 'g')) = 'begoro(agoradarko)' then 'Begoro'
+      else locality
+    end,
+    address = regexp_replace(address, 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]', 'Begoro', 'gi'),
+    description = regexp_replace(description, 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]', 'Begoro', 'gi'),
+    route_notes = regexp_replace(route_notes, 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]', 'Begoro', 'gi')
+where lower(regexp_replace(trim(name), '[[:space:]]+', '', 'g')) = 'begoro(agoradarko)'
+   or lower(regexp_replace(trim(locality), '[[:space:]]+', '', 'g')) = 'begoro(agoradarko)'
+   or address ~* 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]'
+   or description ~* 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]'
+   or route_notes ~* 'Begoro[[:space:]]*[(][[:space:]]*Agora[[:space:]]+Darko[[:space:]]*[)]';

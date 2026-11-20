@@ -13,6 +13,10 @@ import { FarmLocationFormDialog } from "@/components/admin/farm-location-form-di
 import { EntityDeleteButton } from "@/components/admin/entity-delete-button";
 import { deleteFarmLocationAction } from "@/lib/actions/admin/farm-locations";
 import type { Database } from "@/lib/supabase/database.types";
+import {
+  displayFarmLocationName,
+  displayFarmLocationText,
+} from "@/lib/farm-location-display";
 
 export const metadata = { title: "Farm Locations — Admin" };
 
@@ -28,7 +32,14 @@ export default async function AdminFarmLocationsPage() {
     .order("sort_order", { ascending: true })
     .order("name", { ascending: true });
   if (error) throw error;
-  const locations = (data ?? []) as FarmLocation[];
+  const locations = ((data ?? []) as FarmLocation[]).map((location) => ({
+    ...location,
+    name: displayFarmLocationName(location.name),
+    locality: displayFarmLocationName(location.locality),
+    address: displayFarmLocationText(location.address),
+    description: displayFarmLocationText(location.description),
+    route_notes: displayFarmLocationText(location.route_notes),
+  }));
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">

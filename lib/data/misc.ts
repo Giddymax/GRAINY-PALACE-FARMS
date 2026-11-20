@@ -1,5 +1,9 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import {
+  displayFarmLocationName,
+  displayFarmLocationText,
+} from "@/lib/farm-location-display";
 
 export async function getCertifications() {
   const supabase = await createClient();
@@ -21,7 +25,14 @@ export async function getPublishedFarmLocations() {
     .order("sort_order", { ascending: true })
     .order("name", { ascending: true });
   if (error) throw error;
-  return data ?? [];
+  return (data ?? []).map((location) => ({
+    ...location,
+    name: displayFarmLocationName(location.name),
+    locality: displayFarmLocationName(location.locality),
+    address: displayFarmLocationText(location.address),
+    description: displayFarmLocationText(location.description),
+    route_notes: displayFarmLocationText(location.route_notes),
+  }));
 }
 
 export async function getGalleryItems(category?: string, limit?: number) {
