@@ -57,6 +57,8 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
 
   const active = slides[index];
 
+  if (!active) return null;
+
   return (
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:items-center md:py-24 lg:px-8">
       <ViewTransition key={active.id} enter="auto" default="none">

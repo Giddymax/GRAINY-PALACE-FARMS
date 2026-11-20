@@ -69,11 +69,11 @@ export async function getSiteContentSection(
 export async function getPublicContactSettings(): Promise<PublicContactSettings> {
   const content = await getSiteContentSection("contact");
   return {
-    phone: content.phone || siteConfig.contact.phone,
-    whatsapp: content.whatsapp || siteConfig.contact.whatsapp,
-    email: content.email || siteConfig.contact.email,
-    address: content.address || siteConfig.contact.address,
-    hours: content.hours || siteConfig.contact.hours,
+    phone: content.phone ?? siteConfig.contact.phone,
+    whatsapp: content.whatsapp ?? siteConfig.contact.whatsapp,
+    email: content.email ?? siteConfig.contact.email,
+    address: content.address ?? siteConfig.contact.address,
+    hours: content.hours ?? siteConfig.contact.hours,
   };
 }
 

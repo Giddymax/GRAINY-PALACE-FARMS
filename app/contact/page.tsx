@@ -34,47 +34,23 @@ export default async function ContactPage() {
       <div className="grid gap-10 md:grid-cols-2">
         <div className="flex flex-col gap-6">
           <ul className="flex flex-col gap-4">
-            <li>
-              <div>
-                <p className="font-medium">Phone</p>
-                <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:underline">
-                  {contact.phone}
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p className="font-medium">Email</p>
-                <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:underline">
-                  {contact.email}
-                </a>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p className="font-medium">Address</p>
-                <p className="text-sm text-muted-foreground">{contact.address}</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p className="font-medium">Hours</p>
-                <p className="text-sm text-muted-foreground">{contact.hours}</p>
-              </div>
-            </li>
+            {contact.phone && <li><p className="font-medium">Phone</p><a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:underline">{contact.phone}</a></li>}
+            {contact.email && <li><p className="font-medium">Email</p><a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:underline">{contact.email}</a></li>}
+            {contact.address && <li><p className="font-medium">Address</p><p className="text-sm text-muted-foreground">{contact.address}</p></li>}
+            {contact.hours && <li><p className="font-medium">Hours</p><p className="text-sm text-muted-foreground">{contact.hours}</p></li>}
           </ul>
 
-          <Button asChild size="lg" className="w-fit bg-[#25D366] text-white hover:bg-[#1fb958]">
+          {contact.whatsapp && <Button asChild size="lg" className="w-fit bg-[#25D366] text-white hover:bg-[#1fb958]">
             <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
               Chat on WhatsApp
             </a>
-          </Button>
+          </Button>}
 
           <Link href="/farm-locations" className="w-fit text-sm font-medium text-forest-700 underline-offset-4 hover:underline dark:text-forest-300">
             View regional farms and directions
           </Link>
 
-          <div className="overflow-hidden rounded-xl border border-border">
+          {contact.address && <div className="overflow-hidden rounded-xl border border-border">
             <iframe
               title="Grainy Palace Farms location map"
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
@@ -82,7 +58,7 @@ export default async function ContactPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </div>}
         </div>
 
         <div className="rounded-xl border border-border bg-card p-6">

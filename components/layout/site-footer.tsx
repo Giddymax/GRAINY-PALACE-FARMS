@@ -17,8 +17,14 @@ export function SiteFooter({
 }) {
   const year = new Date().getFullYear();
   const t = useTranslations("footer");
-  const value = (key: string, fallback: string) => content[key] || fallback;
+  const value = (key: string, fallback: string) => content[key] ?? fallback;
   const collections = getFooterCollections(content);
+  const contact = {
+    address: value("address", contactSettings.address),
+    phone: value("phone", contactSettings.phone),
+    email: value("email", contactSettings.email),
+    hours: value("hours", contactSettings.hours),
+  };
   const socialIcons = {
     facebook: FacebookIcon,
     instagram: InstagramIcon,
@@ -64,24 +70,10 @@ export function SiteFooter({
             {value("contact_title", t("getInTouch"))}
           </h3>
           <ul className="flex flex-col gap-2 text-sm text-forest-100">
-            <li>
-              <span className="font-medium text-gold-300">{value("address_label", "Address")}: </span>{value("address", contactSettings.address)}
-            </li>
-            <li>
-              <span className="font-medium text-gold-300">{value("phone_label", "Phone")}: </span>
-              <a href={`tel:${value("phone", contactSettings.phone)}`} className="hover:underline">
-                {value("phone", contactSettings.phone)}
-              </a>
-            </li>
-            <li>
-              <span className="font-medium text-gold-300">{value("email_label", "Email")}: </span>
-              <a href={`mailto:${value("email", contactSettings.email)}`} className="hover:underline">
-                {value("email", contactSettings.email)}
-              </a>
-            </li>
-            <li>
-              <span className="font-medium text-gold-300">{value("hours_label", "Hours")}: </span>{value("hours", contactSettings.hours)}
-            </li>
+            {contact.address && <li><span className="font-medium text-gold-300">{value("address_label", "Address")}: </span>{contact.address}</li>}
+            {contact.phone && <li><span className="font-medium text-gold-300">{value("phone_label", "Phone")}: </span><a href={`tel:${contact.phone}`} className="hover:underline">{contact.phone}</a></li>}
+            {contact.email && <li><span className="font-medium text-gold-300">{value("email_label", "Email")}: </span><a href={`mailto:${contact.email}`} className="hover:underline">{contact.email}</a></li>}
+            {contact.hours && <li><span className="font-medium text-gold-300">{value("hours_label", "Hours")}: </span>{contact.hours}</li>}
           </ul>
           <div className="mt-2">
             <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gold-300">
