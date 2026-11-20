@@ -22,7 +22,7 @@ export const siteConfig = {
   contact: {
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+233 59 687 1415",
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "0596871415",
-    email: "grainypalacefarms@gmail.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "grainypalacefarms@gmail.com",
     address: "Plot 14, Adenta-Dodowa Road, Greater Accra Region, Ghana",
     hours: "Monday – Saturday, 7:00am – 6:00pm GMT",
   },

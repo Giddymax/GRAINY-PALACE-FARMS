@@ -4,7 +4,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { checkoutSchema, cartItemsSchema } from "@/lib/validations/checkout";
 import { generateOrderReference } from "@/lib/orders/reference";
-import { getDeliveryFees, type DeliveryZone } from "@/lib/data/site-content";
+import {
+  getDeliveryFees,
+  getPublicContactSettings,
+  type DeliveryZone,
+} from "@/lib/data/site-content";
 import { initializeTransaction } from "@/lib/payments/paystack";
 import { siteConfig } from "@/lib/site-config";
 
@@ -70,7 +74,10 @@ export async function createOrderAction(
   }
 
   const subtotal = orderItems.reduce((sum, item) => sum + item.line_total, 0);
-  const deliveryFees = await getDeliveryFees();
+  const [deliveryFees, contactSettings] = await Promise.all([
+    getDeliveryFees(),
+    getPublicContactSettings(),
+  ]);
   const zone = parsed.data.deliveryZone as DeliveryZone;
   const deliveryFee = deliveryFees[zone];
   const total = Math.round((subtotal + deliveryFee) * 100) / 100;
@@ -112,7 +119,7 @@ export async function createOrderAction(
     let authorizationUrl: string | null = null;
     try {
       const result = await initializeTransaction({
-        email: parsed.data.customerEmail || "grainypalacefarms@gmail.com",
+        email: parsed.data.customerEmail || contactSettings.email,
         amountGHS: total,
         reference,
         callbackUrl: `${siteConfig.url}/checkout/verify?reference=${reference}`,
