@@ -34,7 +34,14 @@ export async function saveEventAction(formData: FormData) {
 export async function deleteEventAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("events").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("events")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Event was not deleted.");
   revalidatePath("/news");
   revalidatePath("/admin/news");
 }

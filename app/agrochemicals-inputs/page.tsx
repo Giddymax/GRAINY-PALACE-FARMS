@@ -50,11 +50,10 @@ export default async function AgrochemicalsInputsPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {(category?.subcategories ?? []).map((item, index) => {
             const details = {
-              title: content[`card_${index}_title`] || item.name,
-              description:
-                content[`card_${index}_description`] ||
-                "Browse available products and supplies in this category.",
+              title: content[`card_${index}_title`] ?? "",
+              description: content[`card_${index}_description`] ?? "",
             };
+            if (!details.title && !details.description) return null;
 
             return (
               <Link

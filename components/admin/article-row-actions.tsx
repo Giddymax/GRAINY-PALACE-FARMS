@@ -49,10 +49,14 @@ export function ArticleRowActions({
 
   function handleDelete() {
     startTransition(async () => {
-      await deleteArticleAction(id, slug);
-      toast.success("Article deleted");
-      setConfirmOpen(false);
-      router.refresh();
+      try {
+        await deleteArticleAction(id, slug);
+        toast.success("Article deleted");
+        setConfirmOpen(false);
+        router.refresh();
+      } catch {
+        toast.error("Could not delete this article. It is still in place.");
+      }
     });
   }
 

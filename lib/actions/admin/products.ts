@@ -78,9 +78,17 @@ export async function saveProductAction(
 export async function deleteProductAction(id: string, category: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("products").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("products")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Product was not deleted.");
   revalidatePath("/shop");
   revalidatePath(`/shop/${category}`);
+  revalidatePath("/product/[slug]", "page");
   revalidatePath("/admin/catalogue");
 }
 

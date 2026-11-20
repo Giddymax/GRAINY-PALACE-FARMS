@@ -43,9 +43,13 @@ export function CategoryDeleteButton({ id }: { id: string }) {
             disabled={pending}
             onClick={() =>
               startTransition(async () => {
-                await deleteArticleCategoryAction(id);
-                toast.success("Category deleted");
-                router.refresh();
+                try {
+                  await deleteArticleCategoryAction(id);
+                  toast.success("Category deleted");
+                  router.refresh();
+                } catch {
+                  toast.error("Could not delete this category. It is still in place.");
+                }
               })
             }
           >

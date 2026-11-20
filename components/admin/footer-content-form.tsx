@@ -32,9 +32,13 @@ export function FooterContentForm({
       formData.set(`footer:${key}_links`, JSON.stringify(links));
     }
     startTransition(async () => {
-      await saveSiteContentAction(formData);
-      toast.success("Footer content saved");
-      router.refresh();
+      try {
+        await saveSiteContentAction(formData);
+        toast.success("Footer content saved");
+        router.refresh();
+      } catch {
+        toast.error("Could not save footer changes. Your changes were not confirmed.");
+      }
     });
   }
 

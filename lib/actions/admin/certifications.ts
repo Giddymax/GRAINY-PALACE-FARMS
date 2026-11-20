@@ -31,7 +31,14 @@ export async function saveCertificationAction(formData: FormData) {
 export async function deleteCertificationAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("certifications").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("certifications")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Certification was not deleted.");
   revalidatePath("/about");
   revalidatePath("/admin/certifications");
 }

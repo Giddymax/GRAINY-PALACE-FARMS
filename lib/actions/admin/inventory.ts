@@ -59,7 +59,14 @@ export async function saveInventoryItemAction(
 export async function deleteInventoryItemAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("inventory_items").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("inventory_items")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Inventory item was not deleted.");
   revalidatePath("/admin/inventory");
 }
 

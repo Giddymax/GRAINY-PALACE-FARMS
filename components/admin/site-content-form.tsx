@@ -25,9 +25,13 @@ export function SiteContentForm({ rows }: { rows: ContentRow[] }) {
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      await saveSiteContentAction(formData);
-      toast.success("Site content saved");
-      router.refresh();
+      try {
+        await saveSiteContentAction(formData);
+        toast.success("Site content saved");
+        router.refresh();
+      } catch {
+        toast.error("Could not save site content. Your changes were not confirmed.");
+      }
     });
   }
 

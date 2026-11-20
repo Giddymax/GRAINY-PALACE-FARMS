@@ -45,9 +45,13 @@ export function EntityDeleteButton({
             disabled={pending}
             onClick={() =>
               startTransition(async () => {
-                await onDelete();
-                toast.success("Deleted");
-                router.refresh();
+                try {
+                  await onDelete();
+                  toast.success("Deleted");
+                  router.refresh();
+                } catch {
+                  toast.error("Could not delete this content. It is still in place.");
+                }
               })
             }
           >

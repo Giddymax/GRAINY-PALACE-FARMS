@@ -15,13 +15,16 @@ export async function saveSiteContentAction(formData: FormData) {
     if (section && key) updates.push({ section, key, value: String(value) });
   }
 
-  await Promise.all(
+  const results = await Promise.all(
     updates.map((u) =>
       supabase
         .from("site_content")
         .upsert(u, { onConflict: "section,key" })
     )
   );
+  if (results.some(({ error }) => error)) {
+    throw new Error("Could not save all site content changes.");
+  }
 
   revalidatePath("/", "layout");
   revalidatePath("/admin/content");
@@ -56,7 +59,14 @@ export async function saveHeroSlideAction(formData: FormData) {
 export async function deleteHeroSlideAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("hero_slides").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("hero_slides")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Hero slide was not deleted.");
   revalidatePath("/");
   revalidatePath("/admin/content");
 }
@@ -82,7 +92,15 @@ export async function saveGalleryItemAction(formData: FormData) {
 export async function deleteGalleryItemAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("gallery_items").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("gallery_items")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Gallery item was not deleted.");
+  revalidatePath("/");
   revalidatePath("/about");
   revalidatePath("/admin/content");
 }

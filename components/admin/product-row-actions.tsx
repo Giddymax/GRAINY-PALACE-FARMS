@@ -87,10 +87,14 @@ export function ProductRowActions({
               disabled={pending}
               onClick={() =>
                 startTransition(async () => {
-                  await deleteProductAction(id, category);
-                  toast.success("Product deleted");
-                  setConfirmOpen(false);
-                  router.refresh();
+                  try {
+                    await deleteProductAction(id, category);
+                    toast.success("Product deleted");
+                    setConfirmOpen(false);
+                    router.refresh();
+                  } catch {
+                    toast.error("Could not delete this product. It is still in place.");
+                  }
                 })
               }
             >

@@ -74,8 +74,14 @@ export async function saveFarmLocationAction(formData: FormData) {
 export async function deleteFarmLocationAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  const { error } = await supabase.from("farm_locations").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("farm_locations")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
   if (error) throw error;
+  if (!data) throw new Error("Farm location was not deleted.");
   revalidatePath("/farm-locations");
   revalidatePath("/admin/locations");
 }

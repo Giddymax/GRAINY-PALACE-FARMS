@@ -109,7 +109,14 @@ export async function saveArticleAction(
 export async function deleteArticleAction(id: string, slug: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("articles").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("articles")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Article was not deleted.");
   revalidatePath("/articles");
   revalidatePath(`/articles/${slug}`);
   revalidatePath("/admin/articles");
@@ -171,7 +178,14 @@ export async function saveArticleCategoryAction(formData: FormData) {
 export async function deleteArticleCategoryAction(id: string) {
   await requireStaff();
   const supabase = await createClient();
-  await supabase.from("article_categories").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("article_categories")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("Article category was not deleted.");
   revalidatePath("/articles");
   revalidatePath("/admin/articles");
 }
